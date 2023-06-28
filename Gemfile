@@ -50,6 +50,11 @@ gem "sassc-rails"
 
 gem 'activeadmin'
 gem 'activeadmin_addons'
+
+# Workflow
+# gem 'workflow'
+# gem 'workflow-activerecord'
+
 gem 'active_admin-workflow'
 
 # Plus integrations with:
