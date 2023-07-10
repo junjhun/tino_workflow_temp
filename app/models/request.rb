@@ -1,18 +1,16 @@
 class Request < ApplicationRecord
+    include Workflow
     # include WorkflowActiverecord
 
     validates :name, presence: true, uniqueness: true
-  
-    # DRAFT = 'draft'
-    # REVIEWED = 'reviewed'
-    # PUBLISHED = 'published'
-  
-    # workflow do
-    #   state DRAFT do
-    #     event :peer_review, transitions_to: REVIEWED
-    #   end
-    #   state REVIEWED do
-    #     event :publish, transitions_to: PUBLISHED
-    #   end
-    # end
+    enum status: [
+        "Client Appontment", 
+        "JO's to receive by the PRODUCTION MANAGER (LAS PIÑAS)",
+        "PRODUCTION MANAGER to handover the following to the MASTER TAILOR (LAS PIÑAS)",
+        "MASTER TO TAILOR TO HAND OVER THE ROLLED FABRIC AND PATTERN WITH JO TO THE PROD MANAGER (LAS PIÑAS)",
+        "PRODUCTION MANAGER TO DISTRIBUTE TO MANANAHI TO ASSEMBLE THE PRODUCT FOR 1ST FITTING",
+        "ONCE DONE, THE PRODUCT WILL BE DELIVERED TO STORE IN MAKATI FOR CLIENT'S FIRST FITTING",
+        "GIVE THE FITTING GARMENT TO MASTER TAILOR AND PATTERN FOR AREGLO IN PREPS FOR 2ND FITTING",
+        "DONE"
+    ]
 end
