@@ -5,7 +5,7 @@ ActiveAdmin.register Order do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :client_id, :name, :status, items_attributes: %i[id name quantity fabric_and_linning_code _destroy], coats_attributes: %i[id jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks _destroy], pants_attributes: %i[id crotch outsteam waist seat thigh remarks knee bottom remarks _destroy]
+  permit_params :client_id, :name, :status, items_attributes: %i[id name quantity fabric_and_linning_code _destroy], coats_attributes: %i[id jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing shoulder_pocket coat_pockets _destroy], pants_attributes: %i[id crotch outsteam waist seat thigh remarks knee bottom remarks _destroy]
   #
   # or
   #
@@ -76,6 +76,22 @@ ActiveAdmin.register Order do
         t.input :stature
         t.input :shoulders
         t.input :remarks
+
+        t.input :fabric_code
+        t.input :lining_code
+        t.input :style
+        t.input :collar_style
+        t.input :back
+        t.input :lining
+        t.input :sleeves_and_padding
+        t.input :button
+        t.input :sleeve_buttons
+        t.input :boutonniere
+        t.input :boutonniere_color
+        t.input :boutonniere_thread_code
+        t.input :button_spacing
+        t.input :shoulder_pocket
+        t.input :coat_pockets
       end
     end
 
@@ -115,6 +131,26 @@ ActiveAdmin.register Order do
         column :stature
         column :shoulders
         column :remarks
+      end
+    end
+
+    panel 'Coat Style' do
+      table_for order.coats do
+        column :fabric_code
+        column :lining_code
+        column :style
+        column :collar_style
+        column :back
+        column :lining
+        column :sleeves_and_padding
+        column :button
+        column :sleeve_buttons
+        column :boutonniere
+        column :boutonniere_color
+        column :boutonniere_thread_code
+        column :button_spacing
+        column :shoulder_pocket
+        column :coat_pockets
       end
     end
 
