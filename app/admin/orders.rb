@@ -5,7 +5,7 @@ ActiveAdmin.register Order do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :client_id, :name, :status, items_attributes: %i[id name quantity fabric_and_linning_code _destroy], coats_attributes: %i[id jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks _destroy]
+  permit_params :client_id, :name, :status, items_attributes: %i[id name quantity fabric_and_linning_code _destroy], coats_attributes: %i[id jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks _destroy], pants_attributes: %i[id crotch outsteam waist seat thigh remarks knee bottom remarks _destroy]
   #
   # or
   #
@@ -79,6 +79,19 @@ ActiveAdmin.register Order do
       end
     end
 
+    f.inputs 'Pants' do
+      f.has_many :pants, allow_destroy: true, heading: '' do |t|
+        t.input :crotch
+        t.input :outsteam
+        t.input :waist
+        t.input :seat
+        t.input :thigh
+        t.input :knee
+        t.input :bottom
+        t.input :remarks
+      end
+    end
+
     f.actions
   end
 
@@ -101,6 +114,19 @@ ActiveAdmin.register Order do
         column :hips
         column :stature
         column :shoulders
+        column :remarks
+      end
+    end
+
+    panel 'Pants' do
+      table_for order.pants do
+        column :crotch
+        column :outsteam
+        column :waist
+        column :seat
+        column :thigh
+        column :knee
+        column :bottom
         column :remarks
       end
     end

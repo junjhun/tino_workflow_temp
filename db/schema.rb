@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_11_025336) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_11_032246) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -69,6 +69,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_025336) do
     t.datetime "updated_at", null: false
     t.integer "status", default: 0, null: false
     t.integer "client_id"
+  end
+
+  create_table "pants", force: :cascade do |t|
+    t.integer "order_id"
+    t.string "crotch"
+    t.string "outsteam"
+    t.string "waist"
+    t.string "seat"
+    t.string "thigh"
+    t.string "knee"
+    t.string "bottom"
+    t.text "remarks"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
