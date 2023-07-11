@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_11_021954) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_11_025336) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,6 +33,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_021954) do
     t.string "contact"
     t.string "email"
     t.text "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "coats", force: :cascade do |t|
+    t.integer "order_id"
+    t.string "jacket_length"
+    t.string "back_width"
+    t.string "sleeves"
+    t.string "cuffs_1"
+    t.string "cuffs_2"
+    t.string "collar"
+    t.string "chest"
+    t.string "waist"
+    t.string "hips"
+    t.integer "stature"
+    t.integer "shoulders"
+    t.text "remarks"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

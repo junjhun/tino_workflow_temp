@@ -5,7 +5,7 @@ ActiveAdmin.register Order do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :client_id, :name, :status, items_attributes: %i[id name quantity fabric_and_linning_code _destroy]
+  permit_params :client_id, :name, :status, items_attributes: %i[id name quantity fabric_and_linning_code _destroy], coats_attributes: %i[id jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks _destroy]
   #
   # or
   #
@@ -54,11 +54,28 @@ ActiveAdmin.register Order do
       f.input :client
     end
 
-    f.inputs 'Items' do
-      f.has_many :items, allow_destroy: true, heading: '' do |t|
-        t.input :name
-        t.input :quantity
-        t.input :fabric_and_linning_code
+    # f.inputs 'Items' do
+    #   f.has_many :items, allow_destroy: true, heading: '' do |t|
+    #     t.input :name
+    #     t.input :quantity
+    #     t.input :fabric_and_linning_code
+    #   end
+    # end
+
+    f.inputs 'Coats' do
+      f.has_many :coats, allow_destroy: true, heading: '' do |t|
+        t.input :jacket_length
+        t.input :back_width
+        t.input :sleeves
+        t.input :cuffs_1
+        t.input :cuffs_2
+        t.input :collar
+        t.input :chest
+        t.input :waist
+        t.input :hips
+        t.input :stature
+        t.input :shoulders
+        t.input :remarks
       end
     end
 
@@ -71,19 +88,20 @@ ActiveAdmin.register Order do
       row :status
     end
 
-    panel 'Item' do
-      table_for order.items do
-        column 'Name' do |p|
-          p.name
-        end
-
-        column 'Quantity' do |p|
-          p.quantity
-        end
-
-        column 'Fabric and Linning_code' do |p|
-          p.fabric_and_linning_code
-        end
+    panel 'Coat' do
+      table_for order.coats do
+        column :jacket_length
+        column :back_width
+        column :sleeves
+        column :cuffs_1
+        column :cuffs_2
+        column :collar
+        column :chest
+        column :waist
+        column :hips
+        column :stature
+        column :shoulders
+        column :remarks
       end
     end
 
