@@ -2,7 +2,8 @@ class Order < ApplicationRecord
     include Workflow
     # include WorkflowActiverecord
 
-    validates :name, presence: true, uniqueness: true
+    # validates :name, presence: true
+    # validates :name, presence: true, uniqueness: true
     
     enum status: [
         "Client Appontment", 
@@ -15,7 +16,12 @@ class Order < ApplicationRecord
         "DONE"
     ]
 
+    belongs_to :client
     has_many :items
 
     accepts_nested_attributes_for :items
+
+    def name
+        client&.name
+    end
 end

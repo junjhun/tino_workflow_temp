@@ -5,7 +5,7 @@ ActiveAdmin.register Order do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :name, :status, items_attributes: %i[id name quantity fabric_and_linning_code _destroy]
+  permit_params :client_id, :name, :status, items_attributes: %i[id name quantity fabric_and_linning_code _destroy]
   #
   # or
   #
@@ -50,8 +50,8 @@ ActiveAdmin.register Order do
     f.semantic_errors
 
     f.inputs do
-      f.input :name
       f.input :status
+      f.input :client
     end
 
     f.inputs 'Items' do
