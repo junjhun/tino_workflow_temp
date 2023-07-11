@@ -1,11 +1,11 @@
-ActiveAdmin.register Request do
+ActiveAdmin.register Order do
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :name, :status
+  permit_params :name, :status, items_attributes: %i[id name quantity fabric_and_linning_code _destroy]
   #
   # or
   #
@@ -16,14 +16,14 @@ ActiveAdmin.register Request do
   # end
 
   action_item :view, only: :show do
-    link_to 'Approve', approve_admin_requests_path(request), method: :post if request.status != "DONE"
+    link_to 'Approve', approve_admin_orders_path(order), method: :post if order.status != "DONE"
   end
 
   collection_action :approve, method: :post do
     # Do some CSV importing work here...
     id = params[:format].to_i
-    request = Request.find(id)
-    status = request.status
+    order = Order.find(id)
+    status = order.status
 
     new_status = case status
     when "Client Appontment"
@@ -42,7 +42,52 @@ ActiveAdmin.register Request do
       "DONE"
     end
 
-    request.update(status: new_status)
-    redirect_to collection_path, notice: "Request from #{ request.name } has been updated to #{ new_status }"
+    order.update(status: new_status)
+    redirect_to collection_path, notice: "Order from #{ order.name } has been updated to #{ new_status }"
   end
+
+  form do |f|
+    f.semantic_errors
+
+    f.inputs do
+      f.input :name
+      f.input :status
+    end
+
+    f.inputs 'Items' do
+      f.has_many :items, allow_destroy: true, heading: '' do |t|
+        t.input :name
+        t.input :quantity
+        t.input :fabric_and_linning_code
+      end
+    end
+
+    f.actions
+  end
+
+  show do
+    attributes_table do
+      row :name
+      row :status
+    end
+
+    panel 'Item' do
+      table_for order.items do
+        column 'Name' do |p|
+          p.name
+        end
+
+        column 'Quantity' do |p|
+          p.quantity
+        end
+
+        column 'Fabric and Linning_code' do |p|
+          p.fabric_and_linning_code
+        end
+      end
+    end
+
+    active_admin_comments
+  end
+
 end

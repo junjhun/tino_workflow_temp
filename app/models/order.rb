@@ -1,8 +1,9 @@
-class Request < ApplicationRecord
+class Order < ApplicationRecord
     include Workflow
     # include WorkflowActiverecord
 
     validates :name, presence: true, uniqueness: true
+    
     enum status: [
         "Client Appontment", 
         "JO's to receive by the PRODUCTION MANAGER (LAS PIÑAS)",
@@ -13,4 +14,8 @@ class Request < ApplicationRecord
         "GIVE THE FITTING GARMENT TO MASTER TAILOR AND PATTERN FOR AREGLO IN PREPS FOR 2ND FITTING",
         "DONE"
     ]
+
+    has_many :items
+
+    accepts_nested_attributes_for :items
 end

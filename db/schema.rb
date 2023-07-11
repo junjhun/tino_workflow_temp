@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_10_231552) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_10_234917) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,7 +28,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_10_231552) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
   end
 
-  create_table "requests", force: :cascade do |t|
+  create_table "items", force: :cascade do |t|
+    t.integer "order_id"
+    t.string "name"
+    t.integer "quantity"
+    t.string "fabric_and_linning_code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
