@@ -3,13 +3,13 @@ class Coat < ApplicationRecord
 
     enum stature: [
         "Erect",
-        "Stooping", 
+        "Stooping Stature", 
         "Prominent Stomach",
         "Stout"
     ]
 
     enum shoulders: [
-        "Stooping",
+        "Stooping Shoulders",
         "Square", 
         "Normal"
     ]
