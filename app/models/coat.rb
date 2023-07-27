@@ -2,11 +2,14 @@ class Coat < ApplicationRecord
     belongs_to :order
 
     enum stature: [
-        "Stout", 
-        "Prominent Stomach"
+        "Erect",
+        "Stooping", 
+        "Prominent Stomach",
+        "Stout"
     ]
 
     enum shoulders: [
+        "Stooping",
         "Square", 
         "Normal"
     ]
