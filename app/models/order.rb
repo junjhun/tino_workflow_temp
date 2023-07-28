@@ -16,6 +16,11 @@ class Order < ApplicationRecord
         "DONE"
     ]
 
+    enum MTO_labor: [
+        "MTO",
+        "Labor"
+    ]
+
     belongs_to :client
     has_many :items
     has_many :coats

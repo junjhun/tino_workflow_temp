@@ -5,7 +5,7 @@ ActiveAdmin.register Order do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :client_id, :name, :status, items_attributes: %i[id name quantity fabric_and_linning_code _destroy], coats_attributes: %i[id jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing shoulder_pocket coat_pockets _destroy], pants_attributes: %i[id crotch outsteam waist seat thigh remarks knee bottom remarks _destroy]
+  permit_params :client_id, :name, :status, :purpose, :MTO_labor, items_attributes: %i[id name quantity fabric_and_linning_code _destroy], coats_attributes: %i[id jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing shoulder_pocket coat_pockets _destroy], pants_attributes: %i[id crotch outsteam waist seat thigh remarks knee bottom remarks _destroy]
   #
   # or
   #
@@ -52,6 +52,8 @@ ActiveAdmin.register Order do
     f.inputs do
       f.input :status
       f.input :client
+      f.input :purpose
+      f.input :MTO_labor
     end
 
     # f.inputs 'Items' do
@@ -115,6 +117,9 @@ ActiveAdmin.register Order do
     attributes_table do
       row :name
       row :status
+      row :client
+      row :purpose
+      row :MTO_labor
     end
 
     panel 'Coat' do
