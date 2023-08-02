@@ -58,7 +58,9 @@ gem 'activeadmin_addons'
 gem 'devise'
 gem 'cancancan'
 gem 'draper'
-gem 'pundit'
+
+# PDF
+gem 'wicked_pdf'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

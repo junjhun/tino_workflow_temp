@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_27_235546) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_02_132531) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,6 +68,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_27_235546) do
     t.integer "button_spacing"
     t.integer "shoulder_pocket"
     t.integer "coat_pockets"
+    t.string "no_of_buttons"
   end
 
   create_table "items", force: :cascade do |t|

@@ -53,8 +53,7 @@ class Coat < ApplicationRecord
     ]
 
     enum button: [
-        "Horn Buttons",
-        "Reg Buttons",
+        "Functional",
         "Covered buttons"
     ]
 

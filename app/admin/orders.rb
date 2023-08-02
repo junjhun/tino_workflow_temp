@@ -5,7 +5,7 @@ ActiveAdmin.register Order do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :client_id, :name, :status, :purpose, :MTO_labor, items_attributes: %i[id name quantity fabric_and_linning_code _destroy], coats_attributes: %i[id jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing shoulder_pocket coat_pockets _destroy], pants_attributes: %i[id crotch outsteam waist seat thigh remarks knee bottom remarks _destroy]
+  permit_params :client_id, :name, :status, :purpose, :MTO_labor, items_attributes: %i[id name quantity fabric_and_linning_code _destroy], coats_attributes: %i[id coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing shoulder_pocket coat_pockets _destroy], pants_attributes: %i[id crotch outsteam waist seat thigh remarks knee bottom remarks _destroy]
   #
   # or
   #
@@ -88,6 +88,7 @@ ActiveAdmin.register Order do
         t.input :sleeves_and_padding
         t.input :button
         t.input :sleeve_buttons
+        t.input :no_of_buttons
         t.input :boutonniere
         t.input :boutonniere_color
         t.input :boutonniere_thread_code
@@ -175,4 +176,16 @@ ActiveAdmin.register Order do
     active_admin_comments
   end
 
+  controller do
+    # if you want /admin/pages/12345.pdf
+    def show
+      super do |format|
+        format.pdf { render(pdf: "page-#{resource.id}.pdf") }
+      end
+    end
+  end
+
+  member_action :pdf, method: :get do
+    render(pdf: "page-#{resource.id}.pdf")
+  end
 end
