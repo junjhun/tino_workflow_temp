@@ -5,4 +5,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root to: "admin/dashboard#index"
+
+  namespace :reports do
+    resources :orders, only: :show
+  end
 end
