@@ -5,7 +5,7 @@ ActiveAdmin.register Order do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :client_id, :name, :status, :purpose, :MTO_labor, items_attributes: %i[id name quantity fabric_and_linning_code _destroy], coats_attributes: %i[id coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing shoulder_pocket coat_pockets _destroy], pants_attributes: %i[id crotch outsteam waist seat thigh remarks knee bottom remarks _destroy]
+  permit_params :client_id, :name, :status, :purpose, :MTO_labor, :first_fitting, :second_fitting, :finish, items_attributes: %i[id name quantity fabric_and_linning_code _destroy], coats_attributes: %i[id coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing shoulder_pocket coat_pockets _destroy], pants_attributes: %i[id crotch outsteam waist seat thigh remarks knee bottom remarks _destroy]
   #
   # or
   #
@@ -54,6 +54,9 @@ ActiveAdmin.register Order do
       f.input :client
       f.input :purpose
       f.input :MTO_labor
+      f.input :first_fitting
+      f.input :second_fitting
+      f.input :finish
     end
 
     # f.inputs 'Items' do

@@ -1,17 +1,41 @@
 prawn_document(info: { Title: "@person.full_name_ordered" }) do |pdf|  
-    pdf.move_down 30
-  
-    header = [
-      ["1", "2"],
-      ["1", "2"]
+
+  client = @order&.client
+
+  name = client&.name
+  contact = client&.contact
+  email = client&.email
+  address = client&.address
+
+  order_date = @order&.created_at
+  mto = "X" if @order&.MTO_labor == "MTO"
+  old_client = "X" if client.orders.count > 1
+  labor =  "X" if @order&.MTO_labor == "Labor"
+  first_fitting = @order&.first_fitting
+  second_fitting = @order&.second_fitting
+  finish = @order&.finish
+
+
+  header = [
+      [{content: "Tinos", rowspan: 3}, "CUSTOMER: #{name}", "JO Number", "1st Fitting: #{ first_fitting }"],
+      [{content: "CONTACT: #{contact} \n EMAIL: #{email} \n ADDRESS: #{address}", rowspan: 2}, "Date: #{ order_date }", "2nd Fitting: #{ second_fitting }"],
+      ["[#{mto}] MTO \n [#{old_client}] OLD CLIENT \n [#{labor}] LABOR", "Finish: #{ finish }"],
+      ["ITEM", "QTY", "FABRIC & LINING CODE", {content: "", rowspan: 5}],
     ]
+
+    header << ["a", "a", "a"]
+    header << ["b", "b", "b"]
+    header << ["c", "c", "c"]
+
   
     pdf.table(header) do
       cells.borders = [:left, :right, :top, :bottom]
-      column(0..1).width = 180
+      cells.style(:padding => 2, :border_width => 2, size: 10)
+
+      column(0).width = 100
+      column(1..3).width = 140
   
       row(0..5).style font_style: :bold
-      cells.style(:padding => 0, :border_width => 2)
     end    
 
 end
