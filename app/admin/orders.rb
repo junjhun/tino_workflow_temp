@@ -176,16 +176,16 @@ ActiveAdmin.register Order do
     active_admin_comments
   end
 
-  controller do
-    # if you want /admin/pages/12345.pdf
-    def show
-      super do |format|
-        format.pdf { render(pdf: "page-#{resource.id}.pdf") }
-      end
-    end
-  end
+  # controller do
+  #   # if you want /admin/pages/12345.pdf
+  #   def show
+  #     super do |format|
+  #       format.pdf { render(pdf: "page-#{resource.id}.pdf") }
+  #     end
+  #   end
+  # end
 
-  member_action :pdf, method: :get do
-    render(pdf: "page-#{resource.id}.pdf")
+  action_item :import_demo, only: :show do |p|
+    link_to 'Print', reports_order_path(order)
   end
 end
