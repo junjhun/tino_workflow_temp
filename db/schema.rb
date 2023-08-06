@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_06_180532) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_06_205734) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -69,15 +69,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_06_180532) do
     t.integer "shoulder_pocket"
     t.integer "coat_pockets"
     t.string "no_of_buttons"
-  end
-
-  create_table "items", force: :cascade do |t|
-    t.integer "order_id"
-    t.string "name"
-    t.integer "quantity"
-    t.string "fabric_and_linning_code"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer "quantity", default: 0, null: false
   end
 
   create_table "orders", force: :cascade do |t|
@@ -90,6 +82,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_06_180532) do
     t.date "first_fitting"
     t.date "second_fitting"
     t.date "finish"
+    t.integer "quantity"
   end
 
   create_table "pants", force: :cascade do |t|
@@ -104,6 +97,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_06_180532) do
     t.text "remarks"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "quantity", default: 0, null: false
+    t.string "fabric_code"
+    t.string "lining_code"
   end
 
   create_table "users", force: :cascade do |t|

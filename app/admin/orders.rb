@@ -5,7 +5,7 @@ ActiveAdmin.register Order do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :client_id, :name, :status, :purpose, :MTO_labor, :first_fitting, :second_fitting, :finish, items_attributes: %i[id name quantity fabric_and_linning_code _destroy], coats_attributes: %i[id coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing shoulder_pocket coat_pockets _destroy], pants_attributes: %i[id crotch outsteam waist seat thigh remarks knee bottom remarks _destroy]
+  permit_params :client_id, :name, :status, :purpose, :MTO_labor, :first_fitting, :second_fitting, :finish, items_attributes: %i[id name quantity fabric_and_linning_code _destroy], coats_attributes: %i[id quantity coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing shoulder_pocket coat_pockets _destroy], pants_attributes: %i[id quantity fabric_code lining_code crotch outsteam waist seat thigh remarks knee bottom remarks _destroy]
   #
   # or
   #
@@ -59,16 +59,9 @@ ActiveAdmin.register Order do
       f.input :finish
     end
 
-    # f.inputs 'Items' do
-    #   f.has_many :items, allow_destroy: true, heading: '' do |t|
-    #     t.input :name
-    #     t.input :quantity
-    #     t.input :fabric_and_linning_code
-    #   end
-    # end
-
     f.inputs 'Coats' do
       f.has_many :coats, allow_destroy: true, heading: '' do |t|
+        t.input :quantity
         t.input :jacket_length
         t.input :back_width
         t.input :sleeves
@@ -103,6 +96,8 @@ ActiveAdmin.register Order do
 
     f.inputs 'Pants' do
       f.has_many :pants, allow_destroy: true, heading: '' do |t|
+        t.input :quantity
+        t.input :lining_code
         t.input :crotch
         t.input :outsteam
         t.input :waist
@@ -145,6 +140,7 @@ ActiveAdmin.register Order do
 
     panel 'Coat Style' do
       table_for order.coats do
+        column :quantity
         column :fabric_code
         column :lining_code
         column :style
@@ -165,6 +161,9 @@ ActiveAdmin.register Order do
 
     panel 'Pants' do
       table_for order.pants do
+        column :quantity
+        column :fabric_code
+        column :lining_code
         column :crotch
         column :outsteam
         column :waist
