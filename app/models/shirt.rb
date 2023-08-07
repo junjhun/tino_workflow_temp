@@ -55,4 +55,10 @@ class Shirt < ApplicationRecord
         "Straight Bottom",
         "Round Bottom"
     ]
+
+    enum shirting_barong: [
+        "SHIRTING",
+        "BARONG",
+        "TUX SPECS FORM"
+    ]
 end

@@ -16,6 +16,7 @@ prawn_document(info: { Title: "@person.full_name_ordered" }) do |pdf|
 
   @coats = @order.coats
   @pants = @order.pants
+  @shirts = @order.shirts
 
   header = [
       [{content: "Tinos", rowspan: 3}, "CUSTOMER: #{name}", "JO Number: #{ @order&.jo_number }", "1st Fitting: #{ first_fitting }"],
@@ -79,6 +80,29 @@ prawn_document(info: { Title: "@person.full_name_ordered" }) do |pdf|
     cbody = [
       [{content: "Pants/Trousers", colspan: 2}, {content: "Pants/Trousers: [#{pleats_pockets}] PLEATS TOWARDS POCKETS   [#{pleats_fly}] PLEATS TOWARDS FLY   [#{pleats_no}] NO PLEATS   [#{pleats_back}] BACK POCKETS", colspan: 8}],
       ["Crotch: #{pant&.crotch}", "Outseam: #{pant&.outsteam}", "Waist: #{pant&.waist}", "Seat: #{pant&.seat}", "Thigh: #{pant&.thigh}", "Knee: #{pant&.knee}", "Bottom: #{pant&.remarks}", {content: "Remarks: #{pant&.remarks}", colspan: 3}]
+    ]
+
+    pdf.table(cbody) do
+      cells.borders = [:left, :right, :top, :bottom]
+      cells.style(:padding => 2, :border_width => 2, size: 10)
+  
+      column(0..10).width = 52
+  
+      row(0..5).style font_style: :bold
+    end 
+  end
+
+  pdf.move_down 4
+
+  @shirts.each do |shirt|
+
+    shirting = "X" if shirt.shirting_barong == "SHIRTING"
+    barong = "X" if shirt.shirting_barong == "BARONG"
+    tux = "X" if shirt.shirting_barong == "TUX SPECS FORM"
+
+    cbody = [
+      [{content: "Pants/Trousers", colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 8}],
+      ["Fabric label: #{shirt&.fabric_label} \n\n Fabric_code: #{shirt&.fabric_code}", "Brand label: #{shirt&.brand_label} \n\n Lining_code: #{shirt&.lining_code}", "Tafetta: #{shirt&.tafetta}", "Cuffs: #{shirt&.cuffs}", "Pleats: #{shirt&.pleats}", "Placket: #{shirt&.placket}", "Sleeves: #{shirt&.sleeves}", "Pocket: #{shirt&.pocket}", "Bottom: #{shirt&.bottom}", "Remarks: #{shirt&.remarks}"]
     ]
 
     pdf.table(cbody) do
