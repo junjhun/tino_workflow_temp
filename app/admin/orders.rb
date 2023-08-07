@@ -153,6 +153,8 @@ ActiveAdmin.register Order do
       row :MTO_labor
     end
 
+  if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Coat Maker"
+
     panel 'Coat' do
       table_for order.coats do
         column :breast
@@ -171,62 +173,73 @@ ActiveAdmin.register Order do
       end
     end
 
-    panel 'Coat Style' do
-      table_for order.coats do
-        column :quantity
-        column :fabric_code
-        column :lining_code
-        column :style
-        column :collar_style
-        column :back
-        column :lining
-        column :sleeves_and_padding
-        column :button
-        column :sleeve_buttons
-        column :boutonniere
-        column :boutonniere_color
-        column :boutonniere_thread_code
-        column :button_spacing
-        column :shoulder_pocket
-        column :coat_pockets
+
+      panel 'Coat Style' do
+        table_for order.coats do
+          column :quantity
+          column :fabric_code
+          column :lining_code
+          column :style
+          column :collar_style
+          column :back
+          column :lining
+          column :sleeves_and_padding
+          column :button
+          column :sleeve_buttons
+          column :boutonniere
+          column :boutonniere_color
+          column :boutonniere_thread_code
+          column :button_spacing
+          column :shoulder_pocket
+          column :coat_pockets
+        end
       end
+
     end
 
-    panel 'Pants' do
-      table_for order.pants do
-        column :pleats
-        column :quantity
-        column :fabric_code
-        column :lining_code
-        column :crotch
-        column :outsteam
-        column :waist
-        column :seat
-        column :thigh
-        column :knee
-        column :bottom
-        column :remarks
+    if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Pants Maker"
+
+      panel 'Pants' do
+        table_for order.pants do
+          column :pleats
+          column :quantity
+          column :fabric_code
+          column :lining_code
+          column :crotch
+          column :outsteam
+          column :waist
+          column :seat
+          column :thigh
+          column :knee
+          column :bottom
+          column :remarks
+        end
       end
+    
     end
 
-    panel 'Shirts' do
-      table_for order.shirts do
-        column :shirting_barong
-        column :fabric_label
-        column :brand_label
-        column :tafetta
-        column  :fabric_code
-        column  :lining_code
-        column  :remarks
-        column  :cuffs
-        column  :pleats
-        column  :placket
-        column  :sleeves
-        column  :number_of_buttons
-        column  :pocket
-        column  :collar
-        column  :bottom
+    if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Shirt Maker"
+
+      panel 'Shirts' do
+        table_for order.shirts do
+          column :shirting_barong
+          column :fabric_label
+          column :brand_label
+          column :tafetta
+          column  :fabric_code
+          column  :lining_code
+          column  :remarks
+          column  :cuffs
+          column  :pleats
+          column  :placket
+          column  :sleeves
+          column  :number_of_buttons
+          column  :pocket
+          column  :collar
+          column  :bottom
+        end
       end
+
     end
 
     active_admin_comments
