@@ -1,6 +1,11 @@
 class Coat < ApplicationRecord
     belongs_to :order
 
+    enum breast: [
+        "Single Breasted",
+        "Double Breasted"
+    ]
+
     enum stature: [
         "Erect",
         "Stooping Stature", 

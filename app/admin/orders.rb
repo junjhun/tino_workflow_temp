@@ -5,7 +5,7 @@ ActiveAdmin.register Order do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :client_id, :name, :status, :purpose, :MTO_labor, :first_fitting, :second_fitting, :finish, items_attributes: %i[id name quantity fabric_and_linning_code _destroy], coats_attributes: %i[id quantity coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing shoulder_pocket coat_pockets _destroy], pants_attributes: %i[id quantity fabric_code lining_code crotch outsteam waist seat thigh remarks knee bottom remarks _destroy]
+  permit_params :client_id, :name, :status, :purpose, :MTO_labor, :first_fitting, :second_fitting, :finish, items_attributes: %i[id name quantity fabric_and_linning_code _destroy], coats_attributes: %i[id breast quantity coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing shoulder_pocket coat_pockets notch vent double_breasted peak shawl _destroy], pants_attributes: %i[id quantity fabric_code lining_code crotch outsteam waist seat thigh remarks knee bottom remarks _destroy]
   #
   # or
   #
@@ -61,6 +61,7 @@ ActiveAdmin.register Order do
 
     f.inputs 'Coats' do
       f.has_many :coats, allow_destroy: true, heading: '' do |t|
+        t.input :breast
         t.input :quantity
         t.input :jacket_length
         t.input :back_width
@@ -91,6 +92,12 @@ ActiveAdmin.register Order do
         t.input :button_spacing
         t.input :shoulder_pocket
         t.input :coat_pockets
+
+        t.input :"notch"
+        t.input :vent
+        t.input :double_breasted
+        t.input :peak
+        t.input :shawl
       end
     end
 
@@ -123,6 +130,7 @@ ActiveAdmin.register Order do
 
     panel 'Coat' do
       table_for order.coats do
+        column :breast
         column :jacket_length
         column :back_width
         column :sleeves

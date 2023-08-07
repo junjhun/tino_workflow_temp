@@ -43,7 +43,49 @@ prawn_document(info: { Title: "@person.full_name_ordered" }) do |pdf|
     column(1..3).width = 140
 
     row(0..5).style font_style: :bold
-  end    
+  end 
+
+  pdf.move_down 4
+
+  @coats.each do |coat|
+
+    single_breasted = "X" if coat.breast == "Single Breasted"
+    double_breasted = "X" if coat.breast ==  "Double Breasted"
+
+    cbody = [
+      [{content: "Coat         [#{single_breasted}] SINGLE BREASTED   [#{double_breasted}] DOUBLE BREASTED", colspan: 10}],
+      ["Jacket length: #{coat&.jacket_length}", "Back Width: #{coat&.back_width}", "Sleeves: #{coat&.sleeves}", "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", "Hips: #{coat&.hips}", {content: "Remarks: #{coat&.remarks}", colspan: 2}],
+      ["Notch: #{coat&.notch}", "Vent: #{coat&.vent}", "Double Breasted: #{coat&.double_breasted}", "Peak: #{coat&.peak}", "Shawl: #{coat&.shawl}", {content: "", colspan: 5}]
+    ]
+
+    pdf.table(cbody) do
+      cells.borders = [:left, :right, :top, :bottom]
+      cells.style(:padding => 2, :border_width => 2, size: 10)
+  
+      column(0..10).width = 52
+  
+      row(0..5).style font_style: :bold
+    end 
+  end
+
+  pdf.move_down 4
+
+  @pants.each do |pant|
+
+    cbody = [
+      [{content: "Pants/Trousers", colspan: 2}, {content: "Pants/Trousers", colspan: 8}],
+      ["Crotch: #{pant&.crotch}", "Outseam: #{pant&.outsteam}", "Waist: #{pant&.waist}", "Seat: #{pant&.seat}", "Thigh: #{pant&.thigh}", "Knee: #{pant&.knee}", "Bottom: #{pant&.remarks}", {content: "Remarks: #{pant&.remarks}", colspan: 3}]
+    ]
+
+    pdf.table(cbody) do
+      cells.borders = [:left, :right, :top, :bottom]
+      cells.style(:padding => 2, :border_width => 2, size: 10)
+  
+      column(0..10).width = 52
+  
+      row(0..5).style font_style: :bold
+    end 
+  end
 
 end
 
