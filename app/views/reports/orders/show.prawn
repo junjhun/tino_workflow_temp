@@ -1,6 +1,5 @@
 prawn_document(info: { Title: "@person.full_name_ordered" }) do |pdf|  
 
-
   order_date = @order&.created_at
   mto = "X" if @order&.MTO_labor == "MTO"
   labor =  "X" if @order&.MTO_labor == "Labor"

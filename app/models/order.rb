@@ -24,8 +24,9 @@ class Order < ApplicationRecord
     belongs_to :client
     has_many :coats
     has_many :pants
+    has_many :shirts
 
-    accepts_nested_attributes_for :coats, :pants
+    accepts_nested_attributes_for :coats, :pants, :shirts
 
     def name
         client&.name

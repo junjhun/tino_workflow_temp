@@ -5,7 +5,11 @@ ActiveAdmin.register Order do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :client_id, :name, :status, :purpose, :MTO_labor, :first_fitting, :second_fitting, :finish, :jo_number, items_attributes: %i[id name quantity fabric_and_linning_code _destroy], coats_attributes: %i[id breast quantity coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing shoulder_pocket coat_pockets notch vent double_breasted peak shawl _destroy], pants_attributes: %i[id pleats quantity fabric_code lining_code crotch outsteam waist seat thigh remarks knee bottom remarks _destroy]
+  permit_params :client_id, :name, :status, :purpose, :MTO_labor, :first_fitting, :second_fitting, :finish, :jo_number,
+                items_attributes: %i[id name quantity fabric_and_linning_code _destroy],
+                shirts_attributes: %i[id fabric_label brand_label tafetta fabric_code lining_code remarks collar cuffs pleats placket sleeves pocket collar bottom _destroy],
+                coats_attributes: %i[id no_of_buttons breast quantity coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing shoulder_pocket coat_pockets notch vent double_breasted peak shawl _destroy],
+                pants_attributes: %i[id pleats quantity fabric_code lining_code crotch outsteam waist seat thigh remarks knee bottom remarks _destroy]
   #
   # or
   #
@@ -118,6 +122,24 @@ ActiveAdmin.register Order do
       end
     end
 
+    f.inputs 'Shirts' do
+      f.has_many :shirts, allow_destroy: true, heading: '' do |t|
+        t.input :fabric_label
+        t.input :brand_label
+        t.input :tafetta
+        t.input :fabric_code
+        t.input :lining_code
+        t.input :remarks
+        t.input :cuffs
+        t.input :pleats
+        t.input :placket
+        t.input :sleeves
+        t.input :pocket
+        t.input :collar
+        t.input :bottom
+      end
+    end
+
     f.actions
   end
 
@@ -184,6 +206,24 @@ ActiveAdmin.register Order do
         column :knee
         column :bottom
         column :remarks
+      end
+    end
+
+    panel 'Shirts' do
+      table_for order.shirts do
+        column :fabric_label
+        column :brand_label
+        column :tafetta
+        column  :fabric_code
+        column  :lining_code
+        column  :remarks
+        column  :cuffs
+        column  :pleats
+        column  :placket
+        column  :sleeves
+        column  :pocket
+        column  :collar
+        column  :bottom
       end
     end
 
