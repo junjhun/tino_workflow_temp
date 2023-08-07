@@ -1,4 +1,4 @@
-prawn_document(info: { Title: "@person.full_name_ordered" }) do |pdf|  
+prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|  
 
   order_date = @order&.created_at
   mto = "X" if @order&.MTO_labor == "MTO"
@@ -44,75 +44,87 @@ prawn_document(info: { Title: "@person.full_name_ordered" }) do |pdf|
 
     row(0..5).style font_style: :bold
   end 
+  pdf.move_down 8
 
-  pdf.move_down 4
+  if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Coat Maker"
 
-  @coats.each do |coat|
+    @coats.each do |coat|
 
-    single_breasted = "X" if coat.breast == "Single Breasted"
-    double_breasted = "X" if coat.breast ==  "Double Breasted"
+      single_breasted = "X" if coat.breast == "Single Breasted"
+      double_breasted = "X" if coat.breast ==  "Double Breasted"
 
-    cbody = [
-      [{content: "Coat         [#{single_breasted}] SINGLE BREASTED   [#{double_breasted}] DOUBLE BREASTED", colspan: 10}],
-      ["Jacket length: #{coat&.jacket_length}", "Back Width: #{coat&.back_width}", "Sleeves: #{coat&.sleeves}", "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", "Hips: #{coat&.hips}", {content: "Remarks: #{coat&.remarks}", colspan: 2}],
-      ["Notch: #{coat&.notch}", "Vent: #{coat&.vent}", "Double Breasted: #{coat&.double_breasted}", "Peak: #{coat&.peak}", "Shawl: #{coat&.shawl}", {content: "", colspan: 5}]
-    ]
+      cbody = [
+        [{content: "Coat         [#{single_breasted}] SINGLE BREASTED   [#{double_breasted}] DOUBLE BREASTED", colspan: 10}],
+        ["Jacket length: #{coat&.jacket_length}", "Back Width: #{coat&.back_width}", "Sleeves: #{coat&.sleeves}", "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", "Hips: #{coat&.hips}", {content: "Remarks: #{coat&.remarks}", colspan: 2}],
+        ["Notch: #{coat&.notch}", "Vent: #{coat&.vent}", "Double Breasted: #{coat&.double_breasted}", "Peak: #{coat&.peak}", "Shawl: #{coat&.shawl}", {content: "", colspan: 5}]
+      ]
 
-    pdf.table(cbody) do
-      cells.borders = [:left, :right, :top, :bottom]
-      cells.style(:padding => 2, :border_width => 2, size: 10)
-  
-      column(0..10).width = 52
-  
-      row(0..5).style font_style: :bold
-    end 
+      pdf.table(cbody) do
+        cells.borders = [:left, :right, :top, :bottom]
+        cells.style(:padding => 2, :border_width => 2, size: 10)
+    
+        column(0..10).width = 52
+    
+        row(0..5).style font_style: :bold
+      end 
+    end
+
+    pdf.move_down 8
+
   end
 
-  pdf.move_down 4
 
-  @pants.each do |pant|
+  if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Pants Maker"
 
-    pleats_pockets = "X" if pant.pleats == "PLEATS TOWARDS POCKETS"
-    pleats_fly = "X" if pant.pleats == "PLEATS TOWARDS FLY"
-    pleats_no = "X" if pant.pleats == "NO PLEATS"
-    pleats_back = "X" if pant.pleats == "BACK POCKETS"
+    @pants.each do |pant|
 
-    cbody = [
-      [{content: "Pants/Trousers", colspan: 2}, {content: "Pants/Trousers: [#{pleats_pockets}] PLEATS TOWARDS POCKETS   [#{pleats_fly}] PLEATS TOWARDS FLY   [#{pleats_no}] NO PLEATS   [#{pleats_back}] BACK POCKETS", colspan: 8}],
-      ["Crotch: #{pant&.crotch}", "Outseam: #{pant&.outsteam}", "Waist: #{pant&.waist}", "Seat: #{pant&.seat}", "Thigh: #{pant&.thigh}", "Knee: #{pant&.knee}", "Bottom: #{pant&.remarks}", {content: "Remarks: #{pant&.remarks}", colspan: 3}]
-    ]
+      pleats_pockets = "X" if pant.pleats == "PLEATS TOWARDS POCKETS"
+      pleats_fly = "X" if pant.pleats == "PLEATS TOWARDS FLY"
+      pleats_no = "X" if pant.pleats == "NO PLEATS"
+      pleats_back = "X" if pant.pleats == "BACK POCKETS"
 
-    pdf.table(cbody) do
-      cells.borders = [:left, :right, :top, :bottom]
-      cells.style(:padding => 2, :border_width => 2, size: 10)
-  
-      column(0..10).width = 52
-  
-      row(0..5).style font_style: :bold
-    end 
+      cbody = [
+        [{content: "Pants/Trousers", colspan: 2}, {content: "Pants/Trousers: [#{pleats_pockets}] PLEATS TOWARDS POCKETS   [#{pleats_fly}] PLEATS TOWARDS FLY   [#{pleats_no}] NO PLEATS   [#{pleats_back}] BACK POCKETS", colspan: 8}],
+        ["Crotch: #{pant&.crotch}", "Outseam: #{pant&.outsteam}", "Waist: #{pant&.waist}", "Seat: #{pant&.seat}", "Thigh: #{pant&.thigh}", "Knee: #{pant&.knee}", "Bottom: #{pant&.remarks}", {content: "Remarks: #{pant&.remarks}", colspan: 3}]
+      ]
+
+      pdf.table(cbody) do
+        cells.borders = [:left, :right, :top, :bottom]
+        cells.style(:padding => 2, :border_width => 2, size: 10)
+    
+        column(0..10).width = 52
+    
+        row(0..5).style font_style: :bold
+      end 
+    end
+
+    pdf.move_down 8
+
   end
 
-  pdf.move_down 4
 
-  @shirts.each do |shirt|
+  if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Shirt Maker"
 
-    shirting = "X" if shirt.shirting_barong == "SHIRTING"
-    barong = "X" if shirt.shirting_barong == "BARONG"
-    tux = "X" if shirt.shirting_barong == "TUX SPECS FORM"
+    @shirts.each do |shirt|
 
-    cbody = [
-      [{content: "Pants/Trousers", colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 8}],
-      ["Fabric label: #{shirt&.fabric_label} \n\n Fabric_code: #{shirt&.fabric_code}", "Brand label: #{shirt&.brand_label} \n\n Lining_code: #{shirt&.lining_code}", "Tafetta: #{shirt&.tafetta}", "Cuffs: #{shirt&.cuffs}", "Pleats: #{shirt&.pleats}", "Placket: #{shirt&.placket}", "Sleeves: #{shirt&.sleeves}", "Pocket: #{shirt&.pocket}", "Bottom: #{shirt&.bottom}", "Remarks: #{shirt&.remarks}"]
-    ]
+      shirting = "X" if shirt.shirting_barong == "SHIRTING"
+      barong = "X" if shirt.shirting_barong == "BARONG"
+      tux = "X" if shirt.shirting_barong == "TUX SPECS FORM"
 
-    pdf.table(cbody) do
-      cells.borders = [:left, :right, :top, :bottom]
-      cells.style(:padding => 2, :border_width => 2, size: 10)
-  
-      column(0..10).width = 52
-  
-      row(0..5).style font_style: :bold
-    end 
+      cbody = [
+        [{content: "Pants/Trousers", colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 8}],
+        ["Fabric label: #{shirt&.fabric_label} \n\n Fabric_code: #{shirt&.fabric_code}", "Brand label: #{shirt&.brand_label} \n\n Lining_code: #{shirt&.lining_code}", "Tafetta: #{shirt&.tafetta}", "Cuffs: #{shirt&.cuffs}", "Pleats: #{shirt&.pleats}", "Placket: #{shirt&.placket}", "Sleeves: #{shirt&.sleeves}", "Pocket: #{shirt&.pocket}", "Bottom: #{shirt&.bottom}", "Remarks: #{shirt&.remarks}"]
+      ]
+
+      pdf.table(cbody) do
+        cells.borders = [:left, :right, :top, :bottom]
+        cells.style(:padding => 2, :border_width => 2, size: 10)
+    
+        column(0..10).width = 52
+    
+        row(0..5).style font_style: :bold
+      end 
+    end
   end
 
 end
