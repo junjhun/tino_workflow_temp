@@ -19,7 +19,7 @@ prawn_document(info: { Title: "@person.full_name_ordered" }) do |pdf|
   @pants = @order.pants
 
   header = [
-      [{content: "Tinos", rowspan: 3}, "CUSTOMER: #{name}", "JO Number", "1st Fitting: #{ first_fitting }"],
+      [{content: "Tinos", rowspan: 3}, "CUSTOMER: #{name}", "JO Number: #{ @order&.jo_number }", "1st Fitting: #{ first_fitting }"],
       [{content: "CONTACT: #{contact} \n EMAIL: #{email} \n ADDRESS: #{address}", rowspan: 2}, "Date: #{ order_date }", "2nd Fitting: #{ second_fitting }"],
       ["[#{mto}] MTO \n [#{old_client}] OLD CLIENT \n [#{labor}] LABOR", "Finish: #{ finish }"],
       ["ITEM", "QTY", "FABRIC & LINING CODE", {content: "", rowspan: 5}],
@@ -72,8 +72,13 @@ prawn_document(info: { Title: "@person.full_name_ordered" }) do |pdf|
 
   @pants.each do |pant|
 
+    pleats_pockets = "X" if pant.pleats == "PLEATS TOWARDS POCKETS"
+    pleats_fly = "X" if pant.pleats == "PLEATS TOWARDS FLY"
+    pleats_no = "X" if pant.pleats == "NO PLEATS"
+    pleats_back = "X" if pant.pleats == "BACK POCKETS"
+
     cbody = [
-      [{content: "Pants/Trousers", colspan: 2}, {content: "Pants/Trousers", colspan: 8}],
+      [{content: "Pants/Trousers", colspan: 2}, {content: "Pants/Trousers: [#{pleats_pockets}] PLEATS TOWARDS POCKETS   [#{pleats_fly}] PLEATS TOWARDS FLY   [#{pleats_no}] NO PLEATS   [#{pleats_back}] BACK POCKETS", colspan: 8}],
       ["Crotch: #{pant&.crotch}", "Outseam: #{pant&.outsteam}", "Waist: #{pant&.waist}", "Seat: #{pant&.seat}", "Thigh: #{pant&.thigh}", "Knee: #{pant&.knee}", "Bottom: #{pant&.remarks}", {content: "Remarks: #{pant&.remarks}", colspan: 3}]
     ]
 

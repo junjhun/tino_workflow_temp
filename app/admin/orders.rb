@@ -5,7 +5,7 @@ ActiveAdmin.register Order do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :client_id, :name, :status, :purpose, :MTO_labor, :first_fitting, :second_fitting, :finish, items_attributes: %i[id name quantity fabric_and_linning_code _destroy], coats_attributes: %i[id breast quantity coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing shoulder_pocket coat_pockets notch vent double_breasted peak shawl _destroy], pants_attributes: %i[id quantity fabric_code lining_code crotch outsteam waist seat thigh remarks knee bottom remarks _destroy]
+  permit_params :client_id, :name, :status, :purpose, :MTO_labor, :first_fitting, :second_fitting, :finish, :jo_number, items_attributes: %i[id name quantity fabric_and_linning_code _destroy], coats_attributes: %i[id breast quantity coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing shoulder_pocket coat_pockets notch vent double_breasted peak shawl _destroy], pants_attributes: %i[id pleats quantity fabric_code lining_code crotch outsteam waist seat thigh remarks knee bottom remarks _destroy]
   #
   # or
   #
@@ -57,6 +57,7 @@ ActiveAdmin.register Order do
       f.input :first_fitting
       f.input :second_fitting
       f.input :finish
+      f.input :jo_number
     end
 
     f.inputs 'Coats' do
@@ -103,6 +104,7 @@ ActiveAdmin.register Order do
 
     f.inputs 'Pants' do
       f.has_many :pants, allow_destroy: true, heading: '' do |t|
+        t.input :pleats
         t.input :quantity
         t.input :lining_code
         t.input :crotch
@@ -123,6 +125,7 @@ ActiveAdmin.register Order do
     attributes_table do
       row :name
       row :status
+      row :jo_number
       row :client
       row :purpose
       row :MTO_labor
@@ -169,6 +172,7 @@ ActiveAdmin.register Order do
 
     panel 'Pants' do
       table_for order.pants do
+        column :pleats
         column :quantity
         column :fabric_code
         column :lining_code
