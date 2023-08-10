@@ -7,9 +7,9 @@ ActiveAdmin.register Order do
   #
   permit_params :client_id, :name, :status, :purpose, :MTO_labor, :first_fitting, :second_fitting, :finish, :jo_number, :other_brands,
                 items_attributes: %i[id name quantity fabric_and_linning_code _destroy],
-                shirts_attributes: %i[id number_of_buttons shirting_barong fabric_label brand_label tafetta fabric_code lining_code remarks collar cuffs pleats placket sleeves pocket collar bottom _destroy],
-                coats_attributes: %i[id no_of_buttons breast quantity coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing shoulder_pocket coat_pockets notch vent double_breasted peak shawl _destroy],
-                pants_attributes: %i[id pleats quantity fabric_code lining_code crotch outsteam waist seat thigh remarks knee bottom remarks _destroy]
+                shirts_attributes: %i[id specs_form number_of_buttons shirting_barong fabric_label brand_label tafetta fabric_code lining_code remarks collar cuffs pleats placket sleeves pocket collar bottom _destroy],
+                coats_attributes: %i[id specs_form no_of_buttons breast quantity coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing shoulder_pocket coat_pockets notch vent double_breasted peak shawl _destroy],
+                pants_attributes: %i[id specs_form pleats quantity fabric_code lining_code crotch outsteam waist seat thigh remarks knee bottom remarks _destroy]
   #
   # or
   #
@@ -67,6 +67,7 @@ ActiveAdmin.register Order do
 
     f.inputs 'Coats' do
       f.has_many :coats, allow_destroy: true, heading: '' do |t|
+        t.input :specs_form
         t.input :breast
         t.input :quantity
         t.input :jacket_length
@@ -109,6 +110,7 @@ ActiveAdmin.register Order do
 
     f.inputs 'Pants/Skirt' do
       f.has_many :pants, allow_destroy: true, heading: '' do |t|
+        t.input :specs_form
         t.input :pleats
         t.input :quantity
         t.input :lining_code
@@ -125,6 +127,7 @@ ActiveAdmin.register Order do
 
     f.inputs 'Shirts' do
       f.has_many :shirts, allow_destroy: true, heading: '' do |t|
+        t.input :specs_form
         t.input :fabric_label
         t.input :brand_label
         t.input :tafetta

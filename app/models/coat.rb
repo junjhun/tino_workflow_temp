@@ -1,6 +1,12 @@
 class Coat < ApplicationRecord
     belongs_to :order
 
+    enum specs_form: [
+        "Coats",
+        "Tux Coat",
+        "Tail Coat"
+    ]
+
     enum breast: [
         "Single Breasted",
         "Double Breasted"

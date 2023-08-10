@@ -1,6 +1,12 @@
 class Shirt < ApplicationRecord
     belongs_to :order
 
+    enum specs_form: [
+        "Shirting",
+        "Barong",
+        "Tux"
+    ]
+
     enum cuffs: [
         "number of buttons, SAFARI SLEEVES",
         "HOW MANY BUTTON?, COAT SLEEVES",
