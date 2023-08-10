@@ -112,7 +112,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
       tux = "X" if shirt.shirting_barong == "TUX SPECS FORM"
 
       cbody = [
-        [{content: "Pants/Trousers", colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 8}],
+        [{content: "Shirts", colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 8}],
         ["Fabric label: #{shirt&.fabric_label} \n\n Fabric_code: #{shirt&.fabric_code}", "Brand label: #{shirt&.brand_label} \n\n Lining_code: #{shirt&.lining_code}", "Tafetta: #{shirt&.tafetta}", "Cuffs: #{shirt&.cuffs}", "Pleats: #{shirt&.pleats}", "Placket: #{shirt&.placket}", "Sleeves: #{shirt&.sleeves}", "Pocket: #{shirt&.pocket}", "Bottom: #{shirt&.bottom}", "Remarks: #{shirt&.remarks}"]
       ]
 
