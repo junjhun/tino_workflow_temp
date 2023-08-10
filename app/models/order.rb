@@ -17,8 +17,10 @@ class Order < ApplicationRecord
     ]
 
     enum MTO_labor: [
-        "MTO",
-        "Labor"
+        "TINO",
+        "Olpiana Andres",
+        "RTW",
+        "Bespoke"
     ]
 
     belongs_to :client

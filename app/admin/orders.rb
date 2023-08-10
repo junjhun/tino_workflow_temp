@@ -5,7 +5,7 @@ ActiveAdmin.register Order do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :client_id, :name, :status, :purpose, :MTO_labor, :first_fitting, :second_fitting, :finish, :jo_number,
+  permit_params :client_id, :name, :status, :purpose, :MTO_labor, :first_fitting, :second_fitting, :finish, :jo_number, :other_brands,
                 items_attributes: %i[id name quantity fabric_and_linning_code _destroy],
                 shirts_attributes: %i[id number_of_buttons shirting_barong fabric_label brand_label tafetta fabric_code lining_code remarks collar cuffs pleats placket sleeves pocket collar bottom _destroy],
                 coats_attributes: %i[id no_of_buttons breast quantity coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing shoulder_pocket coat_pockets notch vent double_breasted peak shawl _destroy],
@@ -58,6 +58,7 @@ ActiveAdmin.register Order do
       f.input :client
       f.input :purpose
       f.input :MTO_labor
+      f.input :other_brands
       f.input :first_fitting
       f.input :second_fitting
       f.input :finish
