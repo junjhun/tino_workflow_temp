@@ -107,7 +107,7 @@ ActiveAdmin.register Order do
       end
     end
 
-    f.inputs 'Pants' do
+    f.inputs 'Pants/Skirt' do
       f.has_many :pants, allow_destroy: true, heading: '' do |t|
         t.input :pleats
         t.input :quantity

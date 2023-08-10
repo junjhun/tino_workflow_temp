@@ -21,7 +21,7 @@ class Shirt < ApplicationRecord
     enum placket: [
         "W/BAR (standard-placket)",
         "NO BAR (NO placket)",
-        "HIDDEN BUTTON (concealed placker)"
+        "HIDDEN BUTTON (concealed placket)"
     ]
 
     enum sleeves: [
@@ -31,7 +31,7 @@ class Shirt < ApplicationRecord
 
     enum pocket: [
         "Round",
-        "Agle",
+        "Agile",
         "Pointed",
         "Square w/ Pleats",
         "w/ squared flaps",
