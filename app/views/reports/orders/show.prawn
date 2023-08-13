@@ -57,8 +57,9 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
       cbody = [
         [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Coat         [#{single_breasted}] SINGLE BREASTED   [#{double_breasted}] DOUBLE BREASTED", colspan: 6}, {content: "CONTROL NO:#{ }", colspan: 2}],
-        ["Jacket length: #{coat&.jacket_length}", "Back Width: #{coat&.back_width}", "Sleeves: #{coat&.sleeves}", "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", "Hips: #{coat&.hips}", {content: "Remarks: #{coat&.remarks}", colspan: 2}],
-        ["Notch: #{coat&.notch}", "Vent: #{coat&.vent}", "Double Breasted: #{coat&.double_breasted}", "Peak: #{coat&.peak}", "Shawl: #{coat&.shawl}", {content: "", colspan: 5}]
+        ["Jacket length: #{coat&.jacket_length}", "Back Width: #{coat&.back_width}", "Sleeves: #{coat&.sleeves}", "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", "Hips: #{coat&.hips}"],
+        ["Notch: #{coat&.notch}", "Vent: #{coat&.vent}", "Double Breasted: #{coat&.double_breasted}", "Peak: #{coat&.peak}", "Shawl: #{coat&.shawl}", {content: "", colspan: 5}],
+        [{content: "Remarks: #{coat&.remarks}", colspan: 10}]
       ]
 
       pdf.table(cbody) do
@@ -87,7 +88,8 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
       cbody = [
         [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Pants/Trousers: [#{pleats_pockets}] PLEATS TOWARDS POCKETS   [#{pleats_fly}] PLEATS TOWARDS FLY   [#{pleats_no}] NO PLEATS   [#{pleats_back}] BACK POCKETS", colspan: 6}, {content: "CONTROL NO:#{ }", colspan: 2}],
-        ["Crotch: #{pant&.crotch}", "Outseam: #{pant&.outsteam}", "Waist: #{pant&.waist}", "Seat: #{pant&.seat}", "Thigh: #{pant&.thigh}", "Knee: #{pant&.knee}", "Bottom: #{pant&.remarks}", {content: "Remarks: #{pant&.remarks}", colspan: 3}]
+        ["Crotch: #{pant&.crotch}", "Outseam: #{pant&.outsteam}", "Waist: #{pant&.waist}", "Seat: #{pant&.seat}", "Thigh: #{pant&.thigh}", "Knee: #{pant&.knee}", "Bottom: #{pant&.remarks}"],
+        [{content: "Remarks: #{pant&.remarks}", colspan: 10}]
       ]
 
       pdf.table(cbody) do
@@ -115,7 +117,13 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
       cbody = [
         [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 6}, {content: "CONTROL NO:#{ }", colspan: 2}],
-        ["Fabric label: #{shirt&.fabric_label} \n\n Fabric_code: #{shirt&.fabric_code}", "Brand label: #{shirt&.brand_label} \n\n Lining_code: #{shirt&.lining_code}", "Tafetta: #{shirt&.tafetta}", "Cuffs: #{shirt&.cuffs}", "Pleats: #{shirt&.pleats}", "Placket: #{shirt&.placket}", "Sleeves: #{shirt&.sleeves}", "Pocket: #{shirt&.pocket}", "Bottom: #{shirt&.bottom}", "Remarks: #{shirt&.remarks}"]
+        [{content: "Fabric label: #{shirt&.fabric_label}", colspan: 3}, {content: "Tafetta: #{shirt&.tafetta}", rowspan: 2, colspan: 3 }, {content: "Fabric_code: #{shirt&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{shirt&.lining_code}", rowspan: 2, colspan: 2 } ],
+        [{content: "Brand label: #{shirt&.brand_label}", colspan: 3}],
+        ["Pleats: #{shirt&.pleats}", "Placket: #{shirt&.placket}"],
+        ["Sleeves: #{shirt&.sleeves}", "Cuffs: #{shirt&.cuffs}"],
+        ["Pocket: #{shirt&.pocket}"],
+        ["Bottom: #{shirt&.bottom}"],
+        [{content: "Remarks: #{shirt&.remarks}", colspan: 10}]
       ]
 
       pdf.table(cbody) do
