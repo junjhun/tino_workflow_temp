@@ -56,7 +56,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
       double_breasted = "X" if coat.breast ==  "Double Breasted"
 
       cbody = [
-        [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Coat         [#{single_breasted}] SINGLE BREASTED   [#{double_breasted}] DOUBLE BREASTED", colspan: 8}],
+        [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Coat         [#{single_breasted}] SINGLE BREASTED   [#{double_breasted}] DOUBLE BREASTED", colspan: 6}, {content: "CONTROL NO:#{ }", colspan: 2}],
         ["Jacket length: #{coat&.jacket_length}", "Back Width: #{coat&.back_width}", "Sleeves: #{coat&.sleeves}", "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", "Hips: #{coat&.hips}", {content: "Remarks: #{coat&.remarks}", colspan: 2}],
         ["Notch: #{coat&.notch}", "Vent: #{coat&.vent}", "Double Breasted: #{coat&.double_breasted}", "Peak: #{coat&.peak}", "Shawl: #{coat&.shawl}", {content: "", colspan: 5}]
       ]
@@ -86,7 +86,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
       pleats_back = "X" if pant.pleats == "BACK POCKETS"
 
       cbody = [
-        [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Pants/Trousers: [#{pleats_pockets}] PLEATS TOWARDS POCKETS   [#{pleats_fly}] PLEATS TOWARDS FLY   [#{pleats_no}] NO PLEATS   [#{pleats_back}] BACK POCKETS", colspan: 8}],
+        [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Pants/Trousers: [#{pleats_pockets}] PLEATS TOWARDS POCKETS   [#{pleats_fly}] PLEATS TOWARDS FLY   [#{pleats_no}] NO PLEATS   [#{pleats_back}] BACK POCKETS", colspan: 6}, {content: "CONTROL NO:#{ }", colspan: 2}],
         ["Crotch: #{pant&.crotch}", "Outseam: #{pant&.outsteam}", "Waist: #{pant&.waist}", "Seat: #{pant&.seat}", "Thigh: #{pant&.thigh}", "Knee: #{pant&.knee}", "Bottom: #{pant&.remarks}", {content: "Remarks: #{pant&.remarks}", colspan: 3}]
       ]
 
@@ -114,7 +114,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
       tux = "X" if shirt.shirting_barong == "TUX SPECS FORM"
 
       cbody = [
-        [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 8}],
+        [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 6}, {content: "CONTROL NO:#{ }", colspan: 2}],
         ["Fabric label: #{shirt&.fabric_label} \n\n Fabric_code: #{shirt&.fabric_code}", "Brand label: #{shirt&.brand_label} \n\n Lining_code: #{shirt&.lining_code}", "Tafetta: #{shirt&.tafetta}", "Cuffs: #{shirt&.cuffs}", "Pleats: #{shirt&.pleats}", "Placket: #{shirt&.placket}", "Sleeves: #{shirt&.sleeves}", "Pocket: #{shirt&.pocket}", "Bottom: #{shirt&.bottom}", "Remarks: #{shirt&.remarks}"]
       ]
 
