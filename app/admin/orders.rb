@@ -8,8 +8,8 @@ ActiveAdmin.register Order do
   permit_params :client_id, :name, :status, :purpose, :MTO_labor, :first_fitting, :second_fitting, :finish, :jo_number, :other_brands,
                 items_attributes: %i[id name quantity fabric_and_linning_code _destroy],
                 shirts_attributes: %i[id specs_form number_of_buttons shirting_barong fabric_label brand_label tafetta fabric_code lining_code remarks collar cuffs pleats placket sleeves pocket collar bottom control_no _destroy],
-                coats_attributes: %i[id specs_form no_of_buttons breast quantity coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing shoulder_pocket coat_pockets notch vent double_breasted peak shawl control_no _destroy],
-                pants_attributes: %i[id specs_form pleats quantity fabric_code lining_code crotch outsteam waist seat thigh remarks knee bottom remarks control_no _destroy]
+                coats_attributes: %i[id specs_form tafetta fabric_label brand_label no_of_buttons breast quantity coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing shoulder_pocket coat_pockets notch vent double_breasted peak shawl control_no _destroy],
+                pants_attributes: %i[id specs_form tafetta fabric_label brand_label pleats quantity fabric_code lining_code crotch outsteam waist seat thigh remarks knee bottom remarks control_no _destroy]
   #
   # or
   #
@@ -86,6 +86,9 @@ ActiveAdmin.register Order do
 
         t.input :fabric_code
         t.input :lining_code
+        t.input :fabric_label
+        t.input :tafetta
+        t.input :brand_label
         t.input :style
         t.input :collar_style
         t.input :back
@@ -106,6 +109,7 @@ ActiveAdmin.register Order do
         t.input :double_breasted
         t.input :peak
         t.input :shawl
+
       end
     end
 
@@ -115,6 +119,10 @@ ActiveAdmin.register Order do
         t.input :control_no
         t.input :pleats
         t.input :quantity
+        t.input :fabric_label
+        t.input :brand_label
+        t.input :tafetta
+        t.input :fabric_code
         t.input :lining_code
         t.input :crotch
         t.input :outsteam

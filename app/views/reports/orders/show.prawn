@@ -57,6 +57,8 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
       cbody = [
         [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Coat         [#{single_breasted}] SINGLE BREASTED   [#{double_breasted}] DOUBLE BREASTED", colspan: 6}, {content: "CONTROL NO:#{ coat.control_no }", colspan: 2}],
+        [{content: "Fabric label: #{coat&.fabric_label}", colspan: 3}, {content: "Tafetta: #{coat&.tafetta}", rowspan: 2, colspan: 3 }, {content: "Fabric_code: #{coat&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{coat&.lining_code}", rowspan: 2, colspan: 2 } ],
+        [{content: "Brand label: #{coat&.brand_label}", colspan: 3}],
         ["Jacket length: #{coat&.jacket_length}", "Back Width: #{coat&.back_width}", "Sleeves: #{coat&.sleeves}", "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", "Hips: #{coat&.hips}"],
         ["Notch: #{coat&.notch}", "Vent: #{coat&.vent}", "Double Breasted: #{coat&.double_breasted}", "Peak: #{coat&.peak}", "Shawl: #{coat&.shawl}", {content: "", colspan: 5}],
         [{content: "Remarks: #{coat&.remarks}", colspan: 10}]
@@ -88,6 +90,8 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
       cbody = [
         [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Pants/Trousers: [#{pleats_pockets}] PLEATS TOWARDS POCKETS   [#{pleats_fly}] PLEATS TOWARDS FLY   [#{pleats_no}] NO PLEATS   [#{pleats_back}] BACK POCKETS", colspan: 6}, {content: "CONTROL NO:#{ pant.control_no }", colspan: 2}],
+        [{content: "Fabric label: #{pant&.fabric_label}", colspan: 3}, {content: "Tafetta: #{pant&.tafetta}", rowspan: 2, colspan: 3 }, {content: "Fabric_code: #{pant&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{pant&.lining_code}", rowspan: 2, colspan: 2 } ],
+        [{content: "Brand label: #{pant&.brand_label}", colspan: 3}],
         ["Crotch: #{pant&.crotch}", "Outseam: #{pant&.outsteam}", "Waist: #{pant&.waist}", "Seat: #{pant&.seat}", "Thigh: #{pant&.thigh}", "Knee: #{pant&.knee}", "Bottom: #{pant&.remarks}"],
         [{content: "Remarks: #{pant&.remarks}", colspan: 10}]
       ]
