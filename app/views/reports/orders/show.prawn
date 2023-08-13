@@ -57,7 +57,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
       cbody = [
         [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Coat         [#{single_breasted}] SINGLE BREASTED   [#{double_breasted}] DOUBLE BREASTED", colspan: 6}, {content: "CONTROL NO:#{ coat.control_no }", colspan: 2}],
-        [{content: "Fabric label: #{coat&.fabric_label}", colspan: 3}, {content: "Tafetta: #{coat&.tafetta}", rowspan: 2, colspan: 3 }, {content: "Fabric_code: #{coat&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{coat&.lining_code}", rowspan: 2, colspan: 2 } ],
+        [{content: "Fabric label: #{coat&.fabric_label}", colspan: 3}, {content: "Tafetta: #{coat&.tafetta}", rowspan: 2, colspan: 2 }, {content: "Fabric_code: #{coat&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{coat&.lining_code}", rowspan: 2, colspan: 2 }, {content: "Quantity: #{coat&.quantity}", rowspan: 2}],
         [{content: "Brand label: #{coat&.brand_label}", colspan: 3}],
         [{image: "#{dir}button_1.png",  scale: 0.25},{image: "#{dir}button_2.png",  scale: 0.25},{image: "#{dir}button_3.png",  scale: 0.25},{image: "#{dir}button_4.png",  scale: 0.25},{image: "#{dir}button_5.png",  scale: 0.25},{image: "#{dir}button_6.png",  scale: 0.25}, {content: "SLEEVES & PADDING \n\n #{ coat.sleeves_and_padding }", colspan: 4}],
         [{image: "#{dir}boutonniere.png",  scale: 0.2, colspan: 7}, {content: "BOUTONNIERE: \n\n #{ coat.boutonniere } \n\n COAT LINNINGS \n\n SLEEVE LINNING: \n BODY LINNING \n PIPING LINING \n\n [] with PIPING   [] BACK BAR", colspan: 3}],
@@ -94,7 +94,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
       cbody = [
         [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Pants/Trousers: [#{pleats_pockets}] PLEATS TOWARDS POCKETS   [#{pleats_fly}] PLEATS TOWARDS FLY   [#{pleats_no}] NO PLEATS   [#{pleats_back}] BACK POCKETS", colspan: 6}, {content: "CONTROL NO:#{ pant.control_no }", colspan: 2}],
-        [{content: "Fabric label: #{pant&.fabric_label}", colspan: 3}, {content: "Tafetta: #{pant&.tafetta}", rowspan: 2, colspan: 3 }, {content: "Fabric_code: #{pant&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{pant&.lining_code}", rowspan: 2, colspan: 2 } ],
+        [{content: "Fabric label: #{pant&.fabric_label}", colspan: 3}, {content: "Tafetta: #{pant&.tafetta}", rowspan: 2, colspan: 2 }, {content: "Fabric_code: #{pant&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{pant&.lining_code}", rowspan: 2, colspan: 2 }, {content: "Quantity: #{pant&.quantity}", rowspan: 2} ],
         [{content: "Brand label: #{pant&.brand_label}", colspan: 3}],
         ["Crotch: #{pant&.crotch}", "Outseam: #{pant&.outsteam}", "Waist: #{pant&.waist}", "Seat: #{pant&.seat}", "Thigh: #{pant&.thigh}", "Knee: #{pant&.knee}", "Bottom: #{pant&.remarks}"],
         [{content: "Remarks: #{pant&.remarks}", colspan: 10}]
@@ -125,7 +125,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
       cbody = [
         [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 6}, {content: "CONTROL NO:#{ shirt.control_no }", colspan: 2}],
-        [{content: "Fabric label: #{shirt&.fabric_label}", colspan: 3}, {content: "Tafetta: #{shirt&.tafetta}", rowspan: 2, colspan: 3 }, {content: "Fabric_code: #{shirt&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{shirt&.lining_code}", rowspan: 2, colspan: 2 } ],
+        [{content: "Fabric label: #{shirt&.fabric_label}", colspan: 3}, {content: "Tafetta: #{shirt&.tafetta}", rowspan: 2, colspan: 2 }, {content: "Fabric_code: #{shirt&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{shirt&.lining_code}", rowspan: 2, colspan: 2 } ],
         [{content: "Brand label: #{shirt&.brand_label}", colspan: 3}],
         ["Pleats: #{shirt&.pleats}", "Placket: #{shirt&.placket}"],
         ["Sleeves: #{shirt&.sleeves}", "Cuffs: #{shirt&.cuffs}"],
