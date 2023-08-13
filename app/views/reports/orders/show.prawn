@@ -59,6 +59,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
         [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Coat         [#{single_breasted}] SINGLE BREASTED   [#{double_breasted}] DOUBLE BREASTED", colspan: 6}, {content: "CONTROL NO:#{ coat.control_no }", colspan: 2}],
         [{content: "Fabric label: #{coat&.fabric_label}", colspan: 3}, {content: "Tafetta: #{coat&.tafetta}", rowspan: 2, colspan: 3 }, {content: "Fabric_code: #{coat&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{coat&.lining_code}", rowspan: 2, colspan: 2 } ],
         [{content: "Brand label: #{coat&.brand_label}", colspan: 3}],
+        [{image: "#{dir}button_1.png",  scale: 0.25},{image: "#{dir}button_2.png",  scale: 0.25},{image: "#{dir}button_3.png",  scale: 0.25},{image: "#{dir}button_4.png",  scale: 0.25},{image: "#{dir}button_5.png",  scale: 0.25},{image: "#{dir}button_6.png",  scale: 0.25}, {content: "SLEEVES & PADDING \n\n #{ coat.sleeves_and_padding }", colspan: 4}],
         ["Jacket length: #{coat&.jacket_length}", "Back Width: #{coat&.back_width}", "Sleeves: #{coat&.sleeves}", "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", "Hips: #{coat&.hips}"],
         ["Notch: #{coat&.notch}", "Vent: #{coat&.vent}", "Double Breasted: #{coat&.double_breasted}", "Peak: #{coat&.peak}", "Shawl: #{coat&.shawl}", {content: "", colspan: 5}],
         [{content: "Remarks: #{coat&.remarks}", colspan: 10}]
