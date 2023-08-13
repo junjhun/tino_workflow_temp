@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_10_224916) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_13_203539) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -80,6 +80,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_10_224916) do
     t.string "peak"
     t.string "shawl"
     t.integer "specs_form", default: 0, null: false
+    t.string "control_no"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -113,6 +114,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_10_224916) do
     t.string "lining_code"
     t.integer "pleats", default: 0, null: false
     t.integer "specs_form", default: 0, null: false
+    t.string "control_no"
   end
 
   create_table "shirts", force: :cascade do |t|
@@ -135,6 +137,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_10_224916) do
     t.integer "number_of_buttons", default: 0, null: false
     t.integer "shirting_barong", default: 0, null: false
     t.integer "specs_form", default: 0, null: false
+    t.string "control_no"
   end
 
   create_table "users", force: :cascade do |t|
