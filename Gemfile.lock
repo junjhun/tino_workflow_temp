@@ -334,6 +334,7 @@ DEPENDENCIES
   draper
   importmap-rails
   jbuilder
+  matrix (~> 0.4.2)
   pg (~> 1.1)
   prawn-table (~> 0.2.2)
   prawn_rails
