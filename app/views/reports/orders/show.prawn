@@ -97,7 +97,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
         [{content: "Fabric label: #{pant&.fabric_label}", colspan: 3}, {content: "Tafetta: #{pant&.tafetta}", rowspan: 2, colspan: 2 }, {content: "Fabric_code: #{pant&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{pant&.lining_code}", rowspan: 2, colspan: 2 }, {content: "Quantity: #{pant&.quantity}", rowspan: 2} ],
         [{content: "Brand label: #{pant&.brand_label}", colspan: 3}],
         [{image: "#{dir}pleats_1.png",  scale: 0.2}, {image: "#{dir}pleats_2.png",  scale: 0.2}, {image: "#{dir}pleats_3.png",  scale: 0.2}, {image: "#{dir}pleats_4.png",  scale: 0.2}, {}, {}, {image: "#{dir}pleats_1.png",  scale: 0.2}, {image: "#{dir}ppockets_1.png",  scale: 0.2}, {image: "#{dir}ppockets_2.png",  scale: 0.2}, {image: "#{dir}ppockets_3.png",  scale: 0.18}],
-        ["Crotch: #{pant&.crotch}", "Outseam: #{pant&.outsteam}", "Waist: #{pant&.waist}", "Seat: #{pant&.seat}", "Thigh: #{pant&.thigh}", "Knee: #{pant&.knee}", "Bottom: #{pant&.bottom}", content: "Remarks: #{pant&.remarks}", colspan: 3]
+        ["Crotch: #{pant&.crotch}", "Outseam: #{pant&.outseam}", "Waist: #{pant&.waist}", "Seat: #{pant&.seat}", "Thigh: #{pant&.thigh}", "Knee: #{pant&.knee}", "Bottom: #{pant&.bottom}", content: "Remarks: #{pant&.remarks}", colspan: 3]
       ]
 
       pdf.table(cbody) do

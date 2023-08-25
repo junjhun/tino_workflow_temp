@@ -54,12 +54,13 @@ class Shirt < ApplicationRecord
         "Button Down",
         "Hidden Button Down",
         "Wing Tip/Tux",
-        "Chinese Collar"
+        "Nehru Collar",
+        "Semi Spread"
     ]
 
     enum bottom: [
         "Straight Bottom",
-        "Round Bottom"
+        "American Boy Cut"
     ]
 
     enum shirting_barong: [
