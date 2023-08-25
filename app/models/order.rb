@@ -17,10 +17,15 @@ class Order < ApplicationRecord
     ]
 
     enum MTO_labor: [
-        "TINO",
-        "Olpiana Andres",
-        "RTW",
-        "Bespoke"
+        "Tiño",
+        "Olpiana Andres"
+    ]
+
+    enum brand_name: [
+        "Bespoke",
+        "Bespoke Labor",
+        "Made to Order",
+        "Ready to Wear"
     ]
 
     belongs_to :client

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_13_205744) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_25_030059) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -97,7 +97,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_13_205744) do
     t.date "second_fitting"
     t.date "finish"
     t.string "jo_number"
-    t.string "other_brands"
+    t.integer "brand_name"
   end
 
   create_table "pants", force: :cascade do |t|
