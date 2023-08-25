@@ -8,13 +8,13 @@ class Shirt < ApplicationRecord
     ]
 
     enum cuffs: [
-        "number of buttons, SAFARI SLEEVES",
-        "HOW MANY BUTTON?, COAT SLEEVES",
-        "SINGLE CUFFS (1 button round)",
-        "SINGLE CUFFS (1 button angle)",
-        "DOUBLE CUFFS (french square)",
-        "DOUBLE CUFFS (french angle)",
-        "DOUBLE CUFFS (Cocktail)"
+        "Single Cuff Curve",
+        "Single Cuff Square",
+        "Single Cuff Angle Cut",
+        "Double Cuff Square",
+        "Double Cuff Angle Cut",
+        "American Cuff Square",
+        "American Cuff Angle Cut"
     ]
 
     enum pleats: [
