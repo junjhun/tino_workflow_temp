@@ -16,7 +16,7 @@ class Order < ApplicationRecord
         "DONE"
     ]
 
-    enum MTO_labor: [
+    enum type_of_service: [
         "Bespoke",
         "Bespoke Labor",
         "Made to Order",

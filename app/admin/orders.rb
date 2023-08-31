@@ -5,7 +5,7 @@ ActiveAdmin.register Order do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :client_id, :name, :status, :purpose, :MTO_labor, :first_fitting, :second_fitting, :finish, :jo_number, :brand_name,
+  permit_params :client_id, :name, :status, :purpose, :type_of_service, :first_fitting, :second_fitting, :finish, :jo_number, :brand_name,
                 items_attributes: %i[id name quantity fabric_and_linning_code _destroy],
                 vests_attributes: %i[id side_pocket chest_pocket vest_length back_width chest waist hips _destroy],
                 shirts_attributes: %i[id specs_form number_of_buttons shirting_barong fabric_label brand_label tafetta fabric_code lining_code remarks collar cuffs pleats placket sleeves pocket collar bottom control_no _destroy],
@@ -58,7 +58,7 @@ ActiveAdmin.register Order do
       f.input :status
       f.input :client
       f.input :purpose
-      f.input :MTO_labor, label: "Type of Service"
+      f.input :type_of_service, label: "Type of Service"
       f.input :brand_name
       f.input :first_fitting
       f.input :second_fitting
@@ -177,7 +177,7 @@ ActiveAdmin.register Order do
       row :jo_number
       row :client
       row :purpose
-      row :MTO_labor
+      row :type_of_service
     end
 
   if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Coat Maker"
