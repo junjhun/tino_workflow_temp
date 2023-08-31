@@ -28,7 +28,7 @@ class Shirt < ApplicationRecord
         "W/BAR (standard-placket)",
         "NO BAR (NO placket)",
         "HIDDEN BUTTON (concealed placket)"
-    ]
+    ], _prefix: :comments
 
     enum back_placket: [
         "W/BAR (standard-placket)",
