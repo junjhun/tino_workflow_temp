@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_31_002915) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_31_040118) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,7 +59,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_31_002915) do
     t.string "fabric_code"
     t.string "lining_code"
     t.integer "style"
-    t.integer "collar_style"
     t.integer "back"
     t.integer "lining"
     t.integer "sleeves_and_padding"
@@ -84,6 +83,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_31_002915) do
     t.string "fabric_label"
     t.string "tafetta"
     t.string "brand_label"
+    t.integer "lapel_style", default: 0, null: false
   end
 
   create_table "orders", force: :cascade do |t|

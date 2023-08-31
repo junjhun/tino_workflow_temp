@@ -34,7 +34,7 @@ class Coat < ApplicationRecord
         "Double 6 button"
     ]
 
-    enum collar_style: [
+    enum lapel_style: [
         "Notch",
         "Peak",
         "Notch Tuxedo",
