@@ -43,7 +43,7 @@ class Coat < ApplicationRecord
         "Lapel Trimming"
     ]
 
-    enum back: [
+    enum vent: [
         "No Vent",
         "Center Vent",
         "Double Vent"
