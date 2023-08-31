@@ -9,7 +9,7 @@ ActiveAdmin.register Order do
                 items_attributes: %i[id name quantity fabric_and_linning_code _destroy],
                 vests_attributes: %i[id side_pocket chest_pocket vest_length back_width chest waist hips _destroy],
                 shirts_attributes: %i[id specs_form number_of_buttons shirting_barong fabric_label brand_label tafetta fabric_code lining_code remarks collar cuffs pleats placket sleeves pocket collar bottom control_no _destroy],
-                coats_attributes: %i[id specs_form tafetta fabric_label brand_label no_of_buttons breast quantity coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing shoulder_pocket coat_pockets notch vent double_breasted peak shawl control_no _destroy],
+                coats_attributes: %i[id specs_form tafetta fabric_label brand_label no_of_buttons breast quantity coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style collar_style back lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing coat_pockets notch vent double_breasted peak shawl control_no _destroy],
                 pants_attributes: %i[id specs_form tafetta fabric_label brand_label pleats quantity fabric_code lining_code crotch outseam waist seat thigh remarks knee bottom remarks control_no _destroy]
   #
   # or
@@ -102,7 +102,6 @@ ActiveAdmin.register Order do
         t.input :boutonniere_color
         t.input :boutonniere_thread_code
         t.input :button_spacing
-        t.input :shoulder_pocket
         t.input :coat_pockets
 
         t.input :"notch"
@@ -219,7 +218,6 @@ ActiveAdmin.register Order do
           column :boutonniere_color
           column :boutonniere_thread_code
           column :button_spacing
-          column :shoulder_pocket
           column :coat_pockets
         end
       end
