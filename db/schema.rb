@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_31_064701) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_31_071939) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -131,7 +131,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_31_064701) do
     t.string "remarks"
     t.integer "cuffs", default: 0, null: false
     t.integer "pleats", default: 0, null: false
-    t.integer "placket", default: 0, null: false
     t.integer "sleeves", default: 0, null: false
     t.integer "pocket", default: 0, null: false
     t.integer "collar", default: 0, null: false
@@ -143,6 +142,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_31_064701) do
     t.integer "shirting_barong", default: 0, null: false
     t.integer "specs_form", default: 0, null: false
     t.string "control_no"
+    t.integer "front_placket", default: 0, null: false
+    t.integer "side_placket", default: 0, null: false
   end
 
   create_table "users", force: :cascade do |t|

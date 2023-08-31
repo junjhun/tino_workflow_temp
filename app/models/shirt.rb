@@ -24,7 +24,13 @@ class Shirt < ApplicationRecord
         "BACK POCKETS (Dart Pleats)"
     ]
 
-    enum placket: [
+    enum front_placket: [
+        "W/BAR (standard-placket)",
+        "NO BAR (NO placket)",
+        "HIDDEN BUTTON (concealed placket)"
+    ]
+
+    enum back_placket: [
         "W/BAR (standard-placket)",
         "NO BAR (NO placket)",
         "HIDDEN BUTTON (concealed placket)"
