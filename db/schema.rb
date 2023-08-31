@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_31_071939) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_31_073240) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -83,6 +83,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_31_071939) do
     t.string "brand_label"
     t.integer "lapel_style", default: 0, null: false
     t.integer "vent", default: 0, null: false
+    t.string "fabric_consumption"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -120,6 +121,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_31_071939) do
     t.string "tafetta"
     t.string "brand_label"
     t.string "outseam"
+    t.string "fabric_consumption"
   end
 
   create_table "shirts", force: :cascade do |t|
@@ -144,6 +146,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_31_071939) do
     t.string "control_no"
     t.integer "front_placket", default: 0, null: false
     t.integer "side_placket", default: 0, null: false
+    t.string "fabric_consumption"
   end
 
   create_table "users", force: :cascade do |t|
@@ -176,6 +179,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_31_071939) do
     t.string "number_of_front_buttons"
     t.integer "lapel_style", default: 0, null: false
     t.integer "adjuster_type", default: 0, null: false
+    t.string "fabric_consumption"
   end
 
 end
