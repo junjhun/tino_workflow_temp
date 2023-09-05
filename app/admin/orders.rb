@@ -109,6 +109,29 @@ ActiveAdmin.register Order do
       end
     end
 
+    f.inputs 'Pants/Skirt' do
+      f.has_many :pants, allow_destroy: true, heading: '' do |t|
+        t.input :fabric_consumption
+        t.input :specs_form
+        t.input :control_no
+        t.input :pleats
+        t.input :quantity
+        t.input :fabric_label
+        t.input :brand_label
+        t.input :tafetta
+        t.input :fabric_code
+        t.input :lining_code
+        t.input :crotch
+        t.input :outseam
+        t.input :waist
+        t.input :seat
+        t.input :thigh
+        t.input :knee
+        t.input :bottom
+        t.input :remarks
+      end
+    end
+
     f.actions
   end
 
