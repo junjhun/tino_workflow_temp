@@ -132,6 +132,24 @@ ActiveAdmin.register Order do
       end
     end
 
+    f.inputs 'Vests' do
+      f.has_many :vests, allow_destroy: true, heading: '' do |t|
+        t.input :fabric_consumption
+        t.input :side_pocket
+        t.input :chest_pocket
+        t.input :vest_length
+        t.input :back_width
+        t.input :chest
+        t.input :waist
+        t.input :hips
+        t.input :vest_style
+        t.input :lapel_style
+        t.input :adjuster_type
+        t.input :number_of_front_buttons
+        t.input :remarks
+      end
+    end
+
     f.actions
   end
 
