@@ -66,6 +66,49 @@ ActiveAdmin.register Order do
       f.input :jo_number
     end
 
+
+    f.inputs 'Coats' do
+      f.has_many :coats, allow_destroy: true, heading: '' do |t|
+        t.input :fabric_consumption
+        t.input :specs_form
+        t.input :control_no
+        t.input :breast
+        t.input :quantity
+        t.input :jacket_length
+        t.input :back_width
+        t.input :sleeves
+        t.input :cuffs_1
+        t.input :cuffs_2
+        t.input :collar
+        t.input :chest
+        t.input :waist
+        t.input :hips
+        t.input :stature
+        t.input :shoulders
+        t.input :remarks
+
+        t.input :fabric_code
+        t.input :lining_code
+        t.input :fabric_label
+        t.input :tafetta
+        t.input :brand_label
+        t.input :style
+        t.input :lapel_style
+        t.input :vent
+        t.input :lining
+        t.input :sleeves_and_padding
+        t.input :button
+        t.input :sleeve_buttons
+        t.input :no_of_buttons
+        t.input :boutonniere
+        t.input :boutonniere_color
+        t.input :boutonniere_thread_code
+        t.input :button_spacing
+        t.input :coat_pockets
+        t.input :vent
+      end
+    end
+
     f.actions
   end
 
