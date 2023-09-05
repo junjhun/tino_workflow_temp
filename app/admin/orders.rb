@@ -54,6 +54,17 @@ ActiveAdmin.register Order do
   form do |f|
     f.semantic_errors
 
+    f.inputs do
+      f.input :status
+      f.input :client
+      f.input :purpose
+      f.input :type_of_service, label: "Type of Service"
+      f.input :brand_name
+      f.input :first_fitting
+      f.input :second_fitting
+      f.input :finish
+      f.input :jo_number
+    end
 
     f.actions
   end
