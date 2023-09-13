@@ -145,7 +145,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
     end
   end
 
-  if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Shirt Maker"
+  if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Vest Maker"
 
     @vests.each do |vest|
 
