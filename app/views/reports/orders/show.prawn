@@ -40,7 +40,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
   
   pdf.table(header) do
     cells.borders = [:left, :right, :top, :bottom]
-    cells.style(:padding => 2, :border_width => 2, size: 10)
+    cells.style(:padding => 2, :border_width => 2, size: 8)
 
     column(0).width = 100
     column(1..3).width = 140
@@ -71,7 +71,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
       pdf.table(cbody) do
         cells.borders = [:left, :right, :top, :bottom]
-        cells.style(:padding => 2, :border_width => 2, size: 10)
+        cells.style(:padding => 2, :border_width => 2, size: 8)
     
         column(0..10).width = 52
     
@@ -103,7 +103,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
       pdf.table(cbody) do
         cells.borders = [:left, :right, :top, :bottom]
-        cells.style(:padding => 2, :border_width => 2, size: 10)
+        cells.style(:padding => 2, :border_width => 2, size: 8)
     
         column(0..10).width = 52
     
@@ -128,13 +128,13 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
         [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 6}, {content: "CONTROL NO:#{ shirt.control_no }", colspan: 2}],
         [{content: "Fabric label: #{shirt&.fabric_label}", colspan: 3}, {content: "Tafetta: #{shirt&.tafetta}", rowspan: 2, colspan: 2 }, {content: "Fabric_code: #{shirt&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{shirt&.lining_code}", rowspan: 2, colspan: 3 } ],
         [{content: "Brand label: #{shirt&.brand_label}", colspan: 3}],
-        [{content: "Front Placket: #{shirt&.front_placket}", colspan: 2}, {content: "Back Placket: #{shirt&.back_placket}", colspan: 2 }, {content: "Side Placket: #{shirt&.side_placket}", colspan: 2 }, {content: "Pocket: #{shirt&.pocket}", colspan: 3 } ],
+        [{content: "Front Placket: #{shirt&.front_placket}", colspan: 3}, {content: "Back Placket: #{shirt&.back_placket}", colspan: 2 }, {content: "Side Placket: #{shirt&.side_placket}", colspan: 2 }, {content: "Pocket: #{shirt&.pocket}", colspan: 3 } ],
         [{content: "Remarks: #{shirt&.remarks}", colspan: 10}]
       ]
 
       pdf.table(cbody) do
         cells.borders = [:left, :right, :top, :bottom]
-        cells.style(:padding => 2, :border_width => 2, size: 10)
+        cells.style(:padding => 2, :border_width => 2, size: 8)
     
         column(0..10).width = 52
     
@@ -150,7 +150,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
     @vests.each do |vest|
 
       cbody = [
-        [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "STYLE: [#{ vest.vest_style }] ADJUSTER TYPE [#{ vest.adjuster_type }] LAPEL STYLE [#{ vest.lapel_style }] TUX SPECS FORM", colspan: 6}, {content: "CONTROL NO:#{  }", colspan: 2}],
+        [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "VEST STYLE: #{ vest.vest_style } ADJUSTER TYPE #{ vest.adjuster_type } LAPEL STYLE #{ vest.lapel_style } TUX SPECS FORM", colspan: 6}, {content: "CONTROL NO:#{ vest.order_id }", colspan: 2}],
         [{content: "Side pocket: #{vest&.side_pocket}", colspan: 4}, {content: "Chest pocket: #{vest&.chest_pocket}", colspan: 2 }, {content: "Vest Length: #{vest&.vest_length}", colspan: 2 }, {content: "Back Width: #{vest&.back_width}", colspan: 2 }  ],
         [{content: "Back width: #{vest&.back_width}", colspan: 3}, {content: "Chest: #{vest&.chest}", colspan: 2 }, {content: "Waist: #{vest&.waist}", colspan: 2 }, {content: "Hips: #{vest&.hips}", colspan: 3 } ],
         [{content: "Remarks: #{vest&.remarks}", colspan: 10}]
@@ -158,7 +158,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
       pdf.table(cbody) do
         cells.borders = [:left, :right, :top, :bottom]
-        cells.style(:padding => 2, :border_width => 2, size: 10)
+        cells.style(:padding => 2, :border_width => 2, size: 8)
     
         column(0..10).width = 52
     
@@ -170,4 +170,4 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 end
 
 # .style(:padding => 0, :border_width => 2)
-# cells.style size: 10
+# cells.style size: 8
