@@ -3,8 +3,8 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
   dir = "#{Rails.root}/app/assets/images/"
 
   order_date = @order&.created_at
-  mto = "X" if @order&.MTO_labor == "MTO"
-  labor =  "X" if @order&.MTO_labor == "Labor"
+  mto = "X" if @order&.type_of_service == "MTO"
+  labor =  "X" if @order&.type_of_service == "Labor"
   first_fitting = @order&.first_fitting
   second_fitting = @order&.second_fitting
   finish = @order&.finish
@@ -127,7 +127,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
         [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 6}, {content: "CONTROL NO:#{ shirt.control_no }", colspan: 2}],
         [{content: "Fabric label: #{shirt&.fabric_label}", colspan: 3}, {content: "Tafetta: #{shirt&.tafetta}", rowspan: 2, colspan: 2 }, {content: "Fabric_code: #{shirt&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{shirt&.lining_code}", rowspan: 2, colspan: 2 } ],
         [{content: "Brand label: #{shirt&.brand_label}", colspan: 3}],
-        ["Pleats: #{shirt&.pleats}", "Placket: #{shirt&.placket}"],
+        ["Front Pleats: #{shirt&.pleats}", "Front Placket: #{shirt&.front_placket}"],
         ["Sleeves: #{shirt&.sleeves}", "Cuffs: #{shirt&.cuffs}"],
         ["Pocket: #{shirt&.pocket}"],
         ["Bottom: #{shirt&.bottom}"],
