@@ -105,7 +105,6 @@ ActiveAdmin.register Order do
         t.input :boutonniere_thread_code
         t.input :button_spacing
         t.input :coat_pockets
-        t.input :vent
       end
     end
 
