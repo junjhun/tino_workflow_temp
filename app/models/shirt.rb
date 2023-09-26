@@ -30,11 +30,11 @@ class Shirt < ApplicationRecord
         "HIDDEN BUTTON (concealed placket)"
     ], _prefix: :comments
 
-    enum back_placket: [
-        "W/BAR (standard-placket)",
-        "NO BAR (NO placket)",
-        "HIDDEN BUTTON (concealed placket)"
-    ]
+    # enum back_placket: [
+    #     "W/BAR (standard-placket)",
+    #     "NO BAR (NO placket)",
+    #     "HIDDEN BUTTON (concealed placket)"
+    # ]
 
     enum sleeves: [
         "Contrast 1 (full white collar and white cuff)",
