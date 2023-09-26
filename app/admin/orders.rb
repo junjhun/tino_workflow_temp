@@ -7,8 +7,8 @@ ActiveAdmin.register Order do
   #
   permit_params :client_id, :name, :status, :purpose, :type_of_service, :first_fitting, :second_fitting, :finish, :jo_number, :brand_name,
                 items_attributes: %i[id name quantity fabric_and_linning_code _destroy],
-                vests_attributes: %i[id fabric_consumption side_pocket chest_pocket vest_length back_width chest waist hips vest_style :remarks :number_of_front_buttons :lapel_style :adjuster_type _destroy],
-                shirts_attributes: %i[id fabric_consumption specs_form number_of_buttons shirting_barong fabric_label brand_label tafetta fabric_code lining_code remarks collar cuffs pleats front_placket back_placket sleeves pocket collar bottom control_no _destroy],
+                vests_attributes: %i[id quantity fabric_consumption side_pocket chest_pocket vest_length back_width chest waist hips vest_style remarks number_of_front_buttons lapel_style adjuster_type _destroy],
+                shirts_attributes: %i[id quantity fabric_consumption specs_form number_of_buttons shirting_barong fabric_label brand_label tafetta fabric_code lining_code remarks collar cuffs pleats front_placket back_placket sleeves pocket collar bottom control_no _destroy],
                 coats_attributes: %i[id fabric_consumption specs_form tafetta fabric_label brand_label no_of_buttons breast quantity coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style lapel_style vent lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing coat_pockets vent control_no _destroy],
                 pants_attributes: %i[id fabric_consumption specs_form tafetta fabric_label brand_label pleats quantity fabric_code lining_code crotch outseam waist seat thigh remarks knee bottom remarks control_no _destroy]
   #
@@ -69,11 +69,11 @@ ActiveAdmin.register Order do
 
     f.inputs 'Coats' do
       f.has_many :coats, allow_destroy: true, heading: '' do |t|
+        t.input :quantity
         t.input :fabric_consumption
         t.input :specs_form
         t.input :control_no
         t.input :breast
-        t.input :quantity
         t.input :jacket_length
         t.input :back_width
         t.input :sleeves
@@ -110,11 +110,11 @@ ActiveAdmin.register Order do
 
     f.inputs 'Pants/Skirt' do
       f.has_many :pants, allow_destroy: true, heading: '' do |t|
+        t.input :quantity
         t.input :fabric_consumption
         t.input :specs_form
         t.input :control_no
         t.input :pleats
-        t.input :quantity
         t.input :fabric_label
         t.input :brand_label
         t.input :tafetta
@@ -133,6 +133,7 @@ ActiveAdmin.register Order do
 
     f.inputs 'Vests' do
       f.has_many :vests, allow_destroy: true, heading: '' do |t|
+        t.input :quantity
         t.input :fabric_consumption
         t.input :side_pocket
         t.input :chest_pocket
@@ -152,6 +153,7 @@ ActiveAdmin.register Order do
 
     f.inputs 'Shirts' do
       f.has_many :shirts, allow_destroy: true, heading: '' do |t|
+        t.input :quantity
         t.input :fabric_consumption
         t.input :specs_form
         t.input :control_no
@@ -210,8 +212,8 @@ ActiveAdmin.register Order do
 
       panel 'Coat Style' do
         table_for order.coats do
-          column :fabric_consumption
           column :quantity
+          column :fabric_consumption
           column :fabric_code
           column :lining_code
           column :style
@@ -235,10 +237,10 @@ ActiveAdmin.register Order do
 
       panel 'Pants' do
         table_for order.pants do
+          column :quantity
           column :fabric_consumption
           column :control_no
           column :pleats
-          column :quantity
           column :fabric_code
           column :lining_code
           column :crotch
@@ -258,6 +260,7 @@ ActiveAdmin.register Order do
 
       panel 'Shirts' do
         table_for order.shirts do
+          column :quantity
           column :fabric_consumption
           column :control_no
           column :shirting_barong
@@ -276,6 +279,29 @@ ActiveAdmin.register Order do
           column  :pocket
           column  :collar
           column  :bottom
+        end
+      end
+
+    end
+
+
+    if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Vest Maker"
+
+      panel 'Vests' do
+        table_for order.vests do
+          column :quantity
+          column :fabric_consumption
+          column :side_pocket
+          column :vest_length
+          column :back_width
+          column :chest
+          column :waist
+          column  :hips
+          column  :vest_style
+          column  :remarks
+          column  :number_of_front_buttons
+          column  :lapel_style
+          column  :adjuster_type
         end
       end
 
