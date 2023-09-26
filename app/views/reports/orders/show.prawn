@@ -44,6 +44,14 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
       header << ["Pants", "#{pant.quantity}", "Fabric: #{ pant.fabric_code } Lining: #{ pant.lining_code }"]
     end
 
+    @shirts.each do |shirt|
+      header << ["Shirts", "#{shirt.quantity}", "Fabric: #{ shirt.fabric_code } Lining: #{ shirt.lining_code }"]
+    end
+
+    @vests.each do |vest|
+      header << ["Vest", "#{vest.quantity}", "Fabric: #{ vest.fabric_code } Lining: #{ vest.lining_code }"]
+    end
+
     
     pdf.table(header) do
       cells.borders = [:left, :right, :top, :bottom]
