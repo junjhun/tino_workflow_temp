@@ -320,6 +320,22 @@ ActiveAdmin.register Order do
   # end
 
   action_item :import_demo, only: :show do |p|
-    link_to 'Print', reports_order_path(order)
+    link_to 'Master Print', reports_order_path(order)
+  end
+
+  action_item :import_demo, only: :show do |p|
+    link_to 'Coats Print', reports_order_path(order)
+  end
+
+  action_item :import_demo, only: :show do |p|
+    link_to 'Pants Print', reports_order_path(order)
+  end
+
+  action_item :import_demo, only: :show do |p|
+    link_to 'Shirts Print', reports_order_path(order)
+  end
+
+  action_item :import_demo, only: :show do |p|
+    link_to 'Vests Print', reports_order_path(order)
   end
 end
