@@ -114,21 +114,54 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
                   "#{dir}lining_3.png"
                 end
 
+                lining = if coat.lining == "Unlined"
+                  "#{dir}lining_1.png"
+                elsif coat.lining == "Half-lined"
+                  "#{dir}lining_2.png"
+                else
+                  "#{dir}lining_3.png"
+                end
+
+                pocket_type = if coat.pocket_type == "Curved Chest Pocket"
+                  "#{dir}pocket_type_1.png"
+                elsif coat.pocket_type == "Flat Chest Pocket"
+                  "#{dir}pocket_type_2.png"
+                elsif coat.pocket_type == "Chest Patch Pocket"
+                  "#{dir}pocket_type_3.png"
+                else
+                  "#{dir}pocket_type_4.png"
+                end
+
+                front_side_pocket = if coat.front_side_pocket == "No Pocket"
+                  "#{dir}pockets_1.png"
+                elsif coat.front_side_pocket == "2 Pockets"
+                  "#{dir}pockets_2.png"
+                elsif coat.front_side_pocket == "3 Pockets (w/ticket pocket)"
+                  "#{dir}pockets_3.png"
+                elsif coat.front_side_pocket == "2 Patch Pockets"
+                  "#{dir}pockets_4.png"
+                elsif coat.front_side_pocket == "Pockets with flaps?"
+                  "#{dir}pockets_5.png"
+                elsif coat.front_side_pocket == "Hacking/Italian Pocket?"
+                  "#{dir}pockets_6.png"
+                else
+                  "#{dir}pockets_7.png"
+                end
+
         cbody = [
           [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Coat         [#{single_breasted}] SINGLE BREASTED   [#{double_breasted}] DOUBLE BREASTED", colspan: 6}, {content: "CONTROL NO:#{ coat.control_no }", colspan: 2}],
           [{content: "Fabric label: #{coat&.fabric_label}", colspan: 3}, {content: "Tafetta: #{coat&.tafetta}", rowspan: 2, colspan: 2 }, {content: "Fabric_code: #{coat&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{coat&.lining_code}", rowspan: 2, colspan: 2 }, {content: "Quantity: #{coat&.quantity}", rowspan: 2}],
           [{content: "Brand label: #{coat&.brand_label}", colspan: 3}],
-          [{image: style,  scale: 0.25}, {image: lapel,  scale: 0.5, colspan: 2}, {content: "SLEEVES & PADDING \n\n #{ coat.sleeves_and_padding }", colspan: 4}, {content: "BOUTONNIERE: \n\n #{ coat.boutonniere }", colspan: 3} ],
+          [{image: pocket_type,  scale: 0.3, colspan: 2}, {image: style,  scale: 0.3, colspan: 2}, {image: lapel,  scale: 0.5, colspan: 2},{image: lining,  scale: 0.3, colspan: 2}, {content: "SLEEVES & PADDING \n\n #{ coat.sleeves_and_padding }", colspan: 2} ],
 
           # [{content: "#{  "x" if coat.style == "Single 1 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 2 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 3 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 6 button" }", align: :center}],
           # [{content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}],
     
           [{image: "#{dir}buttons_1.png",  scale: 0.2}, {image: "#{dir}buttons_2.png",  scale: 0.2}, {image: "#{dir}buttons_3.png",  scale: 0.2}, {image: "#{dir}buttons_4.png",  scale: 0.18}, {content: "BUTTONS \n\n   HORN BUTTONS \n REG BUTTONS \n COVERED BUTTONS", colspan: 3, rowspan: 2}, {content: "SLEEVES BUTTONS \n\n FAKE \n FUNCTIONAL / SURGEONS \n 2 FAKE 2 FUNCTIONAL \n NO OHALES", colspan: 3, rowspan: 2}],
           [{content: "#{ coat.no_of_buttons }", align: :center}, {content: "#{ "x" if coat.button_spacing == "Stacking" }", align: :center}, {content: "#{ "x" if coat.button_spacing == "kissing" }", align: :center}, {content: coat.boutonniere_color, align: :center}],
-          [{image: "#{dir}pocket_1.png",  scale: 0.2}, {image: "#{dir}pocket_2.png",  scale: 0.2}, {image: "#{dir}pocket_3.png",  scale: 0.2}, {image: "#{dir}pocket_4.png",  scale: 0.18}, {image: lining,  scale: 0.3, colspan: 2}, {content: "MONOGRAM / LOGO \n\n", colspan: 1}, {content: "ADDITIONAL SPEC \n\n DOUBLE TRIAGULAR FLAPS / with BUTTONS \n EPAULETS \n BODY BELT W/ BELTLOOP", colspan: 3}],
-          [{image: "#{dir}pockets_1.png",  scale: 0.25, colspan: 2}, {image: "#{dir}pockets_2.png",  scale: 0.25, colspan: 2}, {image: "#{dir}pockets_3.png",  scale: 0.25, colspan: 2}, {image: "#{dir}pockets_4.png",  scale: 0.25, colspan: 2}, {image: "#{dir}pockets_5.png",  scale: 0.25, colspan: 2}],
-          [{image: "#{dir}pockets_6.png",  scale: 0.25, colspan: 2}, {image: "#{dir}pockets_7.png",  scale: 0.25, colspan: 2}, {image: vent,  scale: 0.25, colspan: 1}, "Jacket length: #{coat&.jacket_length}", "Back Width: #{coat&.back_width}", "Sleeves: #{coat&.sleeves}", "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", "Collar: #{coat&.collar}"],
-          ["Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", "Hips: #{coat&.hips}", {content: "Remarks: #{coat&.remarks}", colspan: 7}]
+          ["Jacket length: #{coat&.jacket_length}", "Back Width: #{coat&.back_width}", "Sleeves: #{coat&.sleeves}", "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", "Hips: #{coat&.hips}", {content: "BOUTONNIERE: \n\n #{ coat.boutonniere }", colspan: 2}],
+
+          [{content: "MONOGRAM / LOGO \n\n", colspan: 2}, {content: "ADDITIONAL SPEC \n\n DOUBLE TRIAGULAR FLAPS / with BUTTONS \n EPAULETS \n BODY BELT W/ BELTLOOP", colspan: 2}, {image: front_side_pocket,  scale: 0.25, colspan: 2}, {image: vent,  scale: 0.25, colspan: 1}, {content: "Remarks: #{coat&.remarks}", colspan: 3}]
         ]
 
         pdf.table(cbody) do

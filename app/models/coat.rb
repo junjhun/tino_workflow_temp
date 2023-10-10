@@ -7,6 +7,13 @@ class Coat < ApplicationRecord
         "Tail Coat"
     ]
 
+    enum pocket_type: [
+        "Curved Chest Pocket",
+        "Flat Chest Pocket",
+        "Chest Patch Pocket",
+        "Satin on Chest Pocket"  
+    ]
+
     enum breast: [
         "Single Breasted",
         "Double Breasted"
@@ -88,5 +95,15 @@ class Coat < ApplicationRecord
     enum button_spacing: [
         "Stacking",
         "kissing"
+    ]
+
+    enum front_side_pocket: [
+        "No Pocket",
+        "2 Pockets",
+        "3 Pockets (w/ticket pocket)",
+        "2 Patch Pockets",
+        "Pockets with flaps?",
+        "Hacking/Italian Pocket?",
+        "Satin on Pockets Trimming"
     ]
 end

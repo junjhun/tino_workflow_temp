@@ -9,7 +9,7 @@ ActiveAdmin.register Order do
                 items_attributes: %i[id name quantity fabric_and_linning_code _destroy],
                 vests_attributes: %i[id quantity fabric_consumption side_pocket chest_pocket vest_length back_width chest waist hips vest_style remarks number_of_front_buttons lapel_style adjuster_type _destroy],
                 shirts_attributes: %i[id quantity fabric_consumption specs_form number_of_buttons shirting_barong fabric_label brand_label tafetta fabric_code lining_code remarks collar cuffs pleats front_placket back_placket sleeves pocket collar bottom control_no _destroy],
-                coats_attributes: %i[id fabric_consumption specs_form tafetta fabric_label brand_label no_of_buttons breast quantity coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style lapel_style vent lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing coat_pockets vent control_no _destroy],
+                coats_attributes: %i[id fabric_consumption specs_form tafetta fabric_label brand_label no_of_buttons breast quantity coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style lapel_style vent lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing coat_pockets vent control_no pocket_type front_side_pocket _destroy],
                 pants_attributes: %i[id fabric_consumption specs_form tafetta fabric_label brand_label pleats quantity fabric_code lining_code crotch outseam waist seat thigh remarks knee bottom remarks control_no _destroy]
   #
   # or
@@ -85,6 +85,8 @@ ActiveAdmin.register Order do
         t.input :hips
         t.input :stature
         t.input :shoulders
+        t.input :pocket_type
+        t.input :front_side_pocket
         t.input :remarks
 
         t.input :fabric_code
