@@ -70,14 +70,43 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
         single_breasted = "X" if coat.breast == "Single Breasted"
         double_breasted = "X" if coat.breast ==  "Double Breasted"
+        style = if coat.style == "Single 1 button"
+                  "#{dir}button_1.png"
+                elsif coat.style == "Single 2 button"
+                  "#{dir}button_2.png"
+                elsif coat.style == "Single 3 button"
+                  "#{dir}button_3.png"
+                elsif coat.style == "Single 4 button"
+                  "#{dir}button_4.png"
+                elsif coat.style == "Double 4 button"
+                  "#{dir}button_5.png"
+                else
+                  "#{dir}button_6.png"
+                end
+
+        lapel = if coat.lapel_style == "Notch"
+                  "#{dir}lapel_1.png"
+                elsif coat.lapel_style == "Peak"
+                  "#{dir}lapel_2.png"
+                elsif coat.lapel_style == "Notch Tuxedo"
+                  "#{dir}lapel_3.png"
+                elsif coat.lapel_style == "Peaky Shiny"
+                  "#{dir}lapel_4.png"
+                elsif coat.lapel_style == "Shawl"
+                  "#{dir}lapel_5.png"
+                else
+                  "#{dir}lapel_6.png"
+                end
 
         cbody = [
           [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Coat         [#{single_breasted}] SINGLE BREASTED   [#{double_breasted}] DOUBLE BREASTED", colspan: 6}, {content: "CONTROL NO:#{ coat.control_no }", colspan: 2}],
           [{content: "Fabric label: #{coat&.fabric_label}", colspan: 3}, {content: "Tafetta: #{coat&.tafetta}", rowspan: 2, colspan: 2 }, {content: "Fabric_code: #{coat&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{coat&.lining_code}", rowspan: 2, colspan: 2 }, {content: "Quantity: #{coat&.quantity}", rowspan: 2}],
           [{content: "Brand label: #{coat&.brand_label}", colspan: 3}],
-          [{image: "#{dir}button_1.png",  scale: 0.25},{image: "#{dir}button_2.png",  scale: 0.25},{image: "#{dir}button_3.png",  scale: 0.25},{image: "#{dir}button_4.png",  scale: 0.25},{image: "#{dir}button_5.png",  scale: 0.25},{image: "#{dir}button_6.png",  scale: 0.25}, {content: "SLEEVES & PADDING \n\n #{ coat.sleeves_and_padding }", colspan: 4, rowspan: 2}],
-          [{content: "#{  "x" if coat.style == "Single 1 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 2 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 3 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 6 button" }", align: :center}],
-          [{image: "#{dir}boutonniere.png",  scale: 0.2, colspan: 7}, {content: "BOUTONNIERE: \n\n #{ coat.boutonniere } \n\n COAT LINNINGS #{ coat.lining } ", colspan: 3}],
+          [{image: style,  scale: 0.25}, {image: lapel,  scale: 0.5, colspan: 2}, {content: "SLEEVES & PADDING \n\n #{ coat.sleeves_and_padding }", colspan: 4}, {content: "BOUTONNIERE: \n\n #{ coat.boutonniere } \n\n COAT LINNINGS #{ coat.lining } ", colspan: 3} ],
+
+          # [{content: "#{  "x" if coat.style == "Single 1 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 2 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 3 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 6 button" }", align: :center}],
+          # [{content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}],
+    
           [{image: "#{dir}buttons_1.png",  scale: 0.2}, {image: "#{dir}buttons_2.png",  scale: 0.2}, {image: "#{dir}buttons_3.png",  scale: 0.2}, {image: "#{dir}buttons_4.png",  scale: 0.18}, {content: "BUTTONS \n\n   HORN BUTTONS \n REG BUTTONS \n COVERED BUTTONS", colspan: 3, rowspan: 2}, {content: "SLEEVES BUTTONS \n\n FAKE \n FUNCTIONAL / SURGEONS \n 2 FAKE 2 FUNCTIONAL \n NO OHALES", colspan: 3, rowspan: 2}],
           [{content: "#{ coat.no_of_buttons }", align: :center}, {content: "#{ "x" if coat.button_spacing == "Stacking" }", align: :center}, {content: "#{ "x" if coat.button_spacing == "kissing" }", align: :center}, {content: coat.boutonniere_color, align: :center}],
           [{image: "#{dir}pocket_1.png",  scale: 0.2}, {image: "#{dir}pocket_2.png",  scale: 0.2}, {image: "#{dir}pocket_3.png",  scale: 0.2}, {image: "#{dir}pocket_4.png",  scale: 0.18}, {content: "MONOGRAM / LOGO \n\n", colspan: 3}, {content: "ADDITIONAL SPEC \n\n DOUBLE TRIAGULAR FLAPS / with BUTTONS \n EPAULETS \n BODY BELT W/ BELTLOOP", colspan: 3}],
