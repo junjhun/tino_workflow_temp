@@ -10,7 +10,7 @@ ActiveAdmin.register Order do
                 vests_attributes: %i[id quantity fabric_consumption side_pocket chest_pocket vest_length back_width chest waist hips vest_style remarks number_of_front_buttons lapel_style adjuster_type _destroy],
                 shirts_attributes: %i[id quantity fabric_consumption specs_form number_of_buttons shirting_barong fabric_label brand_label tafetta fabric_code lining_code remarks collar cuffs pleats front_placket back_placket sleeves pocket collar bottom control_no _destroy],
                 coats_attributes: %i[id fabric_consumption specs_form tafetta fabric_label brand_label no_of_buttons breast quantity coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style lapel_style vent lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing coat_pockets vent control_no pocket_type front_side_pocket _destroy],
-                pants_attributes: %i[id fabric_consumption specs_form tafetta fabric_label brand_label pleats quantity fabric_code lining_code crotch outseam waist seat thigh remarks knee bottom remarks control_no _destroy]
+                pants_attributes: %i[id fabric_consumption specs_form tafetta fabric_label brand_label pleats quantity fabric_code lining_code crotch outseam waist seat thigh remarks knee bottom remarks control_no back_pocket strap pant_cuffs add_suspender_buttons _destroy]
   #
   # or
   #
@@ -129,6 +129,10 @@ ActiveAdmin.register Order do
         t.input :thigh
         t.input :knee
         t.input :bottom
+        t.input :back_pocket
+        t.input :strap
+        t.input :pant_cuffs
+        t.input :add_suspender_buttons
         t.input :remarks
       end
     end

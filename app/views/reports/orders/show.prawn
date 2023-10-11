@@ -160,7 +160,6 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           [{image: "#{dir}buttons_1.png",  scale: 0.2}, {image: "#{dir}buttons_2.png",  scale: 0.2}, {image: "#{dir}buttons_3.png",  scale: 0.2}, {image: "#{dir}buttons_4.png",  scale: 0.18}, {content: "BUTTONS \n\n   HORN BUTTONS \n REG BUTTONS \n COVERED BUTTONS", colspan: 3, rowspan: 2}, {content: "SLEEVES BUTTONS \n\n FAKE \n FUNCTIONAL / SURGEONS \n 2 FAKE 2 FUNCTIONAL \n NO OHALES", colspan: 3, rowspan: 2}],
           [{content: "#{ coat.no_of_buttons }", align: :center}, {content: "#{ "x" if coat.button_spacing == "Stacking" }", align: :center}, {content: "#{ "x" if coat.button_spacing == "kissing" }", align: :center}, {content: coat.boutonniere_color, align: :center}],
           ["Jacket length: #{coat&.jacket_length}", "Back Width: #{coat&.back_width}", "Sleeves: #{coat&.sleeves}", "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", "Hips: #{coat&.hips}", {content: "BOUTONNIERE: \n\n #{ coat.boutonniere }", colspan: 2}],
-
           [{content: "MONOGRAM / LOGO \n\n", colspan: 2}, {content: "ADDITIONAL SPEC \n\n DOUBLE TRIAGULAR FLAPS / with BUTTONS \n EPAULETS \n BODY BELT W/ BELTLOOP", colspan: 2}, {image: front_side_pocket,  scale: 0.25, colspan: 2}, {image: vent,  scale: 0.25, colspan: 1}, {content: "Remarks: #{coat&.remarks}", colspan: 3}]
         ]
 
@@ -188,13 +187,46 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
         pleats_no = "X" if pant.pleats == "NO PLEATS"
         pleats_back = "X" if pant.pleats == "BACK POCKETS"
 
+        back_pocket = if pant.back_pocket == "No Back Pocket"
+          "#{dir}back_1.png"
+        elsif pant.back_pocket == "2 Back Pocket"
+          "#{dir}back_2.png"
+        elsif pant.back_pocket == "1 left Back Pocket"
+          "#{dir}back_3.png"
+        elsif pant.back_pocket == "1 right Back Pocket"
+          "#{dir}back_4.png"
+        elsif pant.back_pocket == "Pockets with Button?"
+          "#{dir}back_5.png"
+        else
+          "#{dir}back_6.png"
+        end
+
+        pant_cuffs = if pant.pant_cuffs == "No pant cuffs"
+          "#{dir}pant_cuffs_1.png"
+        elsif pant.back_pocket == "With pant cuffs"
+          "#{dir}pant_cuffs_2.png"
+        else
+          "#{dir}pant_cuffs_3.png"
+        end
+
+        strap = if pant.strap == "No overlap / no extended strap"
+          "#{dir}strap_1.png"
+        elsif pant.strap == "Extended Overlap / Pointed Strap / 1 Button"
+          "#{dir}strap_2.png"
+        elsif pant.strap == "Extended Overlap / Squared Strap / 2 Button"
+          "#{dir}strap_3.png"
+        elsif pant.strap == "Thick waistband"
+          "#{dir}strap_4.png"
+        else
+          "#{dir}strap_5.png"
+        end
+
         cbody = [
           [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Pants/Trousers: [#{pleats_pockets}] PLEATS TOWARDS POCKETS   [#{pleats_fly}] PLEATS TOWARDS FLY   [#{pleats_no}] NO PLEATS   [#{pleats_back}] BACK POCKETS", colspan: 6}, {content: "CONTROL NO:#{ pant.control_no }", colspan: 2}],
-          [{content: "Fabric label: #{pant&.fabric_label}", colspan: 2}, {content: "Tafetta: #{pant&.tafetta}", colspan: 3   }, {content: "Fabric_code: #{pant&.fabric_code}", colspan: 2 }, {content: "Lining_code: #{pant&.lining_code}", colspan: 2 }, {content: "Quantity: #{pant&.quantity}", rowspan: 2} ],
-          [{content: "Brand label: #{pant&.brand_label}", colspan: 3}],
-          [{image: "#{dir}pleats_1.png",  scale: 0.2}, {image: "#{dir}pleats_2.png",  scale: 0.2}, {image: "#{dir}pleats_3.png",  scale: 0.2}, {image: "#{dir}pleats_4.png",  scale: 0.2}, "Crotch: #{pant&.crotch}", "Outseam: #{pant&.outseam}", {image: "#{dir}pleats_1.png",  scale: 0.2}, {image: "#{dir}ppockets_1.png",  scale: 0.2}, {image: "#{dir}ppockets_2.png",  scale: 0.2}, {image: "#{dir}ppockets_3.png",  scale: 0.18}],
-          [{content: "#{ "x" if pant.pleats ==  "PLEATS TOWARDS POCKETS"}"}, {content: "#{ "x" if pant.pleats ==  "PLEATS TOWARDS FLY"}"}, {content: "#{ "x" if pant.pleats ==  "NO PLEATS"}"}, {content: "#{ "x" if pant.pleats ==  "BACK POCKETS"}"}, {}, {}, {content: "#{ "x" if pant.pleats ==  "PLEATS TOWARDS POCKETS"}"}, {content: "#{ "x" if pant.pleats ==  "PLEATS TOWARDS FLY"}"}, {content: "#{ "x" if pant.pleats ==  "NO PLEATS"}"}, {content: "#{ "x" if pant.pleats ==  "BACK POCKETS"}"}],
-          ["Waist: #{pant&.waist}", "Seat: #{pant&.seat}", "Thigh: #{pant&.thigh}", "Knee: #{pant&.knee}", "Bottom: #{pant&.bottom}", {content: "Remarks: #{pant&.remarks}", colspan: 5}]
+          [{content: "Fabric label: #{pant&.fabric_label}", colspan: 2}, {content: "Tafetta: #{pant&.tafetta}", colspan: 2   }, {content: "Add suspender buttons: #{pant&.add_suspender_buttons}", colspan: 1}, {content: "Fabric_code: #{pant&.fabric_code}", colspan: 2 }, {content: "Lining_code: #{pant&.lining_code}", colspan: 2 }, {content: "Quantity: #{pant&.quantity}"} ],
+          [{image: "#{dir}pleats_1.png",  scale: 0.2}, {image: "#{dir}pleats_2.png",  scale: 0.2}, {image: "#{dir}pleats_3.png",  scale: 0.2}, {image: "#{dir}pleats_4.png",  scale: 0.2}, {image: "#{dir}pleats_1.png",  scale: 0.2}, {image: "#{dir}ppockets_1.png",  scale: 0.2}, {image: "#{dir}ppockets_2.png",  scale: 0.2}, {image: "#{dir}ppockets_3.png",  scale: 0.18}, "Crotch: #{pant&.crotch}", "Outseam: #{pant&.outseam}"],
+          [{content: "#{ "X" if pant.pleats ==  "PLEATS TOWARDS POCKETS"}"}, {content: "#{ "X" if pant.pleats ==  "PLEATS TOWARDS FLY"}"}, {content: "#{ "X" if pant.pleats ==  "NO PLEATS"}"}, {content: "#{ "X" if pant.pleats ==  "BACK POCKETS"}"}, {}, {}, {content: "#{ "X" if pant.pleats ==  "PLEATS TOWARDS POCKETS"}"}, {content: "#{ "X" if pant.pleats ==  "PLEATS TOWARDS FLY"}"}, {content: "#{ "X" if pant.pleats ==  "NO PLEATS"}"}, {content: "#{ "X" if pant.pleats ==  "BACK POCKETS"}"}],
+          [{content: "Brand label: #{pant&.brand_label}", colspan: 1},  {image: back_pocket,  scale: 0.2, colspan: 1 }, {image: pant_cuffs,  scale: 0.2, colspan: 1 }, {image: strap,  scale: 0.2, colspan: 1 }, "Waist: #{pant&.waist}", "Seat: #{pant&.seat}", "Thigh: #{pant&.thigh}", "Knee: #{pant&.knee}", "Bottom: #{pant&.bottom}", {content: "Remarks: #{pant&.remarks}", colspan: 1}]
         ]
 
         pdf.table(cbody) do

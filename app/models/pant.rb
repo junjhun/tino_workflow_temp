@@ -12,4 +12,27 @@ class Pant < ApplicationRecord
         "NO PLEATS",
         "BACK POCKETS"
     ]
+
+    enum back_pocket: [
+        "No Back Pocket",
+        "2 Back Pocket",
+        "1 left Back Pocket",
+        "1 right Back Pocket",
+        "Pockets with Button?",
+        "Pockets with Flap"
+    ]
+
+    enum pant_cuffs: [
+        "No pant cuffs",
+        "With pant cuffs",
+        "Slanting Bottom"
+    ]
+
+    enum strap: [
+        "No overlap / no extended strap",
+        "Extended Overlap / Pointed Strap / 1 Button",
+        "Extended Overlap / Squared Strap / 2 Button",
+        "Thick waistband",
+        "Other Design"
+    ]
 end
