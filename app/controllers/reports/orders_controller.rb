@@ -7,6 +7,7 @@ class Reports::OrdersController < ApplicationController
     layout 'report'
 
     def show
+      @report = request.query_parameters&.first&.second
       @user = User.find(params[:id])
     end
 

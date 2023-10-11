@@ -326,22 +326,22 @@ ActiveAdmin.register Order do
   # end
 
   action_item :import_demo, only: :show do |p|
-    link_to 'Master Print', reports_order_path(order)
+    link_to 'Master Print', reports_order_path(order, type: 'Master')
   end
 
   action_item :import_demo, only: :show do |p|
-    link_to 'Coats Print', reports_order_path(order)
+    link_to 'Coats Print', reports_order_path(order, type: 'Coats')
   end
 
   action_item :import_demo, only: :show do |p|
-    link_to 'Pants Print', reports_order_path(order)
+    link_to 'Pants Print', reports_order_path(order, type: 'Pants')
   end
 
   action_item :import_demo, only: :show do |p|
-    link_to 'Shirts Print', reports_order_path(order)
+    link_to 'Shirts Print', reports_order_path(order, type: 'Shirts')
   end
 
   action_item :import_demo, only: :show do |p|
-    link_to 'Vests Print', reports_order_path(order)
+    link_to 'Vests Print', reports_order_path(order, type: 'Vests')
   end
 end
