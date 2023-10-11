@@ -248,16 +248,52 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
       @shirts.each do |shirt|
 
+        pleats = if shirt.pleats == "TWO SIDE PLEAT"
+          "#{dir}pleats_1.png"
+        elsif shirt.pleats == "CENTER PLEAT"
+          "#{dir}pleats_2.png"
+        elsif shirt.pleats == "NO PLEAT"
+          "#{dir}pleats_3.png"
+        else
+          "#{dir}pleats_4.png"
+        end
+
+        spocket = if shirt.pocket == "Round"
+          "#{dir}spocket_1.png"
+        elsif shirt.pocket == "Agile"
+          "#{dir}spocket_2.png"
+        elsif shirt.pocket == "Pointed"
+          "#{dir}spocket_3.png"
+        elsif shirt.pocket == "Square w/ Pleats"
+          "#{dir}spocket_4.png"
+        elsif shirt.pocket == "w/ squared flaps"
+          "#{dir}spocket_5.png"
+        elsif shirt.pocket == "w/ ponted flaps"
+          "#{dir}spocket_6.png"
+        elsif shirt.pocket == "w/ slanted flaps"
+          "#{dir}spocket_7.png"
+        elsif shirt.pocket == "w/ pointed curve flaps"
+          "#{dir}spocket_8.png"
+        else
+          "#{dir}spocket_9.png"
+        end
+
+        bottom = if shirt.bottom == "Straight Bottom"
+          "#{dir}bottom_1.png"
+        else
+          "#{dir}bottom_2.png"
+        end
+
         shirting = "X" if shirt.shirting_barong == "SHIRTING"
         barong = "X" if shirt.shirting_barong == "BARONG"
         tux = "X" if shirt.shirting_barong == "TUX SPECS FORM"
 
         cbody = [
           [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 6}, {content: "CONTROL NO:#{ shirt.control_no }", colspan: 2}],
-          [{content: "Fabric label: #{shirt&.fabric_label}", colspan: 3}, {content: "Tafetta: #{shirt&.tafetta}", rowspan: 2, colspan: 2 }, {content: "Fabric_code: #{shirt&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{shirt&.lining_code}", rowspan: 2, colspan: 3 } ],
+          [{content: "Fabric label: #{shirt&.fabric_label}", colspan: 3}, {content: "Tafetta: #{shirt&.tafetta}", rowspan: 2, colspan: 2 }, {content: "Fabric_code: #{shirt&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{shirt&.lining_code}", rowspan: 2, colspan: 2 }, {content: "Number of buttons: #{shirt&.number_of_buttons}", rowspan: 2} ],
           [{content: "Brand label: #{shirt&.brand_label}", colspan: 3}],
-          [{content: "Front Placket: #{shirt&.front_placket}", colspan: 3}, {content: "Back Placket: #{shirt&.back_placket}", colspan: 2 }, {content: "Side Placket: #{shirt&.side_placket}", colspan: 2 }, {content: "Pocket: #{shirt&.pocket}", colspan: 3 } ],
-          [{content: "Remarks: #{shirt&.remarks}", colspan: 10}]
+          [{image: bottom,  scale: 0.25, colspan: 1}, {image: spocket,  scale: 0.3, colspan: 1}, {image: pleats,  scale: 0.3, colspan: 2}, {content: "Front Placket: #{shirt&.front_placket}", colspan: 2}, {content: "Back Placket: #{shirt&.back_placket}", colspan: 2 }, {content: "Side Placket: #{shirt&.side_placket}", colspan: 2 }],
+          [{content: "Remarks: #{shirt&.remarks}", colspan: 10} ],
         ]
 
         pdf.table(cbody) do
