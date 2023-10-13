@@ -150,7 +150,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
                   "#{dir}pockets_7.png"
                 end
 
-                regular = "X" if coat&.button == "Regular"
+                regular = "X" if coat&.button == "Regular Button"
                 functional = "X" if coat&.button == "Functional"
                 horned=  "X" if coatr&.button == "Horned"
                 covered =  "X" if coatr&.button == "Covered"
