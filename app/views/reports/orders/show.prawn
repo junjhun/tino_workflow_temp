@@ -3,8 +3,8 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
   dir = "#{Rails.root}/app/assets/images/"
 
   order_date = @order&.created_at
-  mto = "X" if @order&.type_of_service == "MTO"
-  labor =  "X" if @order&.type_of_service == "Labor"
+  mto = "X" if @order&.type_of_service == "Made to Order"
+  labor =  "X" if @order&.type_of_service == "Bespoke Labor"
   first_fitting = @order&.first_fitting
   second_fitting = @order&.second_fitting
   finish = @order&.finish
@@ -151,7 +151,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
                 end
 
         cbody = [
-          [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Coat         [#{single_breasted}] SINGLE BREASTED   [#{double_breasted}] DOUBLE BREASTED", colspan: 6}, {content: "CONTROL NO:#{ coat.control_no }", colspan: 2}],
+          [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Coat         [#{single_breasted}] SINGLE BREASTED   [#{double_breasted}] DOUBLE BREASTED", colspan: 6}, {content: "CONTROL NO:#{ @order.jo_number }", colspan: 2}],
           [{content: "Fabric label: #{coat&.fabric_label}", colspan: 3}, {content: "Tafetta: #{coat&.tafetta}", rowspan: 2, colspan: 2 }, {content: "Fabric_code: #{coat&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{coat&.lining_code}", rowspan: 2, colspan: 2 }, {content: "Quantity: #{coat&.quantity}", rowspan: 2}],
           [{content: "Brand label: #{coat&.brand_label}", colspan: 3}],
           [{image: pocket_type,  scale: 0.3, colspan: 2}, {image: style,  scale: 0.3, colspan: 2}, {image: lapel,  scale: 0.5, colspan: 2},{image: lining,  scale: 0.3, colspan: 2}, {content: "SLEEVES & PADDING \n\n #{ coat.sleeves_and_padding }", colspan: 2} ],
@@ -159,7 +159,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           # [{content: "#{  "x" if coat.style == "Single 1 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 2 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 3 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 6 button" }", align: :center}],
           # [{content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}],
     
-          [{image: "#{dir}buttons_1.png",  scale: 0.2}, {image: "#{dir}buttons_2.png",  scale: 0.2}, {image: "#{dir}buttons_3.png",  scale: 0.2}, {image: "#{dir}buttons_4.png",  scale: 0.18}, {content: "BUTTONS \n\n   HORN BUTTONS \n REG BUTTONS \n COVERED BUTTONS", colspan: 3, rowspan: 2}, {content: "SLEEVES BUTTONS \n\n FAKE \n FUNCTIONAL / SURGEONS \n 2 FAKE 2 FUNCTIONAL \n NO OHALES", colspan: 3, rowspan: 2}],
+          [{image: "#{dir}buttons_1.png",  scale: 0.2}, {image: "#{dir}buttons_2.png",  scale: 0.2}, {image: "#{dir}buttons_3.png",  scale: 0.2}, {image: "#{dir}buttons_4.png",  scale: 0.18}, {content: "BUTTONS \n\n   HORN BUTTONS \n REG BUTTONS \n COVERED BUTTONS \n\n Number of buttons#{ coat.no_of_buttons }", colspan: 3, rowspan: 2}, {content: "SLEEVES BUTTONS \n\n FAKE \n FUNCTIONAL / SURGEONS \n 2 FAKE 2 FUNCTIONAL \n NO OHALES", colspan: 3, rowspan: 2}],
           [{content: "#{ coat.no_of_buttons }", align: :center}, {content: "#{ "x" if coat.button_spacing == "Stacking" }", align: :center}, {content: "#{ "x" if coat.button_spacing == "kissing" }", align: :center}, {content: coat.boutonniere_color, align: :center}],
           ["Jacket length: #{coat&.jacket_length}", "Back Width: #{coat&.back_width}", "Sleeves: #{coat&.sleeves}", "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", "Hips: #{coat&.hips}", {content: "BOUTONNIERE: \n\n #{ coat.boutonniere }", colspan: 2}],
           [{content: "MONOGRAM / LOGO \n\n", colspan: 2}, {content: "ADDITIONAL SPEC \n\n DOUBLE TRIAGULAR FLAPS / with BUTTONS \n EPAULETS \n BODY BELT W/ BELTLOOP", colspan: 2}, {image: front_side_pocket,  scale: 0.25, colspan: 2}, {image: vent,  scale: 0.25, colspan: 1}, {content: "Remarks: #{coat&.remarks}", colspan: 3}]
@@ -224,7 +224,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
         end
 
         cbody = [
-          [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Pants/Trousers: [#{pleats_pockets}] PLEATS TOWARDS POCKETS   [#{pleats_fly}] PLEATS TOWARDS FLY   [#{pleats_no}] NO PLEATS   [#{pleats_back}] BACK POCKETS", colspan: 6}, {content: "CONTROL NO:#{ pant.control_no }", colspan: 2}],
+          [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Pants/Trousers: [#{pleats_pockets}] PLEATS TOWARDS POCKETS   [#{pleats_fly}] PLEATS TOWARDS FLY   [#{pleats_no}] NO PLEATS   [#{pleats_back}] BACK POCKETS", colspan: 6}, {content: "CONTROL NO:#{ @order.jo_number }", colspan: 2}],
           [{content: "Fabric label: #{pant&.fabric_label}", colspan: 2}, {content: "Tafetta: #{pant&.tafetta}", colspan: 2   }, {content: "Add suspender buttons: #{pant&.add_suspender_buttons}", colspan: 1}, {content: "Fabric_code: #{pant&.fabric_code}", colspan: 2 }, {content: "Lining_code: #{pant&.lining_code}", colspan: 2 }, {content: "Quantity: #{pant&.quantity}"} ],
           [{image: "#{dir}pleats_1.png",  scale: 0.2}, {image: "#{dir}pleats_2.png",  scale: 0.2}, {image: "#{dir}pleats_3.png",  scale: 0.2}, {image: "#{dir}pleats_4.png",  scale: 0.2}, {image: "#{dir}pleats_1.png",  scale: 0.2}, {image: "#{dir}ppockets_1.png",  scale: 0.2}, {image: "#{dir}ppockets_2.png",  scale: 0.2}, {image: "#{dir}ppockets_3.png",  scale: 0.18}, "Crotch: #{pant&.crotch}", "Outseam: #{pant&.outseam}"],
           [{content: "#{ "X" if pant.pleats ==  "PLEATS TOWARDS POCKETS"}"}, {content: "#{ "X" if pant.pleats ==  "PLEATS TOWARDS FLY"}"}, {content: "#{ "X" if pant.pleats ==  "NO PLEATS"}"}, {content: "#{ "X" if pant.pleats ==  "BACK POCKETS"}"}, {}, {}, {content: "#{ "X" if pant.pleats ==  "PLEATS TOWARDS POCKETS"}"}, {content: "#{ "X" if pant.pleats ==  "PLEATS TOWARDS FLY"}"}, {content: "#{ "X" if pant.pleats ==  "NO PLEATS"}"}, {content: "#{ "X" if pant.pleats ==  "BACK POCKETS"}"}],
@@ -291,7 +291,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
         tux = "X" if shirt.shirting_barong == "TUX SPECS FORM"
 
         cbody = [
-          [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 6}, {content: "CONTROL NO:#{ shirt.control_no }", colspan: 2}],
+          [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 6}, {content: "CONTROL NO:#{ @order.jo_number }", colspan: 2}],
           [{content: "Fabric label: #{shirt&.fabric_label}", colspan: 3}, {content: "Tafetta: #{shirt&.tafetta}", rowspan: 2, colspan: 2 }, {content: "Fabric_code: #{shirt&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{shirt&.lining_code}", rowspan: 2, colspan: 2 }, {content: "Number of buttons: #{shirt&.number_of_buttons}", rowspan: 2} ],
           [{content: "Brand label: #{shirt&.brand_label}", colspan: 3}],
           [{image: bottom,  scale: 0.25, colspan: 1}, {image: spocket,  scale: 0.3, colspan: 1}, {image: pleats,  scale: 0.3, colspan: 2}, {content: "Front Placket: #{shirt&.front_placket}", colspan: 2}, {content: "Back Placket: #{shirt&.back_placket}", colspan: 2 }, {content: "Side Placket: #{shirt&.side_placket}", colspan: 2 }],
@@ -316,7 +316,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
       @vests.each do |vest|
 
         cbody = [
-          [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "VEST STYLE: #{ vest.vest_style } ADJUSTER TYPE: #{ vest.adjuster_type } LAPEL STYLE: #{ vest.lapel_style } TUX SPECS FORM", colspan: 6}, {content: "CONTROL NO:#{ vest.order_id }", colspan: 2}],
+          [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "VEST STYLE: #{ vest.vest_style } ADJUSTER TYPE: #{ vest.adjuster_type } LAPEL STYLE: #{ vest.lapel_style } TUX SPECS FORM", colspan: 6}, {content: "CONTROL NO:#{ @order.jo_number }", colspan: 2}],
           [{content: "Side pocket: #{vest&.side_pocket}", colspan: 4}, {content: "Chest pocket: #{vest&.chest_pocket}", colspan: 2 }, {content: "Vest Length: #{vest&.vest_length}", colspan: 2 }, {content: "Back Width: #{vest&.back_width}", colspan: 2 }  ],
           [{content: "Back width: #{vest&.back_width}", colspan: 3}, {content: "Chest: #{vest&.chest}", colspan: 2 }, {content: "Waist: #{vest&.waist}", colspan: 2 }, {content: "Hips: #{vest&.hips}", colspan: 3 } ],
           [{content: "Remarks: #{vest&.remarks}", colspan: 10}]
