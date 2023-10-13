@@ -71,10 +71,10 @@ class Coat < ApplicationRecord
     ]
 
     enum button: [
+        "Regular",
         "Functional",
         "Horned",
-        "Covered",
-        "Covered buttons"
+        "Covered"
     ]
 
     enum sleeve_buttons: [
