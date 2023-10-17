@@ -152,8 +152,8 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
                 regular = "X" if coat&.button == "Regular Button"
                 functional = "X" if coat&.button == "Functional"
-                horned=  "X" if coatr&.button == "Horned"
-                covered =  "X" if coatr&.button == "Covered"
+                horned=  "X" if coat&.button == "Horned"
+                covered =  "X" if coat&.button == "Covered"
 
         cbody = [
           [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Coat         [#{single_breasted}] SINGLE BREASTED   [#{double_breasted}] DOUBLE BREASTED", colspan: 6}, {content: "CONTROL NO:#{ @order.jo_number }", colspan: 2}],
