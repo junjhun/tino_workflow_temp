@@ -151,6 +151,12 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
                   "#{dir}pockets_7.png"
                 end
 
+                button_spacing = if coat.button_spacing == "Stacking"
+                  "#{dir}buttons_2.png"
+                else
+                  "#{dir}buttons_3.png"
+                end
+
                 regular = "X" if coat&.button == "Regular Button"
                 horned =  "X" if coat&.button == "Horned"
                 brass =  "X" if coat&.button == "Brass"
@@ -171,8 +177,8 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           # [{content: "#{  "x" if coat.style == "Single 1 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 2 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 3 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 6 button" }", align: :center}],
           # [{content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}],
     
-          [{image: "#{dir}buttons_1.png",  scale: 0.2}, {image: "#{dir}buttons_2.png",  scale: 0.2}, {image: "#{dir}buttons_3.png",  scale: 0.2}, {image: "#{dir}buttons_4.png",  scale: 0.18}, {content: "TYPE OF BUTTONS \n\n   [#{ regular }] REGULAR BUTTONS \n [#{ horned }] HORNED BUTTONS \n [#{ brass }] BRASS BUTTONS \n [#{ covered }] COVERED BUTTONS \n\n Number of buttons: #{ coat.no_of_buttons }", colspan: 3, rowspan: 2}, {content: "SLEEVES BUTTONS \n\n [#{ sfake }] FAKE \n [#{ sfunctional }] FUNCTIONAL / SURGEONS \n [#{ s2fake }] 2 FAKE 2 FUNCTIONAL \n [#{ noohales }] NO OHALES", colspan: 3, rowspan: 2}],
-          [{content: "#{ coat.no_of_buttons }", align: :center}, {content: "#{ "x" if coat.button_spacing == "Stacking" }", align: :center}, {content: "#{ "x" if coat.button_spacing == "kissing" }", align: :center}, {content: coat.boutonniere_color, align: :center}],
+          [{image: "#{dir}buttons_1.png",  scale: 0.2},  {image: button_spacing ,  scale: 0.2}, {content: "TYPE OF BUTTONS \n\n   [#{ regular }] REGULAR BUTTONS \n [#{ horned }] HORNED BUTTONS \n [#{ brass }] BRASS BUTTONS \n [#{ covered }] COVERED BUTTONS \n\n Number of buttons: #{ coat.no_of_buttons }", colspan: 4, rowspan: 2}, {content: "SLEEVES BUTTONS \n\n [#{ sfake }] FAKE \n [#{ sfunctional }] FUNCTIONAL / SURGEONS \n [#{ s2fake }] 2 FAKE 2 FUNCTIONAL \n [#{ noohales }] NO OHALES", colspan: 4, rowspan: 2}],
+          [{content: "#{ coat.no_of_buttons }", align: :center}, {content: "Color: #{coat.boutonniere_color}", align: :center}],
           [{content: "MONOGRAM / LOGO \n\n", colspan: 2}, {image: front_side_pocket,  scale: 0.25, colspan: 2}, {image: vent,  scale: 0.25, colspan: 1}, {content: "Remarks: #{coat&.remarks}", colspan: 5}]
         ]
 
