@@ -330,7 +330,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 6}, {content: "JO NO:#{ @order.jo_number }", colspan: 2}],
           [{content: "Fabric label: #{shirt&.fabric_label}", colspan: 3}, {content: "Tafetta: #{shirt&.tafetta}", rowspan: 2, colspan: 2 }, {content: "Fabric_code: #{shirt&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{shirt&.lining_code}", rowspan: 2, colspan: 2 }, {content: "Number of buttons: #{shirt&.number_of_buttons}", rowspan: 2} ],
           [{content: "Brand label: #{shirt&.brand_label}", colspan: 3}],
-          [{image: bottom,  scale: 0.25, colspan: 1}, {image: spocket,  scale: 0.3, colspan: 1}, {image: pleats,  scale: 0.3, colspan: 2}, {content: "Front Placket: #{shirt&.front_placket}", colspan: 2}, {content: "Back Placket: #{shirt&.back_placket}", colspan: 2 }, {content: "Side Placket: #{shirt&.side_placket}", colspan: 2 }],
+          [{image: bottom,  scale: 0.25, colspan: 1}, {image: spocket,  scale: 0.3, colspan: 1}, {content: "Pleats: #{shirt.pleats}", colspan: 2}, {content: "Front Placket: #{shirt&.front_placket}", colspan: 2}, {content: "Back Placket: #{shirt&.back_placket}", colspan: 2 }, {content: "Side Placket: #{shirt&.side_placket}", colspan: 2 }],
           [{content: "Remarks: #{shirt&.remarks}", colspan: 10} ],
         ]
 
