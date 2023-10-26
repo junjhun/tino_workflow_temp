@@ -74,6 +74,7 @@ class Coat < ApplicationRecord
         "Regular Button",
         "Functional",
         "Horned",
+        "Brass",
         "Covered"
     ]
 
