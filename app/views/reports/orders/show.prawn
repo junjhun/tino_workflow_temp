@@ -5,6 +5,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
   order_date = @order&.created_at
   mto = "X" if @order&.type_of_service == "Made to Order"
   labor =  "X" if @order&.type_of_service == "Bespoke Labor"
+  bespoke =  "X" if @order&.type_of_service == "Bespoke"
   first_fitting = @order&.first_fitting
   second_fitting = @order&.second_fitting
   finish = @order&.finish
@@ -33,7 +34,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
     header = [
         [{image: "#{dir}logo.png",  scale: 0.1, rowspan: 3}, "CUSTOMER: #{name}", "JO Number: #{ @order&.jo_number }", "1st Fitting: #{ first_fitting }"],
         [{content: "CONTACT: #{contact} \n EMAIL: #{email} \n ADDRESS: #{address}", rowspan: 2}, "Date: #{ order_date }", "2nd Fitting: #{ second_fitting }"],
-        ["[#{mto}] MTO \n [#{old_client}] OLD CLIENT \n [#{labor}] LABOR", "Finish: #{ finish }"],
+        ["[#{mto}] MTO \n [#{old_client}] OLD CLIENT \n [#{labor}] LABOR \n [#{bespoke}] Bespoke", "Finish: #{ finish }"],
         ["ITEM", "QTY", "FABRIC & LINING CODE", {content: "", rowspan: 5}],
       ]
 
