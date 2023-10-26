@@ -13,6 +13,19 @@ class Pant < ApplicationRecord
         "BACK POCKETS"
     ]
 
+    enum pleat_style: [
+        "NO PLEAT",
+        "SINGLE PLEATS",
+        "TWO PLEATS",
+        "BOX PLEATS"
+    ]
+
+    enum type_of_pocket: [
+        "SLANTED POCKET",
+        "STRAIGHT POCKET",
+        "NACIDO POCKET"
+    ]
+
     enum back_pocket: [
         "No Back Pocket",
         "2 Back Pocket",

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_10_234420) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_26_032045) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -128,6 +128,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_10_234420) do
     t.integer "pant_cuffs", default: 0, null: false
     t.integer "strap", default: 0, null: false
     t.boolean "add_suspender_buttons", default: false, null: false
+    t.integer "pleat_style", default: 0, null: false
+    t.integer "type_of_pocket", default: 0, null: false
   end
 
   create_table "shirts", force: :cascade do |t|
