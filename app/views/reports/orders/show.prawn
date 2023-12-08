@@ -429,24 +429,18 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
         cbody = [
           [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 3}, {content: "Coat         [#{single_breasted}] SINGLE BREASTED   [#{double_breasted}] DOUBLE BREASTED", colspan: 3}, {content: "JO NO:#{ @order.jo_number }", colspan: 2}],
-          [{content: "Fabric label: #{shirt&.fabric_label}", colspan: 3}, {content: "Tafetta: #{shirt&.tafetta}", colspan: 2 }, {content: "Fabric_code: #{shirt&.fabric_code}", colspan: 2 }, {content: "Lining_code: #{shirt&.lining_code}", colspan: 2 }, {content: "Number of buttons: #{shirt&.number_of_buttons}"} ],
+          [{content: "Fabric label: #{shirt&.fabric_label}", colspan: 2}, {content: "Tafetta: #{shirt&.tafetta}", colspan: 2 }, {content: "Jacket length: #{coat&.jacket_length}", colspan: 2}, {content: "Brand label: #{shirt&.brand_label}", colspan: 2}, {content: "Number of buttons: #{shirt&.number_of_buttons}", colspan: 2} ],
 
 
 
-
-
-          [{content: "Brand label: #{shirt&.brand_label}", colspan: 3}, {content: "Tafetta: #{coat&.tafetta}", colspan: 2 }, {content: "Fabric_code: #{coat&.fabric_code}", colspan: 2 }, {content: "Lining_code: #{coat&.lining_code}", colspan: 2 }, {content: "Quantity: #{coat&.quantity}"}],
-          ["Jacket length: #{coat&.jacket_length}", "Back Width: #{coat&.back_width}", "Sleeves: #{coat&.sleeves}", "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", "Hips: #{coat&.hips}", {content: "BOUTONNIERE: \n\n #{ coat.boutonniere }", colspan: 2}],
-          [{image: pocket_type,  scale: 0.3, colspan: 2}, {image: style,  scale: 0.3, colspan: 2}, {image: lapel,  scale: 0.5, colspan: 2},{image: lining,  scale: 0.3, colspan: 2}, {content: "SLEEVES & PADDING \n\n #{ coat.sleeves_and_padding }", colspan: 2} ],
+          [{content: "Cuffs: #{ shirt.cuffs }", colspan: 2}, {content: "Fabric_code: #{coat&.fabric_code}", colspan: 2 }, {content: "Lining_code: #{coat&.lining_code}", colspan: 2 }, {content: "Quantity: #{coat&.quantity}", colspan: 2}, {content: "Back Width: #{coat&.back_width}", colspan: 2}],
+          ["Sleeves: #{coat&.sleeves}", "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", "Hips: #{coat&.hips}", {content: "BOUTONNIERE: #{ coat.boutonniere }", colspan: 4}],
 
           # [{content: "#{  "x" if coat.style == "Single 1 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 2 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 3 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 6 button" }", align: :center}],
           # [{content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}],
     
           [{image: "#{dir}buttons_1.png",  scale: 0.2},  {image: button_spacing ,  scale: 0.2}, {content: "TYPE OF BUTTONS \n\n   [#{ regular }] REGULAR BUTTONS \n [#{ horned }] HORNED BUTTONS \n [#{ brass }] BRASS BUTTONS \n [#{ covered }] COVERED BUTTONS \n\n Number of buttons: #{ coat.no_of_buttons }", colspan: 4, rowspan: 2}, {content: "SLEEVES BUTTONS \n\n [#{ sfake }] FAKE \n [#{ sfunctional }] FUNCTIONAL / SURGEONS \n [#{ s2fake }] 2 FAKE 2 FUNCTIONAL \n [#{ noohales }] NO OHALES", colspan: 4, rowspan: 2}],
           [{content: "#{ coat.no_of_buttons }", align: :center}, {content: "Color: #{coat.boutonniere_color}", align: :center}],
-          [{content: "MONOGRAM / LOGO \n\n", colspan: 2}, {image: front_side_pocket,  scale: 0.25, colspan: 2}, {image: vent,  scale: 0.25, colspan: 1}, {content: "Remarks: #{coat&.remarks}", colspan: 5}],
-
-
 
 
           [{image: bottom,  scale: 0.25, colspan: 1}, {image: spocket,  scale: 0.3, colspan: 1}, {content: "Pleats: #{shirt.pleats}", colspan: 2}, {content: "Front Placket: #{shirt&.front_placket}", colspan: 2}, {content: "Back Placket: #{shirt&.back_placket}", colspan: 2 }, {content: "Side Placket: #{shirt&.side_placket}", colspan: 2 }],
