@@ -429,14 +429,13 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
         cbody = [
           [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 3}, {content: "Coat         [#{single_breasted}] SINGLE BREASTED   [#{double_breasted}] DOUBLE BREASTED", colspan: 3}, {content: "JO NO:#{ @order.jo_number }", colspan: 2}],
-          [{content: "Fabric label: #{shirt&.fabric_label}", colspan: 3}, {content: "Tafetta: #{shirt&.tafetta}", rowspan: 2, colspan: 2 }, {content: "Fabric_code: #{shirt&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{shirt&.lining_code}", rowspan: 2, colspan: 2 }, {content: "Number of buttons: #{shirt&.number_of_buttons}", rowspan: 2} ],
-          [{content: "Brand label: #{shirt&.brand_label}", colspan: 3}],
+          [{content: "Fabric label: #{shirt&.fabric_label}", colspan: 3}, {content: "Tafetta: #{shirt&.tafetta}", colspan: 2 }, {content: "Fabric_code: #{shirt&.fabric_code}", colspan: 2 }, {content: "Lining_code: #{shirt&.lining_code}", colspan: 2 }, {content: "Number of buttons: #{shirt&.number_of_buttons}"} ],
+
+          
 
 
 
-
-          [{content: "Fabric label: #{coat&.fabric_label}", colspan: 3}, {content: "Tafetta: #{coat&.tafetta}", rowspan: 2, colspan: 2 }, {content: "Fabric_code: #{coat&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{coat&.lining_code}", rowspan: 2, colspan: 2 }, {content: "Quantity: #{coat&.quantity}", rowspan: 2}],
-          [{content: "Brand label: #{coat&.brand_label}", colspan: 3}],
+          [{content: "Brand label: #{shirt&.brand_label}", colspan: 3}, {content: "Tafetta: #{coat&.tafetta}", colspan: 2 }, {content: "Fabric_code: #{coat&.fabric_code}", colspan: 2 }, {content: "Lining_code: #{coat&.lining_code}", colspan: 2 }, {content: "Quantity: #{coat&.quantity}"}],
           ["Jacket length: #{coat&.jacket_length}", "Back Width: #{coat&.back_width}", "Sleeves: #{coat&.sleeves}", "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", "Hips: #{coat&.hips}", {content: "BOUTONNIERE: \n\n #{ coat.boutonniere }", colspan: 2}],
           [{image: pocket_type,  scale: 0.3, colspan: 2}, {image: style,  scale: 0.3, colspan: 2}, {image: lapel,  scale: 0.5, colspan: 2},{image: lining,  scale: 0.3, colspan: 2}, {content: "SLEEVES & PADDING \n\n #{ coat.sleeves_and_padding }", colspan: 2} ],
 
