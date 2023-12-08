@@ -264,9 +264,9 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
         cbody = [
           [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Pants/Trousers: [#{pleats_pockets}] PLEATS TOWARDS POCKETS   [#{pleats_fly}] PLEATS TOWARDS FLY   [#{pleats_no}] NO PLEATS   [#{pleats_back}] BACK POCKETS", colspan: 6}, {content: "JO NO:#{ @order.jo_number }", colspan: 2}],
-          ["Waist: #{pant&.waist}", "Seat: #{pant&.seat}", "Thigh: #{pant&.thigh}", "Knee: #{pant&.knee}", "Bottom: #{pant&.bottom}", {content: "Pleat: #{pant&.pleats}", colspan: 1}, {image: ppleats,  scale: 0.18, colspan: 1 },  {image: back_pocket,  scale: 0.2, colspan: 1 }, {image: pant_cuffs,  scale: 0.2, colspan: 1 }, {image: strap,  scale: 0.2, colspan: 1 }],
-          [{content: "Fabric label: #{pant&.fabric_label}", colspan: 2}, {content: "Tafetta: #{pant&.tafetta}", colspan: 2   }, {content: "Add suspender buttons: #{pant&.add_suspender_buttons}", colspan: 1}, {content: "Fabric_code: #{pant&.fabric_code}", colspan: 2 }, {content: "Lining_code: #{pant&.lining_code}", colspan: 2 }, {content: "Quantity: #{pant&.quantity}"} ],
-          [{image: ppockets,  scale: 0.17}, {content: "Brand label: #{pant&.brand_label}", colspan: 1}, "Crotch: #{pant&.crotch}", "Outseam: #{pant&.outseam}", {content: "Remarks: #{pant&.remarks}", colspan: 6}],
+          ["Waist: #{pant&.waist}", "Seat: #{pant&.seat}", "Thigh: #{pant&.thigh}", "Knee: #{pant&.knee}", "Bottom: #{pant&.bottom}", {content: "Pleat: #{pant&.pleats}", colspan: 1}, {content: "Brand label: #{pant&.brand_label}", colspan: 1}, "Crotch: #{pant&.crotch}", "Outseam: #{pant&.outseam}", {content: "Add suspender buttons: #{pant&.add_suspender_buttons}", colspan: 1}],
+          [{content: "Fabric label: #{pant&.fabric_label}", colspan: 2}, {content: "Tafetta: #{pant&.tafetta}", colspan: 2 }, {content: "Fabric_code: #{pant&.fabric_code}", colspan: 2 }, {content: "Lining_code: #{pant&.lining_code}", colspan: 2 }, {content: "Quantity: #{pant&.quantity}", colspan: 2} ],
+          [{image: ppleats,  scale: 0.18 },  {image: back_pocket,  scale: 0.2 }, {image: pant_cuffs,  scale: 0.2 }, {image: strap,  scale: 0.2 }, {image: ppockets,  scale: 0.17}, {content: "Remarks: #{pant&.remarks}", colspan: 5}],
         ]
 
         pdf.table(cbody) do
