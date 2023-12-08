@@ -434,7 +434,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
 
           [{content: "Cuffs: #{ shirt.cuffs }", colspan: 2}, {content: "Fabric_code: #{coat&.fabric_code}", colspan: 2 }, {content: "Lining_code: #{coat&.lining_code}", colspan: 2 }, {content: "Quantity: #{coat&.quantity}", colspan: 2}, {content: "Back Width: #{coat&.back_width}", colspan: 2}],
-          ["Sleeves: #{coat&.sleeves}", "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", "Hips: #{coat&.hips}", {content: "BOUTONNIERE: #{ coat.boutonniere }", colspan: 4}],
+          ["Sleeves: #{coat&.sleeves}", "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", "Hips: #{coat&.hips}", {content: "Type of Button: #{ shirt.type_of_button }", colspan: 2}, {content: "BOUTONNIERE: #{ coat.boutonniere }", colspan: 2}],
 
           # [{content: "#{  "x" if coat.style == "Single 1 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 2 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 3 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 6 button" }", align: :center}],
           # [{content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}],

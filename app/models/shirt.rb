@@ -24,6 +24,15 @@ class Shirt < ApplicationRecord
         "BACK POCKETS (Dart Pleats)"
     ]
 
+    enum type_of_button: [
+        "Hidden button",
+        "Front bar",
+        "No Pockets",
+        "Button Down ",
+        "Not hidden",
+        "Button down loop"
+    ]
+
     enum front_placket: [
         "W/BAR (standard-placket)",
         "NO BAR (NO placket)",
