@@ -171,9 +171,9 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
         cbody = [
           [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Coat         [#{single_breasted}] SINGLE BREASTED   [#{double_breasted}] DOUBLE BREASTED", colspan: 6}, {content: "JO Number:#{ @order.jo_number }", colspan: 2}],
-          [{content: "Fabric label: #{coat&.fabric_label}", colspan: 3}, {content: "Tafetta: #{coat&.tafetta}", rowspan: 2, colspan: 2 }, {content: "Fabric_code: #{coat&.fabric_code}", rowspan: 2, colspan: 2 }, {content: "Lining_code: #{coat&.lining_code}", rowspan: 2, colspan: 2 }, {content: "Quantity: #{coat&.quantity}", rowspan: 2}],
+          [{content: "Fabric label: #{coat&.fabric_label}", colspan: 3}, {content: "Tafetta: #{coat&.tafetta}", rowspan: 2, colspan: 2 }, {content: "Quantity: #{coat&.quantity}", rowspan: 2, colspan: 2}, {content: "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", colspan: 3, rowspan: 2}],
           [{content: "Brand label: #{coat&.brand_label}", colspan: 3}],
-          ["Jacket length: #{coat&.jacket_length}", "Back Width: #{coat&.back_width}", "Sleeves: #{coat&.sleeves}", "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", "Hips: #{coat&.hips}", {content: "BOUTONNIERE: \n\n #{ coat.boutonniere }", colspan: 2}],
+          ["Sleeves: #{coat&.sleeves}", "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", {content: "Hips: #{coat&.hips}", colspan: 2}, {content: "BOUTONNIERE: \n\n #{ coat.boutonniere }", colspan: 2}, {content: "Jacket length: #{coat&.jacket_length}", colspan: 2}],
           [{image: pocket_type,  scale: 0.3, colspan: 2}, {image: style,  scale: 0.3, colspan: 2}, {image: lapel,  scale: 0.5, colspan: 2},{image: lining,  scale: 0.3, colspan: 2}, {content: "SLEEVES & PADDING \n\n #{ coat.sleeves_and_padding }", colspan: 2} ],
 
           # [{content: "#{  "x" if coat.style == "Single 1 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 2 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 3 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 6 button" }", align: :center}],
@@ -264,8 +264,8 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
         cbody = [
           [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Pants/Trousers: [#{pleats_pockets}] PLEATS TOWARDS POCKETS   [#{pleats_fly}] PLEATS TOWARDS FLY   [#{pleats_no}] NO PLEATS   [#{pleats_back}] BACK POCKETS", colspan: 6}, {content: "JO NO:#{ @order.jo_number }", colspan: 2}],
-          ["Waist: #{pant&.waist}", "Seat: #{pant&.seat}", "Thigh: #{pant&.thigh}", "Knee: #{pant&.knee}", "Bottom: #{pant&.bottom}", {content: "Pleat: #{pant&.pleats}", colspan: 1}, {content: "Brand label: #{pant&.brand_label}", colspan: 1}, "Crotch: #{pant&.crotch}", "Outseam: #{pant&.outseam}", {content: "Add suspender buttons: #{pant&.add_suspender_buttons}", colspan: 1}],
-          [{content: "Fabric label: #{pant&.fabric_label}", colspan: 2}, {content: "Tafetta: #{pant&.tafetta}", colspan: 2 }, {content: "Fabric_code: #{pant&.fabric_code}", colspan: 2 }, {content: "Lining_code: #{pant&.lining_code}", colspan: 2 }, {content: "Quantity: #{pant&.quantity}", colspan: 2} ],
+          ["Waist: #{pant&.waist}", "Seat: #{pant&.seat}", "Thigh: #{pant&.thigh}", "Knee: #{pant&.knee}", "Bottom: #{pant&.bottom}", {content: "Brand label: #{pant&.brand_label}", colspan: 1}, {content: "Crotch: #{pant&.crotch}", colspan: 2}, {content: "Outseam: #{pant&.outseam}", colspan: 2}],
+          [{content: "Fabric label: #{pant&.fabric_label}", colspan: 2}, {content: "Tafetta: #{pant&.tafetta}", colspan: 2 }, {content: "Quantity: #{pant&.quantity}", colspan: 2}, {content: "Pleat: #{pant&.pleats}", colspan: 2}, {content: "Add suspender buttons: #{pant&.add_suspender_buttons}", colspan: 2} ],
           [{image: ppleats,  scale: 0.18 },  {image: back_pocket,  scale: 0.2 }, {image: pant_cuffs,  scale: 0.2 }, {image: strap,  scale: 0.2 }, {image: ppockets,  scale: 0.17}, {content: "Remarks: #{pant&.remarks}", colspan: 5}],
         ]
 
@@ -433,8 +433,8 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
 
 
-          [{content: "Cuffs: #{ shirt.cuffs }", colspan: 2}, {content: "Fabric_code: #{coat&.fabric_code}", colspan: 2 }, {content: "Lining_code: #{coat&.lining_code}", colspan: 2 }, {content: "Quantity: #{coat&.quantity}", colspan: 2}, {content: "Back Width: #{coat&.back_width}", colspan: 2}],
-          ["Sleeves: #{coat&.sleeves}", "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", "Hips: #{coat&.hips}", {content: "Type of Button: #{ shirt.type_of_button }", colspan: 2}, {content: "BOUTONNIERE: #{ coat.boutonniere }", colspan: 2}],
+          [{content: "Cuffs: #{ shirt.cuffs }", colspan: 2}, {content: "Quantity: #{coat&.quantity}", colspan: 2}, {content: "Back Width: #{coat&.back_width}", colspan: 2}, {content: "Sleeves: #{coat&.sleeves}", colspan: 2}, {content: "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", colspan: 2}],
+          ["Collar: #{coat&.collar}", "Chest: #{coat&.chest}", {content: "Waist: : #{coat&.waist}", colspan: 2}, {content: "Hips: #{coat&.hips}", colspan: 2}, {content: "Type of Button: #{ shirt.type_of_button }", colspan: 2}, {content: "BOUTONNIERE: #{ coat.boutonniere }", colspan: 2}],
 
           # [{content: "#{  "x" if coat.style == "Single 1 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 2 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 3 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 6 button" }", align: :center}],
           # [{content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}],
