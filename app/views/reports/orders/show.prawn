@@ -264,7 +264,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
         cbody = [
           [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Pants/Trousers: [#{pleats_pockets}] PLEATS TOWARDS POCKETS   [#{pleats_fly}] PLEATS TOWARDS FLY   [#{pleats_no}] NO PLEATS   [#{pleats_back}] BACK POCKETS", colspan: 6}, {content: "JO NO:#{ @order.jo_number }", colspan: 2}],
-          ["Waist: #{pant&.waist}", "Seat: #{pant&.seat}", "Thigh: #{pant&.thigh}", "Knee: #{pant&.knee}", "Bottom: #{pant&.bottom}", {content: "Crotch: #{pant&.crotch}", colspan: 1}, {content: "Outseam: #{pant&.outseam}", colspan: 2}, {content: "Add suspender buttons: #{pant&.add_suspender_buttons}", colspan: 2}],
+          ["Waist: #{pant&.waist}", "Seat: #{pant&.seat}", "Thigh: #{pant&.thigh}", "Knee: #{pant&.knee}", "Bottom: #{pant&.bottom}", {content: "Crotch: #{pant&.crotch}", colspan: 1}, {content: "Outseam: #{pant&.outseam}", colspan: 2}, {content: "Suspender buttons: #{pant&.add_suspender_buttons ? 'Yes' : 'No'}", colspan: 2}],
           [{content: "Pleat: #{pant&.pleats}", colspan: 2}, {content: "Quantity: #{pant&.quantity}", colspan: 1},{image: ppleats,  scale: 0.18 },  {image: back_pocket,  scale: 0.2 }, {image: pant_cuffs,  scale: 0.2 }, {image: strap,  scale: 0.2 }, {image: ppockets,  scale: 0.17}, {content: "Remarks: #{pant&.remarks}", colspan: 2}],
         ]
 
@@ -464,7 +464,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
       @vests.each do |vest|
 
         cbody = [
-          [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "VEST STYLE: #{ vest.vest_style } ADJUSTER TYPE: #{ vest.adjuster_type } LAPEL STYLE: #{ vest.lapel_style } TUX SPECS FORM", colspan: 6}, {content: "JO NO:#{ @order.jo_number }", colspan: 2}],
+          [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "VEST STYLE: #{ vest.vest_style } \n\n ADJUSTER TYPE: #{ vest.adjuster_type } \n\n LAPEL STYLE: #{ vest.lapel_style } \n\n\n NUMBER OF BUTTONS: #{ vest.number_of_front_buttons }", colspan: 4}, {image: "#{dir}logo_vest.png",  scale: 0.2, colspan: 2}, {content: "JO NO:#{ @order.jo_number }", colspan: 2}],
           [{content: "Side pocket: #{vest&.side_pocket}", colspan: 4}, {content: "Chest pocket: #{vest&.chest_pocket}", colspan: 2 }, {content: "Vest Length: #{vest&.vest_length}", colspan: 2 }, {content: "Back Width: #{vest&.back_width}", colspan: 2 }  ],
           [{content: "Back width: #{vest&.back_width}", colspan: 3}, {content: "Chest: #{vest&.chest}", colspan: 2 }, {content: "Waist: #{vest&.waist}", colspan: 2 }, {content: "Hips: #{vest&.hips}", colspan: 3 } ],
           [{content: "Remarks: #{vest&.remarks}", colspan: 10}]
