@@ -17,6 +17,7 @@ class Vest < ApplicationRecord
         "Notch Tuxedo",
         "Peaky Shiny",
         "Shawl",
-        "Lapel Trimming"
+        "Lapel Trimming",
+        "No lapel"
     ]
 end
