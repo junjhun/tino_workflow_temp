@@ -47,7 +47,8 @@ class Coat < ApplicationRecord
         "Notch Tuxedo",
         "Peaky Shiny",
         "Shawl",
-        "Lapel Trimming"
+        "Lapel Trimming",
+        "No lapel"
     ]
 
     enum vent: [
