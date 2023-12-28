@@ -170,10 +170,10 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
                 noohales = "X" if coat&.sleeve_buttons == "No Ohales"
 
         cbody = [
-          [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Coat         [#{single_breasted}] SINGLE BREASTED   [#{double_breasted}] DOUBLE BREASTED", colspan: 6}, {content: "JO Number:#{ @order.jo_number }", colspan: 2}],
-          [{content: "Fabric label: #{coat&.fabric_label}", colspan: 3}, {content: "Tafetta: #{coat&.tafetta}", rowspan: 2, colspan: 2 }, {content: "Quantity: #{coat&.quantity}", rowspan: 2, colspan: 2}, {content: "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}", colspan: 3, rowspan: 2}],
+          [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Coat: #{ coat&.specs_form }         [#{single_breasted}] SINGLE BREASTED   [#{double_breasted}] DOUBLE BREASTED", colspan: 6}, {content: "JO Number:#{ @order.jo_number }", colspan: 2}],
+          [{content: "Fabric label: #{coat&.fabric_label}", colspan: 3}, {content: "Tafetta: #{coat&.tafetta}", rowspan: 2, colspan: 2 }, {content: "Quantity: #{coat&.quantity}", rowspan: 2, colspan: 2}, {content: "BOUTONNIERE: \n\n #{ coat.boutonniere }", colspan: 3, rowspan: 2}],
           [{content: "Brand label: #{coat&.brand_label}", colspan: 3}],
-          ["Sleeves: #{coat&.sleeves}", "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", {content: "Hips: #{coat&.hips}", colspan: 2}, {content: "BOUTONNIERE: \n\n #{ coat.boutonniere }", colspan: 2}, {content: "Jacket length: #{coat&.jacket_length}", colspan: 2}],
+          [{content: "Jacket length: #{coat&.jacket_length}", colspan: 2}, {content: "Back Width: #{coat&.back_width}", colspan: 2}, "Sleeves: #{coat&.sleeves}", {content: "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}"}, "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", {content: "Hips: #{coat&.hips}"}],
           [{image: pocket_type,  scale: 0.3, colspan: 2}, {image: style,  scale: 0.2, colspan: 2}, {image: lapel,  scale: 0.5, colspan: 2},{image: lining,  scale: 0.3, colspan: 2}, {content: "SLEEVES & PADDING \n\n #{ coat.sleeves_and_padding }", colspan: 2} ],
 
           # [{content: "#{  "x" if coat.style == "Single 1 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 2 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 3 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 6 button" }", align: :center}],
