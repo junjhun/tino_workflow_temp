@@ -428,21 +428,15 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
         cbody = [
           [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 6}, {content: "JO NO:#{ @order.jo_number }", colspan: 2}],
-
-
           [{content: "Jacket length: #{coat&.jacket_length}", colspan: 2}, {content: "Back Width: #{coat&.back_width}", colspan: 2}, "Sleeves: #{coat&.sleeves}", {content: "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}"}, "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", {content: "Hips: #{coat&.hips}"}],
-
-
-
-          [{content: "Fabric label: #{shirt&.fabric_label}", colspan: 2}, {content: "Tafetta: #{shirt&.tafetta}", colspan: 2 }, {content: "Brand label: #{shirt&.brand_label}", colspan: 2}, {content: "Number of buttons: #{shirt&.number_of_buttons}", colspan: 2}, {image: "#{dir}buttons_1.png",  scale: 0.2},  {image: button_spacing ,  scale: 0.2} ],
-          [{content: "Type of Button: #{ shirt.type_of_button }", colspan: 2}, {content: "BOUTONNIERE: #{ coat.boutonniere }", colspan: 2}, {content: "Cuffs: #{ shirt.cuffs }", colspan: 2}, {content: "Quantity: #{coat&.quantity}", colspan: 2}, {content: "#{ coat.no_of_buttons }", align: :center}, {content: "Color: #{coat.boutonniere_color}", align: :center}],
+          [{content: "Fabric label: #{shirt&.fabric_label}"}, {content: "Tafetta: #{shirt&.tafetta}"}, {content: "Brand label: #{shirt&.brand_label}", colspan: 2}, {content: "Number of buttons: #{shirt&.number_of_buttons}", colspan: 2}, {content: "Type of Button: #{ shirt.type_of_button }", colspan: 2}, {content: "BOUTONNIERE: #{ coat.boutonniere }", colspan: 2}],
 
           # [{content: "#{  "x" if coat.style == "Single 1 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 2 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 3 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 6 button" }", align: :center}],
           # [{content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}],
-    
+
+          [{image: bottom,  scale: 0.25, colspan: 1}, {image: spocket,  scale: 0.3, colspan: 1}, {content: "Pleats: #{shirt.pleats}", colspan: 2 }, {content: "Front Placket: #{shirt&.front_placket}", colspan: 2}, {content: "Back Placket: #{shirt&.back_placket}" }, {content: "Side Placket: #{shirt&.side_placket}" }, {content: "Cuffs: #{ shirt.cuffs }"}, {content: "Quantity: #{coat&.quantity}"}],
 
 
-          [{image: bottom,  scale: 0.25, colspan: 1}, {image: spocket,  scale: 0.3, colspan: 1}, {content: "Pleats: #{shirt.pleats}", colspan: 2}, {content: "Front Placket: #{shirt&.front_placket}", colspan: 2}, {content: "Back Placket: #{shirt&.back_placket}", colspan: 2 }, {content: "Side Placket: #{shirt&.side_placket}", colspan: 2 }],
           [{content: "Remarks: #{shirt&.remarks}", colspan: 10} ],
         ]
 
