@@ -434,7 +434,8 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           # [{content: "#{  "x" if coat.style == "Single 1 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 2 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 3 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 6 button" }", align: :center}],
           # [{content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}],
 
-          [{image: bottom,  scale: 0.25, colspan: 1}, {image: spocket,  scale: 0.3, colspan: 1}, {content: "Pleats: #{shirt.pleats}", colspan: 2 }, {content: "Front Placket: #{shirt&.front_placket}", colspan: 2}, {content: "Back Placket: #{shirt&.back_placket}" }, {content: "Side Placket: #{shirt&.side_placket}" }, {content: "Cuffs: #{ shirt.cuffs }"}, {content: "Quantity: #{coat&.quantity}"}],
+          [{image: bottom,  scale: 0.25, colspan: 1, rowspan: 2}, {image: spocket,  scale: 0.3, colspan: 1, rowspan: 2}, {content: "Pleats: #{shirt.pleats}", colspan: 2 }, {content: "Front Placket: #{shirt&.front_placket}", colspan: 2}, {content: "Back Placket: #{shirt&.back_placket}", colspan: 2}, {content: "Lining Code: #{shirt&.lining_code}", colspan: 2}],
+          [{content: "Side Placket: #{shirt&.side_placket}", colspan: 2}, {content: "Cuffs: #{ shirt.cuffs }", colspan: 2}, {content: "Quantity: #{coat&.quantity}"}, {content: "Pocket: #{shirt&.pocket }"}, {content: "Bottom: #{shirt&.bottom}", colspan: 2}],
 
 
           [{content: "Remarks: #{shirt&.remarks}", colspan: 10} ],
