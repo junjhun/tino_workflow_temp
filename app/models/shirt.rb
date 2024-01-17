@@ -69,8 +69,7 @@ class Shirt < ApplicationRecord
         "Button Down",
         "Hidden Button Down",
         "Wing Tip/Tux",
-        "Nehru Collar",
-        "Semi Spread"
+        "Chinese Collar"
     ]
 
     enum bottom: [
