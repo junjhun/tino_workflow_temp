@@ -468,12 +468,12 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
         cbody = [
           [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 6}, {content: "JO NO:#{ @order.jo_number }", colspan: 2}],
           [{content: "Jacket length: #{coat&.jacket_length}"}, {content: "Back Width: #{coat&.back_width}", colspan: 2}, "Sleeves: #{shirt&.sleeves}", {content: "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}"}, "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", {content: "Hips: #{coat&.hips}"}, {content: "Pleats: #{shirt.pleats}" }, {content: "Lining Code: #{shirt&.lining_code}"}],
-          [{content: "Fabric label: #{shirt&.fabric_label}"}, {content: "Tafetta: #{shirt&.tafetta}"}, {content: "Brand label: #{shirt&.brand_label}", colspan: 2}, {content: "Number of buttons: #{shirt&.number_of_buttons}", colspan: 2}, {content: "Type of Button: #{ shirt.type_of_button }", colspan: 2}, {content: "FABRIC CONSUMPTION: #{ shirt.fabric_consumption }", colspan: 2}],
+          [{content: "Fabric label: #{shirt&.fabric_label}", colspan: 2}, {content: "Brand label: #{shirt&.brand_label}", colspan: 2}, {content: "Number of buttons: #{shirt&.number_of_buttons}", colspan: 2}, {content: "Type of Button: #{ shirt.type_of_button }", colspan: 2}, {content: "FABRIC CONSUMPTION: #{ shirt.fabric_consumption }", colspan: 2}],
 
           # [{content: "#{  "x" if coat.style == "Single 1 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 2 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 3 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 6 button" }", align: :center}],
           # [{content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}],
 
-          [{image: bottom,  scale: 0.25, colspan: 1, rowspan: 2}, {image: spocket,  scale: 0.3, rowspan: 2}, {image: scollar,  scale: 0.6, rowspan: 2, colspan: 2}, {image: sleeves,  scale: 0.36, rowspan: 2, colspan: 2}, {image: xcuffs,  scale: 0.36, rowspan: 2, colspan: 2},  {content: "Quantity: #{coat&.quantity}"}, {content: "Bottom: #{shirt&.bottom}"}],
+          [{image: bottom,  scale: 0.25, colspan: 1, rowspan: 2}, {image: spocket,  scale: 0.3, rowspan: 2}, {image: scollar,  scale: 0.6, rowspan: 2, colspan: 2}, {image: sleeves,  scale: 0.36, rowspan: 2, colspan: 2}, {image: xcuffs,  scale: 0.36, rowspan: 2, colspan: 2},  {content: "Quantity: #{coat&.quantity}"}, {content: "Tafetta: #{shirt&.tafetta}"}],
           [{content: "Side Placket: #{shirt&.side_placket}"}, {content: "Pocket: #{shirt&.pocket }"}],
 
 
