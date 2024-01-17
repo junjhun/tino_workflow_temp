@@ -47,7 +47,8 @@ class Shirt < ApplicationRecord
 
     enum sleeves: [
         "Contrast 1 (full white collar and white cuff)",
-        "Contrast 2 (full white collar)"
+        "Contrast 2 (full white collar)",
+        "Contrast 3 (inside collar, cuff and)"
     ]
 
     enum pocket: [

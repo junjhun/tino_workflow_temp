@@ -334,6 +334,14 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           "#{dir}spocket_9.png"
         end
 
+        sleeves = if shirt.sleeves == "Contrast 1 (full white collar and white cuff)"
+          "#{dir}ssleeves1.png"
+        elsif shirt.pocket == "Contrast 2 (full white collar)"
+          "#{dir}ssleeves2.png"
+        else
+          "#{dir}ssleeves3.png"
+        end
+
         bottom = if shirt.bottom == "Straight Bottom"
           "#{dir}bottom_1.png"
         else
@@ -451,8 +459,8 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           # [{content: "#{  "x" if coat.style == "Single 1 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 2 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 3 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 6 button" }", align: :center}],
           # [{content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}],
 
-          [{image: bottom,  scale: 0.25, colspan: 1, rowspan: 2}, {image: spocket,  scale: 0.3, rowspan: 2}, {image: scollar,  scale: 0.6, rowspan: 2, colspan: 2}, {content: "Front Placket: #{shirt&.front_placket}", colspan: 2}, {content: "Back Placket: #{shirt&.back_placket}", colspan: 2}, {content: "Quantity: #{coat&.quantity}"}],
-          [{content: "Side Placket: #{shirt&.side_placket}", colspan: 2}, {content: "Cuffs: #{ shirt.cuffs }", colspan: 2}, {content: "Pocket: #{shirt&.pocket }"}, {content: "Bottom: #{shirt&.bottom}"}],
+          [{image: bottom,  scale: 0.25, colspan: 1, rowspan: 2}, {image: spocket,  scale: 0.3, rowspan: 2}, {image: scollar,  scale: 0.6, rowspan: 2, colspan: 2}, {image: sleeves,  scale: 0.3, rowspan: 2, colspan: 2},  {content: "Quantity: #{coat&.quantity}"}, {content: "Cuffs: #{ shirt.cuffs }", colspan: 2}],
+          [{content: "Side Placket: #{shirt&.side_placket}"}, {content: "Pocket: #{shirt&.pocket }"}, {content: "Bottom: #{shirt&.bottom}"}],
 
 
           [{content: "Remarks: #{shirt&.remarks}", colspan: 10} ],
