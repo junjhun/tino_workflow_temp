@@ -336,6 +336,18 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           "#{dir}xpocket10.png"
         end
 
+        xcuffs = if shirt.cuffs == "Single Cuffs (1 button round)"
+          "#{dir}xcuffs1.png"
+        elsif shirt.cuffs == "Single Cuffs (1 button angle)"
+          "#{dir}xcuffs2.png"
+        elsif shirt.cuffs == "Double Cuffs (French Square)"
+          "#{dir}xcuffs3.png"
+        elsif shirt.cuffs == "Double Cuffs (French Angle)"
+          "#{dir}xcuffs4.png"
+        else
+          "#{dir}xcuffs5.png"
+        end
+
         sleeves = if shirt.sleeves == "Contrast 1 (full white collar and white cuff)"
           "#{dir}ssleeves1.png"
         elsif shirt.pocket == "Contrast 2 (full white collar)"
@@ -461,8 +473,8 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           # [{content: "#{  "x" if coat.style == "Single 1 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 2 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 3 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 6 button" }", align: :center}],
           # [{content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}, {content: "X", align: :center}],
 
-          [{image: bottom,  scale: 0.25, colspan: 1, rowspan: 2}, {image: spocket,  scale: 0.3, rowspan: 2}, {image: scollar,  scale: 0.6, rowspan: 2, colspan: 2}, {image: sleeves,  scale: 0.3, rowspan: 2, colspan: 2},  {content: "Quantity: #{coat&.quantity}"}, {content: "Cuffs: #{ shirt.cuffs }", colspan: 2}],
-          [{content: "Side Placket: #{shirt&.side_placket}"}, {content: "Pocket: #{shirt&.pocket }"}, {content: "Bottom: #{shirt&.bottom}"}],
+          [{image: bottom,  scale: 0.25, colspan: 1, rowspan: 2}, {image: spocket,  scale: 0.3, rowspan: 2}, {image: scollar,  scale: 0.6, rowspan: 2, colspan: 2}, {image: sleeves,  scale: 0.36, rowspan: 2, colspan: 2}, {image: xcuffs,  scale: 0.36, rowspan: 2, colspan: 2},  {content: "Quantity: #{coat&.quantity}"}, {content: "Bottom: #{shirt&.bottom}"}],
+          [{content: "Side Placket: #{shirt&.side_placket}"}, {content: "Pocket: #{shirt&.pocket }"}],
 
 
           [{content: "Remarks: #{shirt&.remarks}", colspan: 10} ],

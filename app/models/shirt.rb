@@ -8,13 +8,11 @@ class Shirt < ApplicationRecord
     ]
 
     enum cuffs: [
-        "Single Cuff Curve",
-        "Single Cuff Square",
-        "Single Cuff Angle Cut",
-        "Double Cuff Square",
-        "Double Cuff Angle Cut",
-        "American Cuff Square",
-        "American Cuff Angle Cut"
+        "Single Cuffs (1 button round)",
+        "Single Cuffs (1 button angle)",
+        "Double Cuffs (French Square)",
+        "Double Cuffs (French Angle)",
+        "Double Cuffs (Cocktail)"
     ]
 
     enum pleats: [
@@ -57,7 +55,7 @@ class Shirt < ApplicationRecord
         "Pointed",
         "Square w/ Pleats",
         "w/ squared flaps",
-        "w/ ponted flaps",
+        "w/ pointed flaps",
         "w/ slanted flaps",
         "w/ pointed curve flaps",
         "Wine glass"
