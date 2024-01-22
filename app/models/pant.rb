@@ -48,4 +48,10 @@ class Pant < ApplicationRecord
         "Thick waistband",
         "Other Design"
     ]
+
+    before_save :validate!
+
+    def validate!
+        errors.add(:base, "Quantity cannot be less than one") if quantity < 1
+    end
 end

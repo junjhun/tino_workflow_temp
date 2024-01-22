@@ -20,4 +20,10 @@ class Vest < ApplicationRecord
         "Lapel Trimming",
         "No lapel"
     ]
+
+    before_save :validate!
+
+    def validate!
+        errors.add(:base, "Quantity cannot be less than one") if quantity < 1
+    end
 end

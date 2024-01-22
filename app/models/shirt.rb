@@ -81,4 +81,10 @@ class Shirt < ApplicationRecord
         "BARONG",
         "TUX SPECS FORM"
     ]
+
+    before_save :validate!
+
+    def validate!
+        errors.add(:base, "Quantity cannot be less than one") if quantity < 1
+    end
 end
