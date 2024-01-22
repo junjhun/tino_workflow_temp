@@ -49,9 +49,9 @@ class Pant < ApplicationRecord
         "Other Design"
     ]
 
-    before_save :validate!
+    validate :check_quantity
 
-    def validate!
-        errors.add(:base, "Quantity cannot be less than one") if quantity < 1
+    def check_quantity
+        errors.add(:base, "Quantity cannot be less than one") if self.quantity < 1
     end
 end
