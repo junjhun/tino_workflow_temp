@@ -85,8 +85,10 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
                   "#{dir}button_4.png"
                 elsif coat.style == "Double 4 button"
                   "#{dir}button_5.png"
-                else
+                elsif coat.style == "Double 6 button"
                   "#{dir}button_6.png"
+                else
+                  "#{dir}x.png"
                 end
 
         lapel = if coat.lapel_style == "Notch"
@@ -99,32 +101,30 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
                   "#{dir}lapel_4.png"
                 elsif coat.lapel_style == "Shawl"
                   "#{dir}lapel_5.png"
-                else
+                elsif coat.lapel_style == "Lapel Trimming"
                   "#{dir}lapel_6.png"
+                else
+                  "#{dir}x.png"
                 end
 
                 vent = if coat.vent == "No Vent"
                   "#{dir}vent_1.png"
                 elsif coat.vent == "Center Vent"
                   "#{dir}vent_2.png"
-                else
+                elsif coat.vent == "Double Vent"
                   "#{dir}vent_3.png"
+                else
+                  "#{dir}x.png"
                 end
 
                 lining = if coat.lining == "Unlined"
                   "#{dir}lining_1.png"
                 elsif coat.lining == "Half-lined"
                   "#{dir}lining_2.png"
-                else
+                elsif coat.lining == "Fully-Lined"
                   "#{dir}lining_3.png"
-                end
-
-                lining = if coat.lining == "Unlined"
-                  "#{dir}lining_1.png"
-                elsif coat.lining == "Half-lined"
-                  "#{dir}lining_2.png"
                 else
-                  "#{dir}lining_3.png"
+                  "#{dir}x.png"
                 end
 
                 pocket_type = if coat.pocket_type == "Curved Chest Pocket"
@@ -133,8 +133,10 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
                   "#{dir}pocket_type_2.png"
                 elsif coat.pocket_type == "Chest Patch Pocket"
                   "#{dir}pocket_type_3.png"
-                else
+                elsif coat.pocket_type == "Satin on Chest Pocket"
                   "#{dir}pocket_type_4.png"
+                else
+                  "#{dir}x.png"
                 end
 
                 front_side_pocket = if coat.front_side_pocket == "No Pocket"
@@ -149,14 +151,18 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
                   "#{dir}pockets_5.png"
                 elsif coat.front_side_pocket == "Hacking/Italian Pocket?"
                   "#{dir}pockets_6.png"
-                else
+                elsif coat.front_side_pocket == "Satin on Pockets Trimming"
                   "#{dir}pockets_7.png"
+                else
+                  "#{dir}x.png"
                 end
 
                 button_spacing = if coat.button_spacing == "Stacking"
                   "#{dir}buttons_2.png"
-                else
+                elsif coat.button_spacing == "Kissing"
                   "#{dir}buttons_3.png"
+                else
+                  "#{dir}x.png"
                 end
 
                 regular = "X" if coat&.button == "Regular Button"
@@ -218,16 +224,20 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           "#{dir}back_4.png"
         elsif pant.back_pocket == "Pockets with Button?"
           "#{dir}back_5.png"
-        else
+        elsif pant.back_pocket == "Pockets with Flap"
           "#{dir}back_6.png"
+        else
+          "#{dir}x.png"
         end
 
         pant_cuffs = if pant.pant_cuffs == "No pant cuffs"
           "#{dir}pant_cuffs_1.png"
         elsif pant.back_pocket == "With pant cuffs"
           "#{dir}pant_cuffs_2.png"
-        else
+        elsif pant.back_pocket == "Slanting Bottom"
           "#{dir}pant_cuffs_3.png"
+        else
+          "#{dir}x.png"
         end
 
         strap = if pant.strap == "No overlap / no extended strap"
@@ -238,9 +248,12 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           "#{dir}strap_3.png"
         elsif pant.strap == "Thick waistband"
           "#{dir}strap_4.png"
-        else
+        elsif pant.strap == "Other Design"
           "#{dir}strap_5.png"
+        else
+          "#{dir}x.png"
         end
+
 
         ppleats = if pant.pleat_style ==  "NO PLEAT"
           "#{dir}pleats_1.png"
@@ -248,8 +261,10 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           "#{dir}pleats_2.png"
         elsif pant.pleat_style ==  "TWO PLEATS"
           "#{dir}pleats_3.png"
-        else
+        elsif pant.pleat_style ==  "BOX PLEATS"
           "#{dir}pleats_4.png"
+        else
+          "#{dir}x.png"
         end
 
         ppockets = if pant.type_of_pocket ==  "SLANTED POCKET"
@@ -259,7 +274,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
         elsif pant.type_of_pocket ==  "NACIDO POCKET"
           "#{dir}ppockets_3.png"
         else
-          ""
+          "#{dir}x.png"
         end
 
         cbody = [
@@ -294,8 +309,10 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           "#{dir}pleats_2.png"
         elsif shirt.pleats == "NO PLEAT"
           "#{dir}pleats_3.png"
-        else
+        elsif shirt.pleats == "BACK POCKETS (Dart Pleats)"
           "#{dir}pleats_4.png"
+        else
+          "#{dir}x.png"
         end
 
         scollar= if shirt.collar == "Classic/Traditional"
@@ -310,8 +327,10 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           "#{dir}scollar5.png"
         elsif shirt.collar == "Wing Tip/Tux"
           "#{dir}scollar6.png"
-        else
+        elsif shirt.collar == "Chinese Collar"
           "#{dir}scollar7.png"
+        else
+          "#{dir}x.png"
         end
 
         spocket = if shirt.pocket == "Round"
@@ -344,22 +363,28 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           "#{dir}xcuffs3.png"
         elsif shirt.cuffs == "Double Cuffs (French Angle)"
           "#{dir}xcuffs4.png"
+        elsif shirt.cuffs == "Double Cuffs (Cocktail)"
+          "#{dir}xcuffs6.png"
         else
-          "#{dir}xcuffs5.png"
+          "#{dir}x.png"
         end
 
         sleeves = if shirt.sleeves == "Contrast 1 (full white collar and white cuff)"
           "#{dir}ssleeves1.png"
         elsif shirt.pocket == "Contrast 2 (full white collar)"
           "#{dir}ssleeves2.png"
-        else
+        elsif shirt.pocket == "Contrast 3 (inside collar, cuff and)"
           "#{dir}ssleeves3.png"
+        else
+          "#{dir}x.png"
         end
 
         bottom = if shirt.bottom == "Straight Bottom"
           "#{dir}bottom_1.png"
-        else
+        elsif shirt.bottom == "Contrast 3 (inside collar, cuff and)"
           "#{dir}bottom_2.png"
+        else
+          "#{dir}x.png"
         end
 
         shirting = "X" if shirt.shirting_barong == "SHIRTING"
@@ -379,8 +404,10 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
                   "#{dir}button_4.png"
                 elsif coat.style == "Double 4 button"
                   "#{dir}button_5.png"
-                else
+                elsif coat.style == "Double 6 button"
                   "#{dir}button_6.png"
+                else
+                  "#{dir}x.png"
                 end
 
         lapel = if coat.lapel_style == "Notch"
@@ -393,32 +420,30 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
                   "#{dir}lapel_4.png"
                 elsif coat.lapel_style == "Shawl"
                   "#{dir}lapel_5.png"
-                else
+                elsif coat.lapel_style == "Shawl"
                   "#{dir}lapel_6.png"
+                else
+                  "#{dir}x.png"
                 end
 
                 vent = if coat.vent == "No Vent"
                   "#{dir}vent_1.png"
                 elsif coat.vent == "Center Vent"
                   "#{dir}vent_2.png"
-                else
+                elsif coat.vent == "Double Vent"
                   "#{dir}vent_3.png"
+                else
+                  "#{dir}x.png"
                 end
 
                 lining = if coat.lining == "Unlined"
                   "#{dir}lining_1.png"
                 elsif coat.lining == "Half-lined"
                   "#{dir}lining_2.png"
-                else
+                elsif coat.lining == "Fully-Lined"
                   "#{dir}lining_3.png"
-                end
-
-                lining = if coat.lining == "Unlined"
-                  "#{dir}lining_1.png"
-                elsif coat.lining == "Half-lined"
-                  "#{dir}lining_2.png"
                 else
-                  "#{dir}lining_3.png"
+                  "#{dir}x.png"
                 end
 
                 pocket_type = if coat.pocket_type == "Curved Chest Pocket"
@@ -427,8 +452,10 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
                   "#{dir}pocket_type_2.png"
                 elsif coat.pocket_type == "Chest Patch Pocket"
                   "#{dir}pocket_type_3.png"
-                else
+                elsif coat.pocket_type == "Satin on Chest Pocket"
                   "#{dir}pocket_type_4.png"
+                else
+                  "#{dir}x.png"
                 end
 
                 front_side_pocket = if coat.front_side_pocket == "No Pocket"
@@ -443,14 +470,18 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
                   "#{dir}pockets_5.png"
                 elsif coat.front_side_pocket == "Hacking/Italian Pocket?"
                   "#{dir}pockets_6.png"
-                else
+                elsif coat.front_side_pocket == "Satin on Pockets Trimming"
                   "#{dir}pockets_7.png"
+                else
+                  "#{dir}x.png"
                 end
 
                 button_spacing = if coat.button_spacing == "Stacking"
                   "#{dir}buttons_2.png"
-                else
+                elsif coat.button_spacing == "kissing"
                   "#{dir}buttons_3.png"
+                else
+                  "#{dir}x.png"
                 end
                 
 
