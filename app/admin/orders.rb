@@ -31,7 +31,7 @@ ActiveAdmin.register Order do
     status = order.status
 
     new_status = case status
-    when "Client Appontment"
+    when "Client Appointment"
       "JO's to receive by the PRODUCTION MANAGER (LAS PIÑAS)"
     when "JO's to receive by the PRODUCTION MANAGER (LAS PIÑAS)"
       "PRODUCTION MANAGER to handover the following to the MASTER TAILOR (LAS PIÑAS)"
