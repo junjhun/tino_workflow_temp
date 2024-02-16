@@ -135,6 +135,8 @@ ActiveAdmin.register Order do
         t.input :pleat_style
         t.input :type_of_pocket
         t.input :add_suspender_buttons
+        t.input :no_of_pleats
+        t.input :waist_area
         t.input :remarks
       end
     end

@@ -49,6 +49,12 @@ class Pant < ApplicationRecord
         "Other Design"
     ]
 
+    enum waist_area: [
+        "Belt loop",
+        "Side Adjuster",
+        "no belt loop/ no side adjuster"
+    ]
+
     validate :check_quantity
 
     def check_quantity
