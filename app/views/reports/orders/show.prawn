@@ -364,7 +364,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
         elsif shirt.cuffs == "Double Cuffs (French Angle)"
           "#{dir}xcuffs4.png"
         elsif shirt.cuffs == "Double Cuffs (Cocktail)"
-          "#{dir}xcuffs6.png"
+          "#{dir}xcuffs5.png"
         else
           "#{dir}x.png"
         end
@@ -390,92 +390,6 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
         shirting = "X" if shirt.shirting_barong == "SHIRTING"
         barong = "X" if shirt.shirting_barong == "BARONG"
         tux = "X" if shirt.shirting_barong == "TUX SPECS FORM"
-
-        lapel = if coat.lapel_style == "Notch"
-                  "#{dir}lapel_1.png"
-                elsif coat.lapel_style == "Peak"
-                  "#{dir}lapel_2.png"
-                elsif coat.lapel_style == "Notch Tuxedo"
-                  "#{dir}lapel_3.png"
-                elsif coat.lapel_style == "Peaky Shiny"
-                  "#{dir}lapel_4.png"
-                elsif coat.lapel_style == "Shawl"
-                  "#{dir}lapel_5.png"
-                elsif coat.lapel_style == "Shawl"
-                  "#{dir}lapel_6.png"
-                else
-                  "#{dir}x.png"
-                end
-
-                vent = if coat.vent == "No Vent"
-                  "#{dir}vent_1.png"
-                elsif coat.vent == "Center Vent"
-                  "#{dir}vent_2.png"
-                elsif coat.vent == "Double Vent"
-                  "#{dir}vent_3.png"
-                else
-                  "#{dir}x.png"
-                end
-
-                lining = if coat.lining == "Unlined"
-                  "#{dir}lining_1.png"
-                elsif coat.lining == "Half-lined"
-                  "#{dir}lining_2.png"
-                elsif coat.lining == "Fully-Lined"
-                  "#{dir}lining_3.png"
-                else
-                  "#{dir}x.png"
-                end
-
-                pocket_type = if coat.pocket_type == "Curved Chest Pocket"
-                  "#{dir}pocket_type_1.png"
-                elsif coat.pocket_type == "Flat Chest Pocket"
-                  "#{dir}pocket_type_2.png"
-                elsif coat.pocket_type == "Chest Patch Pocket"
-                  "#{dir}pocket_type_3.png"
-                elsif coat.pocket_type == "Satin on Chest Pocket"
-                  "#{dir}pocket_type_4.png"
-                else
-                  "#{dir}x.png"
-                end
-
-                front_side_pocket = if coat.front_side_pocket == "No Pocket"
-                  "#{dir}pockets_1.png"
-                elsif coat.front_side_pocket == "2 Pockets"
-                  "#{dir}pockets_2.png"
-                elsif coat.front_side_pocket == "3 Pockets (w/ticket pocket)"
-                  "#{dir}pockets_3.png"
-                elsif coat.front_side_pocket == "2 Patch Pockets"
-                  "#{dir}pockets_4.png"
-                elsif coat.front_side_pocket == "Pockets with flaps?"
-                  "#{dir}pockets_5.png"
-                elsif coat.front_side_pocket == "Hacking/Italian Pocket?"
-                  "#{dir}pockets_6.png"
-                elsif coat.front_side_pocket == "Satin on Pockets Trimming"
-                  "#{dir}pockets_7.png"
-                else
-                  "#{dir}x.png"
-                end
-
-                button_spacing = if coat.button_spacing == "Stacking"
-                  "#{dir}buttons_2.png"
-                elsif coat.button_spacing == "kissing"
-                  "#{dir}buttons_3.png"
-                else
-                  "#{dir}x.png"
-                end
-                
-
-                regular = "X" if coat&.button == "Regular Button"
-                horned =  "X" if coat&.button == "Horned"
-                brass =  "X" if coat&.button == "Brass"
-                covered =  "X" if coat&.button == "Covered"
-
-                sfake = "X" if coat&.sleeve_buttons == "Fake"
-                sfunctional = "X" if coat&.sleeve_buttons == "Functional / Surgeons"
-                s2fake = "X" if coat&.sleeve_buttons == "2 Fake 2 Functional"
-                noohales = "X" if coat&.sleeve_buttons == "No Ohales"
-
 
         cbody = [
           [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 6}, {content: "JO NO:#{ @order.jo_number }", colspan: 2}],
