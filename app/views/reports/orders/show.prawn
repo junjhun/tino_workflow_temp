@@ -391,25 +391,6 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
         barong = "X" if shirt.shirting_barong == "BARONG"
         tux = "X" if shirt.shirting_barong == "TUX SPECS FORM"
 
-
-        single_breasted = "X" if coat.breast == "Single Breasted"
-        double_breasted = "X" if coat.breast ==  "Double Breasted"
-        style = if coat.style == "Single 1 button"
-                  "#{dir}button_1.png"
-                elsif coat.style == "Single 2 button"
-                  "#{dir}button_2_2.png"
-                elsif coat.style == "Single 3 button"
-                  "#{dir}button_3.png"
-                elsif coat.style == "Single 4 button"
-                  "#{dir}button_4.png"
-                elsif coat.style == "Double 4 button"
-                  "#{dir}button_5.png"
-                elsif coat.style == "Double 6 button"
-                  "#{dir}button_6.png"
-                else
-                  "#{dir}x.png"
-                end
-
         lapel = if coat.lapel_style == "Notch"
                   "#{dir}lapel_1.png"
                 elsif coat.lapel_style == "Peak"
