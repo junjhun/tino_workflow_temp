@@ -25,7 +25,7 @@ class Coat < ApplicationRecord
         "Prominent Stomach",
         "Stout",
         "Normal"
-    ]
+    ], _prefix: :comments
 
     enum shoulders: [
         "Stooping Shoulders",
