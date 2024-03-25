@@ -23,7 +23,8 @@ class Coat < ApplicationRecord
         "Erect",
         "Stooping Stature", 
         "Prominent Stomach",
-        "Stout"
+        "Stout",
+        "Normal"
     ]
 
     enum shoulders: [
