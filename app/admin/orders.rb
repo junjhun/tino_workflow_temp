@@ -163,7 +163,6 @@ ActiveAdmin.register Order do
 
     f.inputs 'Shirts' do
       f.has_many :shirts, allow_destroy: true, heading: '' do |t|
-        t.input :shirting_barong
         t.input :quantity
         t.input :fabric_consumption
         t.input :specs_form

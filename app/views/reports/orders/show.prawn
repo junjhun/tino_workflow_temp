@@ -387,9 +387,9 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           "#{dir}x.png"
         end
 
-        shirting = "X" if shirt.shirting_barong == "SHIRTING"
-        barong = "X" if shirt.shirting_barong == "BARONG"
-        tux = "X" if shirt.shirting_barong == "TUX SPECS FORM"
+        shirting = "X" if shirt.specs_form == "SHIRTING"
+        barong = "X" if shirt.specs_form == "BARONG"
+        tux = "X" if shirt.specs_form == "TUX SPECS FORM"
 
         cbody = [
           [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 6}, {content: "JO NO:#{ @order.jo_number }", colspan: 2}],
