@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_16_093328) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_13_051659) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,6 +26,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_16_093328) do
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
+  end
+
+  create_table "cats", force: :cascade do |t|
+    t.string "name"
+    t.integer "color"
+    t.text "pattern"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "clients", force: :cascade do |t|
@@ -100,6 +108,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_16_093328) do
     t.string "jo_number"
     t.integer "brand_name"
     t.integer "type_of_service", default: 0, null: false
+    t.string "jacket_length"
+    t.string "back_width"
+    t.string "sleeves"
+    t.string "cuffs_1"
+    t.string "cuffs_2"
+    t.string "collar"
+    t.string "chest"
+    t.string "waist"
+    t.string "hips"
+    t.string "stature"
+    t.string "shoulders"
   end
 
   create_table "pants", force: :cascade do |t|

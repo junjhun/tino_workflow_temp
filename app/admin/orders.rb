@@ -5,7 +5,7 @@ ActiveAdmin.register Order do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :client_id, :name, :status, :purpose, :type_of_service, :first_fitting, :second_fitting, :finish, :jo_number, :brand_name,
+  permit_params :client_id, :name, :status, :purpose, :type_of_service, :first_fitting, :second_fitting, :finish, :jo_number, :brand_name, :jacket_length, :back_width, :sleeves, :cuffs_1, :cuffs_2, :collar, :chest, :waist, :hips, :stature, :shoulders,
                 items_attributes: %i[id name quantity fabric_and_linning_code _destroy],
                 vests_attributes: %i[id quantity fabric_consumption side_pocket chest_pocket vest_length back_width chest waist hips vest_style remarks number_of_front_buttons lapel_style adjuster_type _destroy],
                 shirts_attributes: %i[id quantity fabric_consumption specs_form number_of_buttons shirting_barong fabric_label brand_label tafetta fabric_code lining_code remarks collar cuffs pleats front_placket back_placket sleeves pocket collar bottom type_of_button control_no _destroy],
@@ -64,6 +64,18 @@ ActiveAdmin.register Order do
       f.input :second_fitting
       f.input :finish
       f.input :jo_number
+
+      f.input :jacket_length
+      f.input :back_width
+      f.input :sleeves
+      f.input :cuffs_1
+      f.input :cuffs_2
+      f.input :collar
+      f.input :chest
+      f.input :waist
+      f.input :hips
+      f.input :stature
+      f.input :shoulders
     end
 
 
@@ -74,6 +86,7 @@ ActiveAdmin.register Order do
         t.input :specs_form
         t.input :control_no
         t.input :breast
+
         t.input :jacket_length
         t.input :back_width
         t.input :sleeves
@@ -85,6 +98,7 @@ ActiveAdmin.register Order do
         t.input :hips
         t.input :stature
         t.input :shoulders
+
         t.input :pocket_type
         t.input :front_side_pocket
         t.input :remarks
