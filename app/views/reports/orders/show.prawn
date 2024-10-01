@@ -363,6 +363,8 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           "#{dir}xpocket8.png"
         elsif shirt.pocket == "Wine glass"
           "#{dir}xpocket9.png"
+        elsif shirt.pocket == "Without pocket"
+          "#{dir}xpocket11.png"
         else
           "#{dir}xpocket10.png"
         end
@@ -377,6 +379,8 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           "#{dir}xcuffs4.png"
         elsif shirt.cuffs == "Double Cuffs (Cocktail)"
           "#{dir}xcuffs5.png"
+        elsif shirt.cuffs == "Single cuff (1 button square)"
+          "#{dir}xcuffs6.png"
         else
           "#{dir}x.png"
         end
