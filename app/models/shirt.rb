@@ -12,7 +12,9 @@ class Shirt < ApplicationRecord
         "Single Cuffs (1 button angle)",
         "Double Cuffs (French Square)",
         "Double Cuffs (French Angle)",
-        "Double Cuffs (Cocktail)"
+        "Double Cuffs (Cocktail)",
+        "Single cuff (1 button square)",
+        "Not Applicable"
     ]
 
     enum pleats: [
@@ -46,7 +48,8 @@ class Shirt < ApplicationRecord
     enum sleeves: [
         "Contrast 1 (full white collar and white cuff)",
         "Contrast 2 (full white collar)",
-        "Contrast 3 (inside collar, cuff and)"
+        "Contrast 3 (inside collar, cuff and)",
+        "No contrast"
     ]
 
     enum pocket: [
@@ -58,7 +61,8 @@ class Shirt < ApplicationRecord
         "w/ pointed flaps",
         "w/ slanted flaps",
         "w/ pointed curve flaps",
-        "Wine glass"
+        "Wine glass",
+        "Without pocket"
     ]
 
     enum collar: [
@@ -68,7 +72,9 @@ class Shirt < ApplicationRecord
         "Button Down",
         "Hidden Button Down",
         "Wing Tip/Tux",
-        "Chinese Collar"
+        "Chinese Collar",
+        "Semi-spread",
+        "Not applicable"
     ]
 
     enum bottom: [
