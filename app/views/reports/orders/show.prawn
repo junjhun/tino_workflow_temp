@@ -341,6 +341,8 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           "#{dir}scollar6.png"
         elsif shirt.collar == "Chinese Collar"
           "#{dir}scollar7.png"
+        elsif shirt.collar == "Semi-spread"
+          "#{dir}scollar8.png"
         else
           "#{dir}x.png"
         end
