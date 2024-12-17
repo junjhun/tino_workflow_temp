@@ -58,5 +58,12 @@ class Client < ApplicationRecord
     def order_count
         orders.count
     end
+    
+    private
+    def uppercase_name
+      self.name = name.upcase if name.present?
+      self.referred_by = referred_by.upcase if referred_by.present?
+      self.assisted_by = assisted_by.upcase if assisted_by.present?
+      self.measured_by = measured_by.upcase if measured_by.present?
+    end
 end
-

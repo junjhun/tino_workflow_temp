@@ -592,6 +592,59 @@ end
     link_to 'Approve', approve_admin_orders_path(order), method: :post if order.status != "DONE"
   end
 
+  controller do
+    before_action :restrict_new_order_for_makers, only: :new
+    before_action :restrict_actions_for_makers, only: [:edit, :destroy, :approve]
+
+    private
+
+    # Restrict makers from accessing "New Order"
+    def restrict_new_order_for_makers
+      if ["Coat Maker", "Pants Maker", "Shirt Maker", "Vest Maker", "Production Manager"].include?(current_user.role)
+        redirect_to admin_orders_path, alert: "You are not authorized to create new orders."
+      end
+    end
+
+    # Restrict makers from accessing "Edit" and "Delete"
+    def restrict_actions_for_makers
+      if ["Coat Maker", "Pants Maker", "Shirt Maker", "Vest Maker", "Production Manager"].include?(current_user.role)
+        redirect_to admin_orders_path, alert: "You are not authorized to perform this action."
+      end
+    end
+  end
+
+  index do
+    selectable_column
+    id_column
+    column :created_at
+    column :updated_at
+    column :status
+    column :client
+    column :purpose
+    column :first_fitting
+    column :second_fitting
+    column :third_fitting
+    column :fourth_fitting
+    column :finish
+    column :jo_number
+    column :brand_name
+    column :type_of_service
+    column :item_type
+
+    # Conditionally show actions based on the user role
+    if ["Coat Maker", "Pants Maker", "Shirt Maker", "Vest Maker"].include?(current_user.role)
+      # For maker roles, only show the View action
+      actions defaults: false do |order|
+        item "View", admin_order_path(order)
+      end
+    else
+      # For other roles, show all actions (View, Edit, Delete)
+      actions
+    end
+  end
+
+  
+ 
   action_item :import_demo, only: :show do |p|
     link_to 'Master Print', reports_order_path(order, type: 'Master')
   end
