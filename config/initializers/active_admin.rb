@@ -4,19 +4,19 @@ ActiveAdmin.setup do |config|
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = "Workflow"
+  config.site_title = "Job Order Workflow"
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
   #
-  # config.site_title_link = "/"
+  config.site_title_link = "/"
 
   # Set an optional image to be displayed for the header
   # instead of a string (overrides :site_title)
   #
   # Note: Aim for an image that's 21px high so it fits in the header.
   #
-  # config.site_title_image = "logo.png"
+  config.site_title_image = "favicon.ico"
 
   # == Load Paths
   #
@@ -148,7 +148,7 @@ ActiveAdmin.setup do |config|
   #
   # You can change the order for the comments and you can change the column
   # to be used for ordering:
-  # config.comments_order = 'created_at ASC'
+  config.comments_order = 'created_at ASC'
   #
   # You can disable the menu item for the comments index page:
   # config.comments_menu = false
@@ -189,7 +189,7 @@ ActiveAdmin.setup do |config|
 
   # == Setting a Favicon
   #
-  # config.favicon = 'favicon.ico'
+  config.favicon = 'favicon.ico'
 
   # == Meta Tags
   #
@@ -288,7 +288,7 @@ ActiveAdmin.setup do |config|
   # Pagination is enabled by default for all resources.
   # You can control the default per page count for all resources here.
   #
-  # config.default_per_page = 30
+  config.default_per_page = 20
   #
   # You can control the max per page count too.
   #

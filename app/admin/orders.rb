@@ -19,6 +19,21 @@ ActiveAdmin.register Order do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+
+  index do
+    selectable_column
+    # column :id
+    column "Job Order" do | order |
+      link_to order.jo_number, admin_order_path(order)
+    end
+    column :client
+    column :created_at
+    column :updated_at
+    column :type_of_service
+    column :status
+    actions
+  end
+
   
   action_item :view, only: :show do
     link_to 'Approve', approve_admin_orders_path(order), method: :post if order.status != "DONE"
@@ -56,7 +71,7 @@ ActiveAdmin.register Order do
 
     f.inputs do
       f.input :status
-      f.input :client
+      f.input :client, :input_html => { :disabled => true }
       f.input :purpose
       f.input :brand_name, input_html: { id: 'type_of_brand' }
       f.input :type_of_service, label: "Type of Service"
@@ -188,14 +203,43 @@ ActiveAdmin.register Order do
   
   show do
     attributes_table do
-      row :name
-      row :status
       row :jo_number
       row :client
+      row :status
       row :purpose
-      row :type_of_service
+      row :type_of_service      
     end
 
+    tabs do
+      tab 'Coat' do
+        # Content for the Coat section
+        attributes_table do
+          row :fabric_consumption
+          row :breast
+          # ... other coat-related attributes
+        end
+      end
+
+      tab 'Pants' do
+        # Content for the Panel section
+        attributes_table do
+          row :quantity
+          row :fabric_consumption
+          # ... other panel-related attributes
+        end
+      end
+
+      tab 'Vest' do
+        # Content for the Vest section
+        attributes_table do
+          row :quantity
+          row :fabric_consumption
+          # ... other vest-related attributes
+        end
+      end
+    
+  end
+    
   if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Coat Maker"
 
     panel 'Coat' do
