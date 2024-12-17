@@ -88,22 +88,3 @@ group :test do
 end
 
 gem "matrix", "~> 0.4.2"
-
-gem "simple_calendar", "~> 3.0"
-
-gem "bootstrap-icons"
-
-gem 'bootstrap', '~> 5.1.0'
-
-#Analytics Chart
-gem 'chartkick'
-
-gem 'groupdate'
-
-gem 'active_skin'
-gem 'compass' # If Compass is being used for mixins like `rounded`
-
-gem 'mutex_m'
-gem 'base64'
-gem 'bigdecimal'
-gem 'csv'
