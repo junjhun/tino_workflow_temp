@@ -14,6 +14,8 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
   client = @order&.client
 
+  
+
   if client.nil?
 
 
@@ -173,25 +175,11 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
                 s2fake = "X" if coat&.sleeve_buttons == "2 Fake 2 Functional"
                 noohales = "X" if coat&.sleeve_buttons == "No Ohales"
 
-
-                ojacket_length = coat&.jacket_length.blank? ? @order&.jacket_length : coat&.jacket_length
-                oback_width = coat&.back_width.blank? ? @order&.back_width : coat&.back_width
-                osleeves = coat&.sleeves.blank? ? @order&.sleeves : coat&.sleeves
-                ocuffs_1 = coat&.cuffs_1.blank? ? @order&.cuffs_1 : coat&.cuffs_1
-                ocuffs_2 = coat&.cuffs_2.blank? ? @order&.cuffs_2 : coat&.cuffs_2
-                ocollar = coat&.collar.blank? ? @order&.collar : coat&.collar
-                ochest = coat&.chest.blank? ? @order&.chest : coat&.chest
-                owaist = coat&.waist.blank? ? @order&.waist : coat&.waist
-                ohips = coat&.hips.blank? ? @order&.hips : coat&.hips
-
-                ostature = coat&.stature.blank? ? @order&.stature : coat&.stature
-                oshoulders = coat&.shoulders.blank? ? @order&.shoulders : coat&.shoulders
-
         cbody = [
           [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "Coat: #{ coat&.specs_form }         [#{single_breasted}] SINGLE BREASTED   [#{double_breasted}] DOUBLE BREASTED", colspan: 6}, {content: "JO Number:#{ @order.jo_number }", colspan: 2}],
           [{content: "Fabric label: #{coat&.fabric_label}", colspan: 3}, {content: "Tafetta: #{coat&.tafetta}", rowspan: 2, colspan: 2 }, {content: "Quantity: #{coat&.quantity}", rowspan: 2, colspan: 2}, {content: "BOUTONNIERE: \n\n #{ coat.boutonniere }", colspan: 2, rowspan: 2}, {content: "Button Spacing: \n\n #{ coat.button_spacing }", rowspan: 2}],
           [{content: "Brand label: #{coat&.brand_label}", colspan: 3}],
-          [{content: "Jacket length: #{ojacket_length}", colspan: 2}, {content: "Back Width: #{oback_width}", colspan: 2}, "Sleeves: #{coat&.sleeves || osleeves}", {content: "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}"}, "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", {content: "Hips: #{coat&.hips}"}],
+          [{content: "Jacket length: #{coat&.jacket_length}", colspan: 2}, {content: "Back Width: #{coat&.back_width}", colspan: 2}, "Sleeves: #{coat&.sleeves}", {content: "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}"}, "Collar: #{coat&.collar}", "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", {content: "Hips: #{coat&.hips}"}],
           [{image: pocket_type,  scale: 0.3, colspan: 2}, {image: style,  scale: 0.2, colspan: 2}, {image: lapel,  scale: 0.5, colspan: 2},{image: lining,  scale: 0.3, colspan: 2}, {content: "SLEEVES & PADDING \n\n #{ coat.sleeves_and_padding }", colspan: 2} ],
 
           # [{content: "#{  "x" if coat.style == "Single 1 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 2 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 3 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 6 button" }", align: :center}],
@@ -341,8 +329,6 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           "#{dir}scollar6.png"
         elsif shirt.collar == "Chinese Collar"
           "#{dir}scollar7.png"
-        elsif shirt.collar == "Semi-spread"
-          "#{dir}scollar8.png"
         else
           "#{dir}x.png"
         end
@@ -365,8 +351,8 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           "#{dir}xpocket8.png"
         elsif shirt.pocket == "Wine glass"
           "#{dir}xpocket9.png"
-        elsif shirt.pocket == "Without pocket"
-          "#{dir}xpocket11.png"
+        elsif shirt.pocket == "Without Pocket"
+          "#{dir}xpocket11.png"  
         else
           "#{dir}xpocket10.png"
         end
@@ -381,7 +367,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
           "#{dir}xcuffs4.png"
         elsif shirt.cuffs == "Double Cuffs (Cocktail)"
           "#{dir}xcuffs5.png"
-        elsif shirt.cuffs == "Single cuff (1 button square)"
+        elsif shirt.cuffs == "Single Cuffs (1 button square)"
           "#{dir}xcuffs6.png"
         else
           "#{dir}x.png"
@@ -409,19 +395,9 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
         barong = "X" if shirt.specs_form == "BARONG"
         tux = "X" if shirt.specs_form == "TUX SPECS FORM"
 
-        ojacket_length = coat&.jacket_length.blank? ? @order&.jacket_length : coat&.jacket_length
-        oback_width = coat&.back_width.blank? ? @order&.back_width : coat&.back_width
-        osleeves = coat&.sleeves.blank? ? @order&.sleeves : coat&.sleeves
-        ocuffs_1 = coat&.cuffs_1.blank? ? @order&.cuffs_1 : coat&.cuffs_1
-        ocuffs_2 = coat&.cuffs_2.blank? ? @order&.cuffs_2 : coat&.cuffs_2
-        ocollar = coat&.collar.blank? ? @order&.collar : coat&.collar
-        ochest = coat&.chest.blank? ? @order&.chest : coat&.chest
-        owaist = coat&.waist.blank? ? @order&.waist : coat&.waist
-        ohips = coat&.hips.blank? ? @order&.hips : coat&.hips
-
         cbody = [
           [{image: "#{dir}logo.png",  scale: 0.1, colspan: 2}, {content: "[#{shirting}] SHIRTING   [#{barong}] BARONG   [#{tux}] TUX SPECS FORM", colspan: 6}, {content: "JO NO:#{ @order.jo_number }", colspan: 2}],
-          [{content: "Jacket length: #{ojacket_length}"}, {content: "Back Width: #{oback_width}", colspan: 2}, "Sleeves: #{osleeves}", {content: "Cuffs: #{ocuffs_1}/#{ocuffs_2}"}, "Chest: #{ochest}", "Waist: : #{owaist}", {content: "Hips: #{ohips}"}, {content: "Pleats: #{shirt.pleats}" }, {content: "Lining Code: #{shirt&.lining_code}"}],
+          [{content: "Jacket length: #{coat&.jacket_length}"}, {content: "Back Width: #{coat&.back_width}", colspan: 2}, "Sleeves: #{shirt&.sleeves}", {content: "Cuffs: #{coat&.cuffs_1}/#{coat&.cuffs_2}"}, "Chest: #{coat&.chest}", "Waist: : #{coat&.waist}", {content: "Hips: #{coat&.hips}"}, {content: "Pleats: #{shirt.pleats}" }, {content: "Lining Code: #{shirt&.lining_code}"}],
           [{content: "Fabric label: #{shirt&.fabric_label}", colspan: 2}, {content: "Brand label: #{shirt&.brand_label}", colspan: 2}, {content: "Number of buttons: #{shirt&.number_of_buttons}", colspan: 2}, {content: "Type of Button: #{ shirt.type_of_button }", colspan: 2}, {content: "FABRIC CONSUMPTION: #{ shirt.fabric_consumption }", colspan: 2}],
 
           # [{content: "#{  "x" if coat.style == "Single 1 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 2 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 3 button" }", align: :center}, {content: "#{  "x" if coat.style == "Single 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 4 button" }", align: :center}, {content: "#{  "x" if coat.style == "Double 6 button" }", align: :center}],

@@ -5,12 +5,12 @@ ActiveAdmin.register Order do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :client_id, :name, :status, :purpose, :type_of_service, :first_fitting, :second_fitting, :finish, :jo_number, :brand_name, :jacket_length, :back_width, :sleeves, :cuffs_1, :cuffs_2, :collar, :chest, :waist, :hips, :stature, :shoulders,
+  permit_params :client_id, :name, :status, :purpose, :type_of_service, :first_fitting, :second_fitting,:third_fitting,:fourth_fitting, :finish, :jo_number, :brand_name, :item_type,
                 items_attributes: %i[id name quantity fabric_and_linning_code _destroy],
                 vests_attributes: %i[id quantity fabric_consumption side_pocket chest_pocket vest_length back_width chest waist hips vest_style remarks number_of_front_buttons lapel_style adjuster_type _destroy],
-                shirts_attributes: %i[id quantity fabric_consumption specs_form number_of_buttons shirting_barong fabric_label brand_label tafetta fabric_code lining_code remarks collar cuffs pleats front_placket back_placket sleeves pocket collar bottom type_of_button control_no _destroy],
-                coats_attributes: %i[id fabric_consumption specs_form tafetta fabric_label brand_label no_of_buttons breast quantity coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style lapel_style vent lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing coat_pockets vent control_no pocket_type front_side_pocket _destroy],
-                pants_attributes: %i[id fabric_consumption type_of_pocket pleat_style specs_form tafetta fabric_label brand_label pleats quantity fabric_code lining_code crotch outseam waist seat thigh remarks knee bottom remarks control_no back_pocket strap pant_cuffs add_suspender_buttons no_of_pleats waist_area _destroy]
+                shirts_attributes: %i[id quantity fabric_consumption specs_form number_of_buttons shirting_barong fabric_label fabric_code lining_code remarks collar cuffs pleats front_placket back_placket sleeves pocket collar bottom type_of_button control_no _destroy],
+                coats_attributes: %i[id fabric_consumption specs_form fabric_label no_of_buttons breast quantity coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style lapel_style vent lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing coat_pockets vent control_no pocket_type front_side_pocket _destroy],
+                pants_attributes: %i[id fabric_consumption type_of_pocket pleat_style specs_form fabric_label pleats quantity fabric_code lining_code crotch outseam waist seat thigh remarks knee bottom remarks control_no back_pocket strap pant_cuffs add_suspender_buttons no_of_pleats waist_area _destroy]
   #
   # or
   #
@@ -19,7 +19,7 @@ ActiveAdmin.register Order do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-
+  
   action_item :view, only: :show do
     link_to 'Approve', approve_admin_orders_path(order), method: :post if order.status != "DONE"
   end
@@ -58,35 +58,27 @@ ActiveAdmin.register Order do
       f.input :status
       f.input :client
       f.input :purpose
+      f.input :brand_name, input_html: { id: 'type_of_brand' }
       f.input :type_of_service, label: "Type of Service"
-      f.input :brand_name
-      f.input :first_fitting
-      f.input :second_fitting
+      f.input :first_fitting, input_html: { id: 'first_fitting', class: 'datepicker' }
+      f.input :second_fitting, input_html: { id: 'second_fitting', class: 'datepicker' }
+      f.input :third_fitting, input_html: { id: 'third_fitting', class: 'datepicker' }
+      f.input :fourth_fitting, input_html: { id: 'fourth_fitting', class: 'datepicker' }
       f.input :finish
       f.input :jo_number
-
-      f.input :jacket_length
-      f.input :back_width
-      f.input :sleeves
-      f.input :cuffs_1
-      f.input :cuffs_2
-      f.input :collar
-      f.input :chest
-      f.input :waist
-      f.input :hips
-      f.input :stature
-      f.input :shoulders
     end
 
-
-    f.inputs 'Coats' do
+    f.inputs "Select Item" do
+      f.input :item_type, as: :select, collection: ["Coats", "Pants/Skirt", "Vests", "Shirts"], input_html: { id: 'item-type-selector' }
+    end
+    
+    f.inputs 'Coats', id: 'coats-section', style: 'display:none;' do
       f.has_many :coats, allow_destroy: true, heading: '' do |t|
         t.input :quantity
         t.input :fabric_consumption
         t.input :specs_form
         t.input :control_no
         t.input :breast
-
         t.input :jacket_length
         t.input :back_width
         t.input :sleeves
@@ -98,16 +90,13 @@ ActiveAdmin.register Order do
         t.input :hips
         t.input :stature
         t.input :shoulders
-
         t.input :pocket_type
         t.input :front_side_pocket
         t.input :remarks
-
+ 
         t.input :fabric_code
         t.input :lining_code
         t.input :fabric_label
-        t.input :tafetta
-        t.input :brand_label
         t.input :style
         t.input :lapel_style
         t.input :vent
@@ -124,7 +113,7 @@ ActiveAdmin.register Order do
       end
     end
 
-    f.inputs 'Pants/Skirt' do
+    f.inputs 'Pants/Skirt', id: 'pants-skirt-section', style: 'display:none;' do
       f.has_many :pants, allow_destroy: true, heading: '' do |t|
         t.input :quantity
         t.input :fabric_consumption
@@ -132,8 +121,6 @@ ActiveAdmin.register Order do
         t.input :control_no
         t.input :pleats
         t.input :fabric_label
-        t.input :brand_label
-        t.input :tafetta
         t.input :fabric_code
         t.input :lining_code
         t.input :crotch
@@ -155,7 +142,7 @@ ActiveAdmin.register Order do
       end
     end
 
-    f.inputs 'Vests' do
+    f.inputs 'Vests', id: 'vests-section', style: 'display:none;' do
       f.has_many :vests, allow_destroy: true, heading: '' do |t|
         t.input :quantity
         t.input :fabric_consumption
@@ -174,16 +161,13 @@ ActiveAdmin.register Order do
       end
     end
 
-
-    f.inputs 'Shirts' do
+    f.inputs 'Shirts', id: 'shirts-section', style: 'display:none;' do
       f.has_many :shirts, allow_destroy: true, heading: '' do |t|
         t.input :quantity
         t.input :fabric_consumption
         t.input :specs_form
         t.input :control_no
         t.input :fabric_label
-        t.input :brand_label
-        t.input :tafetta
         t.input :fabric_code
         t.input :lining_code
         t.input :remarks
@@ -201,7 +185,7 @@ ActiveAdmin.register Order do
 
     f.actions
   end
-
+  
   show do
     attributes_table do
       row :name
@@ -290,8 +274,6 @@ ActiveAdmin.register Order do
           column :control_no
           column :shirting_barong
           column :fabric_label
-          column :brand_label
-          column :tafetta
           column  :fabric_code
           column  :lining_code
           column  :remarks
@@ -344,6 +326,59 @@ ActiveAdmin.register Order do
   #   end
   # end
 
+  controller do
+    before_action :restrict_new_order_for_makers, only: :new
+    before_action :restrict_actions_for_makers, only: [:edit, :destroy, :approve]
+
+    private
+
+    # Restrict makers from accessing "New Order"
+    def restrict_new_order_for_makers
+      if ["Coat Maker", "Pants Maker", "Shirt Maker", "Vest Maker", "Production Manager"].include?(current_user.role)
+        redirect_to admin_orders_path, alert: "You are not authorized to create new orders."
+      end
+    end
+
+    # Restrict makers from accessing "Edit" and "Delete"
+    def restrict_actions_for_makers
+      if ["Coat Maker", "Pants Maker", "Shirt Maker", "Vest Maker", "Production Manager"].include?(current_user.role)
+        redirect_to admin_orders_path, alert: "You are not authorized to perform this action."
+      end
+    end
+  end
+
+  index do
+    selectable_column
+    id_column
+    column :created_at
+    column :updated_at
+    column :status
+    column :client
+    column :purpose
+    column :first_fitting
+    column :second_fitting
+    column :third_fitting
+    column :fourth_fitting
+    column :finish
+    column :jo_number
+    column :brand_name
+    column :type_of_service
+    column :item_type
+
+    # Conditionally show actions based on the user role
+    if ["Coat Maker", "Pants Maker", "Shirt Maker", "Vest Maker"].include?(current_user.role)
+      # For maker roles, only show the View action
+      actions defaults: false do |order|
+        item "View", admin_order_path(order)
+      end
+    else
+      # For other roles, show all actions (View, Edit, Delete)
+      actions
+    end
+  end
+
+  
+ 
   action_item :import_demo, only: :show do |p|
     link_to 'Master Print', reports_order_path(order, type: 'Master')
   end
@@ -363,4 +398,6 @@ ActiveAdmin.register Order do
   action_item :import_demo, only: :show do |p|
     link_to 'Vests Print', reports_order_path(order, type: 'Vests')
   end
+
+  
 end
