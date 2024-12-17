@@ -19,21 +19,24 @@ ActiveAdmin.register Order do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
-  # 
 
-  show title: proc { |order| "Order ##{order.jo_number} - #{order.client.name}" }
-
-
-  config.per_page = [10, 20, 50]
-
-  scope :all, default: true do |orders|
-    orders
+  index do
+    selectable_column
+    # column :id
+    column "Job Order" do | order |
+      link_to order.jo_number, admin_order_path(order)
+    end
+    column :client
+    column :created_at
+    column :updated_at
+    column :type_of_service
+    column :status
+    actions
   end
-  scope :'Tiño' do |orders|
-    orders.where(brand_name: '0')
-  end
-  scope :'Olpiana Andres' do |orders|
-    orders.where(brand_name: '1')
+
+  
+  action_item :view, only: :show do
+    link_to 'Approve', approve_admin_orders_path(order), method: :post if order.status != "DONE"
   end
 
   scope :'Has Pants' do |orders|
@@ -127,11 +130,8 @@ ActiveAdmin.register Order do
     f.semantic_errors
 
     f.inputs do
-      f.input :status, disabled: f.object.persisted? 
-      # f.input :client_id, input_html: { value: client.name, disabled: true } 
-      # f.input :client, as: :select, collection: Client.all.map { |c| [c.name, c.id] }, disabled: f.object.persisted? 
-      f.input :client_id, as: :select, collection: Client.all.map { |c| [c.name, c.id] }, 
-      disabled: f.object.persisted? 
+      f.input :status
+      f.input :client, :input_html => { :disabled => true }
       f.input :purpose
       f.input :brand_name, input_html: { id: 'type_of_brand' }
       f.input :type_of_service, label: "Type of Service"
@@ -263,15 +263,85 @@ ActiveAdmin.register Order do
   end  
   
   show do
-    columns do
-      column do
-        attributes_table title: "Information" do
-          row :jo_number
-          row :client
-          row :status
-          row :purpose
-          row :type_of_service      
-          row :brand_name            
+    attributes_table do
+      row :jo_number
+      row :client
+      row :status
+      row :purpose
+      row :type_of_service      
+    end
+
+    tabs do
+      tab 'Coat' do
+        # Content for the Coat section
+        attributes_table do
+          row :fabric_consumption
+          row :breast
+          # ... other coat-related attributes
+        end
+      end
+
+      tab 'Pants' do
+        # Content for the Panel section
+        attributes_table do
+          row :quantity
+          row :fabric_consumption
+          # ... other panel-related attributes
+        end
+      end
+
+      tab 'Vest' do
+        # Content for the Vest section
+        attributes_table do
+          row :quantity
+          row :fabric_consumption
+          # ... other vest-related attributes
+        end
+      end
+    
+  end
+    
+  if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Coat Maker"
+
+    panel 'Coat' do
+      table_for order.coats do
+        column :fabric_consumption
+        column :breast
+        column :control_no
+        column :jacket_length
+        column :back_width
+        column :sleeves
+        column :cuffs_1
+        column :cuffs_2
+        column :collar
+        column :chest
+        column :waist
+        column :hips
+        column :stature
+        column :shoulders
+        column :remarks
+      end
+    end
+
+
+      panel 'Coat Style' do
+        table_for order.coats do
+          column :quantity
+          column :fabric_consumption
+          column :fabric_code
+          column :lining_code
+          column :style
+          column :lapel_style
+          column :vent
+          column :lining
+          column :sleeves_and_padding
+          column :button
+          column :sleeve_buttons
+          column :boutonniere
+          column :boutonniere_color
+          column :boutonniere_thread_code
+          column :button_spacing
+          column :coat_pockets
         end
       end
       column do
