@@ -21,9 +21,9 @@ class Vest < ApplicationRecord
         "No lapel"
     ]
 
-    validate :check_quantity
+    validates :quantity, presence: { message: "cannot be blank" }, 
+    numericality: { only_integer: true, greater_than: 0, message: "must be a positive integer" }
 
-    def check_quantity
-        errors.add(:base, "Quantity cannot be less than one") if self.quantity < 1
-    end
+    validates :fabric_consumption, :side_pocket, :chest_pocket, :vest_length, :back_width, 
+    :chest, :waist, :hips, :vest_style, :lapel_style, :adjuster_type, :number_of_front_buttons, :remarks, presence: true
 end

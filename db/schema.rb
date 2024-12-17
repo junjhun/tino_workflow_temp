@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_13_051659) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_05_175748) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,10 +28,24 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_13_051659) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource"
   end
 
-  create_table "cats", force: :cascade do |t|
-    t.string "name"
-    t.integer "color"
-    t.text "pattern"
+  create_table "add_items", force: :cascade do |t|
+    t.integer "item_type"
+  end
+
+  create_table "calendar_events", force: :cascade do |t|
+    t.string "title"
+    t.date "start_date"
+    t.date "end_date"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "calendars", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -40,12 +54,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_13_051659) do
     t.string "name"
     t.string "contact"
     t.string "email"
+    t.string "IG_handle"
     t.text "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "how_did_you_learn_about_us"
+    t.integer "how_did_you_learn_about_us"
     t.string "referred_by"
+    t.float "shoe_size"
     t.integer "gender", default: 0, null: false
+    t.string "assisted_by"
+    t.string "measured_by"
   end
 
   create_table "coats", force: :cascade do |t|
@@ -101,24 +119,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_13_051659) do
     t.datetime "updated_at", null: false
     t.integer "status", default: 0, null: false
     t.integer "client_id"
-    t.string "purpose"
+    t.integer "purpose", default: 0, null: false
     t.date "first_fitting"
     t.date "second_fitting"
+    t.date "third_fitting"
+    t.date "fourth_fitting"
     t.date "finish"
     t.string "jo_number"
     t.integer "brand_name"
     t.integer "type_of_service", default: 0, null: false
-    t.string "jacket_length"
-    t.string "back_width"
-    t.string "sleeves"
-    t.string "cuffs_1"
-    t.string "cuffs_2"
-    t.string "collar"
-    t.string "chest"
-    t.string "waist"
-    t.string "hips"
-    t.string "stature"
-    t.string "shoulders"
+    t.string "item_type"
   end
 
   create_table "pants", force: :cascade do |t|
@@ -159,7 +169,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_13_051659) do
     t.string "tafetta"
     t.string "fabric_code"
     t.string "lining_code"
-    t.string "remarks"
+    t.text "remarks"
     t.integer "cuffs", default: 0, null: false
     t.integer "pleats", default: 0, null: false
     t.integer "sleeves", default: 0, null: false
@@ -180,19 +190,23 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_13_051659) do
     t.integer "quantity", default: 0, null: false
     t.integer "type_of_button", default: 0, null: false
   end
-
+ 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer "failed_attempts", default: 0, null: false
+    t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role", default: 0, null: false
     t.string "name"
+    t.string "unlock_token"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
   create_table "vests", force: :cascade do |t|

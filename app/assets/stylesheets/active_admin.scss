@@ -2,7 +2,7 @@
 // Sass variable overrides must be declared before loading up Active Admin's styles.
 //
 // To view the variables that Active Admin provides, take a look at
-// `app/assets/stylesheets/active_admin/mixins/_variables.scss` in the
+// app/assets/stylesheets/active_admin/mixins/_variables.scss in the
 // Active Admin source.
 //
 // For example, to change the sidebar width:
@@ -16,3 +16,375 @@
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
+@import "active_skin";
+$google-fonts-url: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700&subset=latin,latin-ext";
+@import url($google-fonts-url);
+$skinTextColor: #1e2a33 !default;
+$skinTextActiveColor: #fff !default;
+$skinTextTable: #7f8c8d !default;
+$skinActiveColor: #e73c3c !default;
+$skinHeaderBck: #1e2a33 !default;
+$skinHeaderTextColor: #ffffff !default;
+$skinFontFamily: 'Source Sans Pro', sans-serif !default;
+$panelHeaderBck: #2c3e50 !default;
+$panelHeaderTextColor: #ffffff !default;
+
+/* Targeting the header site title for Active Admin */
+#header h1#site_title.site_title {
+  background: url('app/assets/images/custom_logo.png') no-repeat center; 
+  background-size: contain; 
+  width: 200px;
+  height: 50px; 
+  text-indent: -9999px; 
+  color: transparent; 
+  display: block;
+}
+
+#tabs {
+  display: flex;
+  justify-content: center;
+  list-style-type: none; 
+  padding: 0; 
+  margin: 0 auto; 
+}
+
+.header {
+  text-align: center;
+}
+
+
+
+#index_table_orders {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  color: #ffffff;
+  border-radius: 12px;      
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);  
+  margin: 30px 0;        
+  padding: 20px;          
+  background-color: #3b2f2f;
+}
+
+
+#index_table_orders th {
+background-color: #a02828;
+color: #ffffff;
+font-weight: bold;
+padding: 14px;
+text-align: left;
+border-bottom: 2px solid #ccc;
+position: relative;
+cursor: pointer;
+text-transform: uppercase;
+}
+
+.index_table th {
+  background-image: linear-gradient(180deg, #a02828, #8a1f1f);
+  color: #ffffff;
+}
+
+.index_table th.sorted-asc, .index_table th.sorted-desc {
+background-color: #701515;
+background-image: linear-gradient(180deg, #701515, #5a0f0f);
+color: #e0e0e0;
+}
+
+.index_table th.col-id,
+.index_table th.col-created_at,
+.index_table th.col-updated_at {
+color: #e0e0e0;
+}
+
+
+table.index_table th a,
+table.index_table th a:link,
+table.index_table th a:visited {
+color: #e0e0e0;
+text-decoration: none;
+}
+
+
+#index_table_orders tbody tr:nth-child(odd) {
+background-color: #e8e6e6;
+color: #333;
+}
+
+#index_table_orders tbody tr:nth-child(even) {
+background-color: #ffffff;
+color: #333;
+}
+
+#index_table_orders tbody tr:hover {
+background-color: #f1f1f1;
+}
+
+#index_table_orders td.col-selectable {
+background-color: #6a4949; 
+color: #ffffff; 
+}
+
+
+#index_table_orders td {
+padding: 12px 20px;
+border-bottom: 1px solid #888;
+}
+
+
+.index_table td.col-id,
+.index_table td.col-jo_number,
+.index_table td.col-created_at,
+.index_table td.col-updated_at,
+.index_table td.col-first_fitting,
+.index_table td.col-second_fitting,
+.index_table td.col-third_fitting,
+.index_table td.col-fourth_fitting,
+.index_table td.col-finish {
+text-align: center;
+}
+
+
+.table_actions a {
+color: #ffcc00;
+text-decoration: none;
+padding: 8px 12px;
+border-radius: 4px;
+transition: background-color 0.3s ease, color 0.3s ease;
+margin-right: 6px;
+font-weight: bold;
+}
+
+
+.table_actions a:hover {
+background-color: #5a4747;
+text-decoration: none;
+}
+
+.table_actions .view_link {
+color: #f0b429;
+}
+
+.table_actions .edit_link {
+color: #ffa500; 
+}
+
+.table_actions .delete_link {
+color: #ff6666;
+}
+
+.table_actions .delete_link:hover {
+background-color: #8a2b2b;
+color: #ffcccc;
+}
+
+#index_table_clients {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  color: #ffffff;
+  border-radius: 12px;      
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);  
+  margin: 30px 0;        
+  padding: 20px;          
+  background-color: #3b2f2f;
+}
+
+
+#index_table_clients th {
+background-color: #a02828;
+color: #ffffff;
+font-weight: bold;
+padding: 14px;
+text-align: left;
+border-bottom: 2px solid #ccc;
+position: relative;
+cursor: pointer;
+text-transform: uppercase;
+}
+
+.index_table th {
+  background-image: linear-gradient(180deg, #a02828, #8a1f1f);
+  color: #ffffff;
+}
+
+.index_table th.sorted-asc, .index_table th.sorted-desc {
+background-color: #701515;
+background-image: linear-gradient(180deg, #701515, #5a0f0f);
+color: #e0e0e0;
+}
+
+.index_table th.col-id,
+.index_table th.col-created_at,
+.index_table th.col-updated_at {
+color: #e0e0e0;
+}
+
+
+table.index_table th a,
+table.index_table th a:link,
+table.index_table th a:visited {
+color: #e0e0e0;
+text-decoration: none;
+}
+
+
+#index_table_clients tbody tr:nth-child(odd) {
+background-color: #e8e6e6;
+color: #333;
+}
+
+#index_table_clients tbody tr:nth-child(even) {
+background-color: #ffffff;
+color: #333;
+}
+
+#index_table_clients tbody tr:hover {
+background-color: #f1f1f1;
+}
+
+#index_table_clients td.col-selectable {
+background-color: #6a4949; 
+color: #ffffff; 
+}
+
+
+#index_table_clients td {
+padding: 12px 20px;
+border-bottom: 1px solid #888;
+}
+
+
+.index_table td.col-id,
+.index_table td.col-name,
+.index_table td.col-contact,
+.index_table td.col-ig_handle,
+.index_table td.col-address,
+.index_table td.col-created_at,
+.index_table td.col-updated_at,
+.index_table td.col-how_did_you_learn_about_us,
+.index_table td.col-referred_by,
+.index_table td.col-shoe_size,
+.index_table td.col-gender,
+.index_table td.col-assisted_by,
+.index_table td.col-measured_by {
+text-align: center;
+}
+
+
+.table_actions a {
+color: #ffcc00;
+text-decoration: none;
+padding: 8px 12px;
+border-radius: 4px;
+transition: background-color 0.3s ease, color 0.3s ease;
+margin-right: 6px;
+font-weight: bold;
+}
+
+#index_table_users {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  color: #ffffff;
+  border-radius: 12px;      
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);  
+  margin: 30px 0;        
+  padding: 20px;          
+  background-color: #3b2f2f;
+}
+
+
+#index_table_users th {
+background-color: #a02828;
+color: #ffffff;
+font-weight: bold;
+padding: 14px;
+text-align: left;
+border-bottom: 2px solid #ccc;
+position: relative;
+cursor: pointer;
+text-transform: uppercase;
+}
+
+.index_table th {
+  background-image: linear-gradient(180deg, #a02828, #8a1f1f);
+  color: #ffffff;
+}
+
+.index_table th.sorted-asc, .index_table th.sorted-desc {
+background-color: #701515;
+background-image: linear-gradient(180deg, #701515, #5a0f0f);
+color: #e0e0e0;
+}
+
+.index_table th.col-id,
+.index_table th.col-created_at,
+.index_table th.col-updated_at {
+color: #e0e0e0;
+}
+
+
+table.index_table th a,
+table.index_table th a:link,
+table.index_table th a:visited {
+color: #e0e0e0;
+text-decoration: none;
+}
+
+
+#index_table_users tbody tr:nth-child(odd) {
+background-color: #e8e6e6;
+color: #333;
+}
+
+#index_table_users tbody tr:nth-child(even) {
+background-color: #ffffff;
+color: #333;
+}
+
+#index_table_users tbody tr:hover {
+background-color: #f1f1f1;
+}
+
+#index_table_users td.col-selectable {
+background-color: #6a4949; 
+color: #ffffff; 
+}
+
+
+#index_table_users td {
+padding: 12px 20px;
+border-bottom: 1px solid #888;
+}
+
+
+.index_table td.col-id,
+.index_table td.col-name,
+.index_table td.col-role,
+.index_table td.col-selectable,
+.index_table td.col-email,
+.index_table td.col-current_sign_in_at,
+.index_table td.col-sign_in_count,
+.index_table td.col-created_at,
+.index_table td.col-actions {
+text-align: center;
+}
+
+
+.table_actions a {
+color: #ffcc00;
+text-decoration: none;
+padding: 8px 12px;
+border-radius: 4px;
+transition: background-color 0.3s ease, color 0.3s ease;
+margin-right: 6px;
+font-weight: bold;
+}
+
+

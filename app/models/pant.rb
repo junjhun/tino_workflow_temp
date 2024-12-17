@@ -55,9 +55,12 @@ class Pant < ApplicationRecord
         "no belt loop/ no side adjuster"
     ]
 
-    validate :check_quantity
+    validates :quantity, presence: { message: "cannot be blank" }, 
+    numericality: { only_integer: true, greater_than: 0, message: "must be a positive integer" }
 
-    def check_quantity
-        errors.add(:base, "Quantity cannot be less than one") if self.quantity < 1
-    end
+    validates :fabric_consumption, :specs_form, :control_no, :pleats, :fabric_label, 
+    :fabric_code, :lining_code, :crotch, :outseam, :waist, :seat, :thigh, :knee, :bottom, :back_pocket, 
+    :strap, :pant_cuffs, :pleat_style, :type_of_pocket, :add_suspender_buttons, :no_of_pleats, :waist_area, :remarks, presence: true
+
+    validates :control_no, numericality: { only_integer: true, message: "must be a valid number" }, presence: true
 end

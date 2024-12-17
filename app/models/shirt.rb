@@ -10,11 +10,12 @@ class Shirt < ApplicationRecord
     enum cuffs: [
         "Single Cuffs (1 button round)",
         "Single Cuffs (1 button angle)",
+        "Single Cuffs (1 button square)",
         "Double Cuffs (French Square)",
         "Double Cuffs (French Angle)",
         "Double Cuffs (Cocktail)",
-        "Single cuff (1 button square)",
-        "Not Applicable"
+        "Not Applicable"   
+
     ]
 
     enum pleats: [
@@ -62,7 +63,7 @@ class Shirt < ApplicationRecord
         "w/ slanted flaps",
         "w/ pointed curve flaps",
         "Wine glass",
-        "Without pocket"
+        "Without Pocket"
     ]
 
     enum collar: [
@@ -88,9 +89,10 @@ class Shirt < ApplicationRecord
         "TUX SPECS FORM"
     ]
 
-    validate :check_quantity
+    validates :quantity, presence: { message: "cannot be blank" }, 
+    numericality: { only_integer: true, greater_than: 0, message: "must be a positive integer" }
 
-    def check_quantity
-        errors.add(:base, "Quantity cannot be less than one") if self.quantity < 1
-    end
+    validates :fabric_consumption, :specs_form, :control_no, :fabric_label, 
+    :fabric_code, :lining_code, :remarks, :cuffs, :pleats, :front_placket, :back_placket, :sleeves, :pocket, 
+    :collar, :bottom, :type_of_button, presence: true
 end
