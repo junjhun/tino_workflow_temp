@@ -13,22 +13,25 @@ class Client < ApplicationRecord
     def capitalize_client_name
         self.name = self.name.titleize        
     end
-
-    # Counts the number of orders associated with a client
-    # scope :with_order_count, -> {
-    #     select('clients.*, COUNT(orders.id) AS order_count')
-    #     .joins('LEFT JOIN orders ON orders.client_id = clients.id')
-    #     .group('clients.id')
-    # }
-
+    
     # Prevent deletion of a client if there are associated orders
-    #validate :cannot_delete_if_orders_exist
+    validate :cannot_delete_if_orders_exist
 
     # Method that prevents deletion of a client if there are associated orders
+    private
+    def cannot_delete_if_orders_exist
+        errors.add(:base, "Cannot delete a client with associated orders") if orders.any?
+    end    
+
+    # before_destroy :prevent_deletion_if_orders_exist
+
     # private
-    # def cannot_delete_if_orders_exist
-    #     errors.add(:base, "Cannot delete a client with associated orders") if orders.any?
-    # end    
+    # def prevent_deletion_if_orders_exist
+    #     if orders.present?
+    #     errors.add(:base, "Cannot delete client with existing orders.")
+    #     throw(:abort) 
+    #     end
+    # end
 
     # default_sort ["order_count", "created_at"], :desc
     private

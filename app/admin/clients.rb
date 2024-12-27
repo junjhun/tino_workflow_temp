@@ -5,7 +5,7 @@ ActiveAdmin.register Client do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :order_id, :name, :contact, :email, :address, :how_did_you_learn_about_us, :referred_by, :gender, orders_attributes: [:id, :client_id, :status]
+  permit_params :name, :contact, :email, :address, :how_did_you_learn_about_us, :referred_by, :gender, orders_attributes: [:id, :client_id, :status]
   #
   # or
   #
@@ -15,33 +15,46 @@ ActiveAdmin.register Client do
   #   permitted
   # end
 
-  filter :orders_client_name, as: :select, label: "Client Name", collection: Order.all.map { |order| order.name}
+  config.per_page = [10, 20, 50]
+  
+  filter :orders_client_name, as: :select, label: "Client Name", collection: Client.all.map { |order| order.name}
   filter :referred_by
   filter :created_at
 
-  index do    
-      selectable_column
-      id_column
-      column :name do |client|
-        link_to client.name, admin_client_path(client)
+  index do              
+    column :name do |client|
+      link_to client.name, admin_client_path(client)
+    end
+    column "Latest Order" do |client|        # Show the latest order for each client
+      if client.orders.any?
+        link_to "#{client.orders.order(created_at: :desc).first.jo_number}", admin_order_path(client.orders.order(created_at: :desc).first) 
       end
-      column :order_count do |client|
-        client.orders.count
-      end
-      column :created_at
-      column :updated_at
-      actions
-
-      # action_item :new_order do
-      #   link_to 'New Order', new_admin_order_path(client_id: client.id)
-      # end
+    end      
+    column :contact
+    column :referred_by
+    column :"Date Created", sortable: :created_at do |client|
+      client.created_at.strftime("%d %b %Y") 
+    end 
+    actions
       
   end
 
-  # scope :all
+  controller do
+    def scoped_collection
+      super.includes(:orders).distinct
+    end
+  end
+
+  # actions :index, :show, :new, :edit, :update do |client|    
+  #   item "View Client", admin_client_path(client)
+  #   # item "Edit Client", edit_admin_client_path(client) if can?(:edit, client) 
+  # end
+
+  #scope :all
   # scope :with_order_count, default: true
 
   show do
+    
     attributes_table do
       row :name
       row :email
@@ -51,8 +64,7 @@ ActiveAdmin.register Client do
       row :how_did_you_learn_about_us
       row :referred_by
     end
-
-    
+        
     panel "Orders" do
       table_for client.orders do
         # column :id do |order|
@@ -69,14 +81,16 @@ ActiveAdmin.register Client do
     end
 
    # active_admin_comments    
+  end  
 
+  action_item :new_order, only: :show do 
+    link_to "New Order", new_admin_order_path(client_id: client.id), method: :get 
   end
 
-  
-
-  #link_to 'Delete', [:admin, resource], method: :delete, data: { confirm: 'Are you sure? Deleting this client will also delete associated orders.' }, disabled: resource.orders.any?
-
-
+  action_item :destroy, only: :show do 
+    link_to "Delete", admin_client_path(client), method: :delete, 
+           data: { confirm: "Are you sure you want to delete this client?" } if client.orders.empty?
+  end
 
 end
 

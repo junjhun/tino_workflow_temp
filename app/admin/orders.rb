@@ -19,26 +19,83 @@ ActiveAdmin.register Order do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+  # 
 
+  show title: proc { |order| "Order ##{order.jo_number} - #{order.client.name}" }
+
+
+  config.per_page = [10, 20, 50]
+
+  scope :all, default: true do |orders|
+    orders
+  end
+  scope :'Tiño' do |orders|
+    orders.where(brand_name: '0')
+  end
+  scope :'Olpiana Andres' do |orders|
+    orders.where(brand_name: '1')
+  end
+
+  scope :'Has Pants' do |orders|
+    orders.joins(:pants).distinct 
+  end    
+
+  scope :'Has Coat' do |orders|
+    orders.joins(:coats).distinct 
+  end
+
+  scope :'Has Vest' do |orders|
+    orders.joins(:vests).distinct 
+  end
+
+  scope :'Has Shirt' do |orders|
+    orders.joins(:shirts).distinct 
+  end
+  
   index do
-    selectable_column
-    # column :id
-    column "Job Order" do | order |
+    column "Job Order", sortable: :jo_number do | order |
       link_to order.jo_number, admin_order_path(order)
     end
-    column :client
-    column :created_at
-    column :updated_at
+    column :client 
     column :type_of_service
-    column :status
+    column :purpose
+    column :"Date Created", sortable: :created_at do |order|
+      order.created_at.strftime("%d %b '%y %I:%M%p") 
+    end
+    column :updated_at do |order|
+      order.updated_at.strftime("%d %b '%y %I:%M%p")
+    end
+    column :status_label, sortable: :status
     actions
+
+  end
+
+  # Make client column sortable
+  controller do
+    def scoped_collection
+      super.includes :client
+    end
+
+    def scoped_collection
+      super.includes(:client)
+  
+      if params[:q] && params[:q][:fitting_dates].present?
+        dates = params[:q][:fitting_dates]
+        # Handle potential errors or invalid date formats
+        begin
+          dates = dates.map { |date_str| Date.parse(date_str) } 
+        rescue ArgumentError
+          # Handle invalid date format
+        end
+        where("first_fitting IN (?) OR second_fitting IN (?)", dates, dates)
+      else
+        super
+      end
+    end
+    
   end
 
   
-  action_item :view, only: :show do
-    link_to 'Approve', approve_admin_orders_path(order), method: :post if order.status != "DONE"
-  end
-
   collection_action :approve, method: :post do
     # Do some CSV importing work here...
     id = params[:format].to_i
@@ -70,8 +127,11 @@ ActiveAdmin.register Order do
     f.semantic_errors
 
     f.inputs do
-      f.input :status
-      f.input :client, :input_html => { :disabled => true }
+      f.input :status, disabled: f.object.persisted? 
+      # f.input :client_id, input_html: { value: client.name, disabled: true } 
+      # f.input :client, as: :select, collection: Client.all.map { |c| [c.name, c.id] }, disabled: f.object.persisted? 
+      f.input :client_id, as: :select, collection: Client.all.map { |c| [c.name, c.id] }, 
+      disabled: f.object.persisted? 
       f.input :purpose
       f.input :brand_name, input_html: { id: 'type_of_brand' }
       f.input :type_of_service, label: "Type of Service"
@@ -198,168 +258,276 @@ ActiveAdmin.register Order do
       end
     end
 
-    f.actions
-  end
+    f.actions        
+
+  end  
   
   show do
-    attributes_table do
-      row :jo_number
-      row :client
-      row :status
-      row :purpose
-      row :type_of_service      
+    columns do
+      column do
+        attributes_table title: "Information" do
+          row :jo_number
+          row :client
+          row :status
+          row :purpose
+          row :type_of_service      
+          row :brand_name            
+        end
+      end
+      column do
+        attributes_table title: "Date Details" do
+          row :"Date Created", :created_at do |order|
+            order.created_at.strftime("%B %d %Y") 
+          end
+          row :first_fitting
+          row :second_fitting
+          row :finish
+        end
+
+      end
     end
 
     tabs do
       tab 'Coat' do
-        # Content for the Coat section
-        attributes_table do
-          row :fabric_consumption
-          row :breast
-          # ... other coat-related attributes
+        # Content for the Coat section        
+          table_for order.coats do
+            column :fabric_consumption
+            column :breast
+            column :control_no
+            column :jacket_length
+            column :back_width
+            column :sleeves
+            column :cuffs_1
+            column :cuffs_2
+            column :collar
+            column :chest
+            column :waist
+            column :hips
+            column :stature
+            column :shoulders
+            column :remarks          
         end
-      end
+      end if order.coats.any? 
 
-      tab 'Pants' do
-        # Content for the Panel section
-        attributes_table do
-          row :quantity
-          row :fabric_consumption
-          # ... other panel-related attributes
+
+      tab 'Coat Style' do
+        # Content for the Panel section        
+        if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Coat Maker"
+          table_for order.coats do
+            column :quantity
+            column :fabric_consumption
+            column :fabric_code
+            column :lining_code
+            column :style
+            column :lapel_style
+            column :vent
+            column :lining
+            column :sleeves_and_padding
+            column :button
+            column :sleeve_buttons
+            column :boutonniere
+            column :boutonniere_color
+            column :boutonniere_thread_code
+            column :button_spacing
+            column :coat_pockets
+          end        
         end
-      end
+      end if order.coats.any? 
+
+      tab 'Pants' do 
+        if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Coat Maker"
+          table_for order.pants do
+            column :quantity
+            column :fabric_consumption
+            column :control_no
+            column :pleats
+            column :fabric_code
+            column :lining_code
+            column :crotch
+            column :outseam
+            column :waist
+            column :seat
+            column :thigh
+            column :knee
+            column :bottom
+            column :remarks
+          end
+        end
+      end if order.pants.any? 
+
 
       tab 'Vest' do
         # Content for the Vest section
-        attributes_table do
-          row :quantity
-          row :fabric_consumption
-          # ... other vest-related attributes
+        if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Vest Maker"
+            table_for order.vests do
+              column :quantity
+              column :fabric_consumption
+              column :side_pocket
+              column :vest_length
+              column :back_width
+              column :chest
+              column :waist
+              column  :hips
+              column  :vest_style
+              column  :remarks
+              column  :number_of_front_buttons
+              column  :lapel_style
+              column  :adjuster_type
+            end 
         end
-      end
+      end if order.vests.any? 
+
+      tab 'Shirt' do
+        if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Vest Maker"
+          table_for order.shirts do
+            column :quantity
+            column :fabric_consumption
+            column :control_no
+            column :shirting_barong
+            column :fabric_label
+            column :brand_label
+            column :tafetta
+            column  :fabric_code
+            column  :lining_code
+            column  :remarks
+            column  :cuffs
+            column  :pleats
+            column  :front_placket
+            column  :back_placket
+            column  :sleeves
+            column  :number_of_buttons
+            column  :pocket
+            column  :collar
+            column  :bottom
+          end
+        end
+      end if order.shirts.any? 
+
     
   end
     
-  if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Coat Maker"
+  # if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Coat Maker"
 
-    panel 'Coat' do
-      table_for order.coats do
-        column :fabric_consumption
-        column :breast
-        column :control_no
-        column :jacket_length
-        column :back_width
-        column :sleeves
-        column :cuffs_1
-        column :cuffs_2
-        column :collar
-        column :chest
-        column :waist
-        column :hips
-        column :stature
-        column :shoulders
-        column :remarks
-      end
-    end
-
-
-      panel 'Coat Style' do
-        table_for order.coats do
-          column :quantity
-          column :fabric_consumption
-          column :fabric_code
-          column :lining_code
-          column :style
-          column :lapel_style
-          column :vent
-          column :lining
-          column :sleeves_and_padding
-          column :button
-          column :sleeve_buttons
-          column :boutonniere
-          column :boutonniere_color
-          column :boutonniere_thread_code
-          column :button_spacing
-          column :coat_pockets
-        end
-      end
-
-    end
-
-    if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Pants Maker"
-
-      panel 'Pants' do
-        table_for order.pants do
-          column :quantity
-          column :fabric_consumption
-          column :control_no
-          column :pleats
-          column :fabric_code
-          column :lining_code
-          column :crotch
-          column :outseam
-          column :waist
-          column :seat
-          column :thigh
-          column :knee
-          column :bottom
-          column :remarks
-        end
-      end
-    
-    end
-
-    if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Shirt Maker"
-
-      panel 'Shirts' do
-        table_for order.shirts do
-          column :quantity
-          column :fabric_consumption
-          column :control_no
-          column :shirting_barong
-          column :fabric_label
-          column  :fabric_code
-          column  :lining_code
-          column  :remarks
-          column  :cuffs
-          column  :pleats
-          column  :front_placket
-          column  :back_placket
-          column  :sleeves
-          column  :number_of_buttons
-          column  :pocket
-          column  :collar
-          column  :bottom
-        end
-      end
-
-    end
+  #   panel 'Coat' do
+  #     table_for order.coats do
+  #       column :fabric_consumption
+  #       column :breast
+  #       column :control_no
+  #       column :jacket_length
+  #       column :back_width
+  #       column :sleeves
+  #       column :cuffs_1
+  #       column :cuffs_2
+  #       column :collar
+  #       column :chest
+  #       column :waist
+  #       column :hips
+  #       column :stature
+  #       column :shoulders
+  #       column :remarks
+  #     end
+  #   end
 
 
-    if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Vest Maker"
+  #     panel 'Coat Style' do
+  #       table_for order.coats do
+  #         column :quantity
+  #         column :fabric_consumption
+  #         column :fabric_code
+  #         column :lining_code
+  #         column :style
+  #         column :lapel_style
+  #         column :vent
+  #         column :lining
+  #         column :sleeves_and_padding
+  #         column :button
+  #         column :sleeve_buttons
+  #         column :boutonniere
+  #         column :boutonniere_color
+  #         column :boutonniere_thread_code
+  #         column :button_spacing
+  #         column :coat_pockets
+  #       end
+  #     end
 
-      panel 'Vests' do
-        table_for order.vests do
-          column :quantity
-          column :fabric_consumption
-          column :side_pocket
-          column :vest_length
-          column :back_width
-          column :chest
-          column :waist
-          column  :hips
-          column  :vest_style
-          column  :remarks
-          column  :number_of_front_buttons
-          column  :lapel_style
-          column  :adjuster_type
-        end
-      end
+  # end
 
-    end
+  # if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Pants Maker"
 
-    active_admin_comments
-  end
+  #   panel 'Pants' do
+  #     table_for order.pants do
+  #       column :quantity
+  #       column :fabric_consumption
+  #       column :control_no
+  #       column :pleats
+  #       column :fabric_code
+  #       column :lining_code
+  #       column :crotch
+  #       column :outseam
+  #       column :waist
+  #       column :seat
+  #       column :thigh
+  #       column :knee
+  #       column :bottom
+  #       column :remarks
+  #     end
+  #   end
+  
+  # end
+
+  # if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Shirt Maker"
+
+  #   panel 'Shirts' do
+  #     table_for order.shirts do
+  #       column :quantity
+  #       column :fabric_consumption
+  #       column :control_no
+  #       column :shirting_barong
+  #       column :fabric_label
+  #       column :brand_label
+  #       column :tafetta
+  #       column  :fabric_code
+  #       column  :lining_code
+  #       column  :remarks
+  #       column  :cuffs
+  #       column  :pleats
+  #       column  :front_placket
+  #       column  :back_placket
+  #       column  :sleeves
+  #       column  :number_of_buttons
+  #       column  :pocket
+  #       column  :collar
+  #       column  :bottom
+  #     end
+  #   end
+
+  # end
+
+
+  # if current_user.role == "Administrator" || current_user.role == "Master Tailor" || current_user.role == "Sales Assistant" || current_user.role == "Production Manager" || current_user.role == "Vest Maker"
+
+  #   panel 'Vests' do
+  #     table_for order.vests do
+  #       column :quantity
+  #       column :fabric_consumption
+  #       column :side_pocket
+  #       column :vest_length
+  #       column :back_width
+  #       column :chest
+  #       column :waist
+  #       column  :hips
+  #       column  :vest_style
+  #       column  :remarks
+  #       column  :number_of_front_buttons
+  #       column  :lapel_style
+  #       column  :adjuster_type
+  #     end
+  #   end
+
+  # end
+
+  active_admin_comments
+end
 
   # controller do
   #   # if you want /admin/pages/12345.pdf
@@ -370,59 +538,10 @@ ActiveAdmin.register Order do
   #   end
   # end
 
-  controller do
-    before_action :restrict_new_order_for_makers, only: :new
-    before_action :restrict_actions_for_makers, only: [:edit, :destroy, :approve]
-
-    private
-
-    # Restrict makers from accessing "New Order"
-    def restrict_new_order_for_makers
-      if ["Coat Maker", "Pants Maker", "Shirt Maker", "Vest Maker", "Production Manager"].include?(current_user.role)
-        redirect_to admin_orders_path, alert: "You are not authorized to create new orders."
-      end
-    end
-
-    # Restrict makers from accessing "Edit" and "Delete"
-    def restrict_actions_for_makers
-      if ["Coat Maker", "Pants Maker", "Shirt Maker", "Vest Maker", "Production Manager"].include?(current_user.role)
-        redirect_to admin_orders_path, alert: "You are not authorized to perform this action."
-      end
-    end
+  action_item :view, only: :show do
+    link_to 'Approve', approve_admin_orders_path(order), method: :post if order.status != "DONE"
   end
 
-  index do
-    selectable_column
-    id_column
-    column :created_at
-    column :updated_at
-    column :status
-    column :client
-    column :purpose
-    column :first_fitting
-    column :second_fitting
-    column :third_fitting
-    column :fourth_fitting
-    column :finish
-    column :jo_number
-    column :brand_name
-    column :type_of_service
-    column :item_type
-
-    # Conditionally show actions based on the user role
-    if ["Coat Maker", "Pants Maker", "Shirt Maker", "Vest Maker"].include?(current_user.role)
-      # For maker roles, only show the View action
-      actions defaults: false do |order|
-        item "View", admin_order_path(order)
-      end
-    else
-      # For other roles, show all actions (View, Edit, Delete)
-      actions
-    end
-  end
-
-  
- 
   action_item :import_demo, only: :show do |p|
     link_to 'Master Print', reports_order_path(order, type: 'Master')
   end
@@ -443,5 +562,10 @@ ActiveAdmin.register Order do
     link_to 'Vests Print', reports_order_path(order, type: 'Vests')
   end
 
+  # Filter side bar
+  filter :client_name, as: :select, label: "Client Name", collection: Client.all.map { |order| order.name}  
+  filter :type_of_service, as: :select, label: "Type of Service", collection: Order.type_of_services.keys
+  filter :created_at
   
+
 end
