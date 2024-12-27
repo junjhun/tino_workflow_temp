@@ -19,6 +19,15 @@ class Order < ApplicationRecord
         "GIVE THE FITTING GARMENT TO MASTER TAILOR AND PATTERN FOR AREGLO IN PREPS FOR 2ND FITTING",
         "DONE"
     ]
+    
+    def status_label
+        case status
+        when "Client Appointment" then "New Order"
+        when "DONE" then "Done"        
+        else
+          "In Progress"
+        end
+    end
 
     # enum purpose: [
     #     "Bride",
@@ -54,4 +63,19 @@ class Order < ApplicationRecord
     def name
         client&.name
     end
+
+    scope :with_orders, -> { joins(:orders).group("products.id").having("COUNT(orders.id) > 0") }
+
+
+    before_destroy :prevent_deletion_if_jo_number_present
+    private
+    def prevent_deletion_if_jo_number_present
+        if jo_number.present?
+            errors.add(:base, "Cannot delete order with existing JO Number.")
+            throw(:abort)
+        end
+    end
+
+
+    
 end

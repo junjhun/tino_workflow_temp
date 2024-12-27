@@ -167,7 +167,10 @@ ActiveAdmin.setup do |config|
   # You can add before, after and around filters to all of your
   # Active Admin resources and pages from here.
   #
-  # config.before_action :do_something_awesome
+  config.before_action do
+    left_sidebar! if respond_to?(:left_sidebar!)
+  end
+
 
   # == Attribute Filters
   #
@@ -288,7 +291,7 @@ ActiveAdmin.setup do |config|
   # Pagination is enabled by default for all resources.
   # You can control the default per page count for all resources here.
   #
-  config.default_per_page = 20
+  config.default_per_page = 10
   #
   # You can control the max per page count too.
   #
@@ -334,7 +337,7 @@ ActiveAdmin.setup do |config|
   # By default, the footer shows the current Active Admin version. You can
   # override the content of the footer here.
   #
-  # config.footer = 'my custom footer text'
+  config.footer = 'JOW version 1.0.0  (Powered by COCO)'
 
   # == Sorting
   #
