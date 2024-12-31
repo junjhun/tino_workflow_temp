@@ -56,7 +56,6 @@ gem 'activeadmin_addons'
 
 # Plus integrations with:
 gem 'devise'
-gem 'cancancan'
 gem 'draper'
 
 # PDF
@@ -90,3 +89,4 @@ end
 gem "matrix", "~> 0.4.2"
 gem 'active_admin_sidebar'
 
+gem "net-pop", require: false
