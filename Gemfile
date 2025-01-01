@@ -56,6 +56,7 @@ gem 'activeadmin_addons'
 
 # Plus integrations with:
 gem 'devise'
+gem 'cancancan'
 gem 'draper'
 
 # PDF
@@ -85,6 +86,24 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "simple_calendar", "~> 3.0"
+
+gem "bootstrap-icons"
+
+gem 'bootstrap', '~> 5.1.0'
+
+#Analytics Chart
+gem 'chartkick'
+
+gem 'groupdate'
+
+gem 'compass' # If Compass is being used for mixins like `rounded`
+
+gem 'mutex_m'
+gem 'base64'
+gem 'bigdecimal'
+gem 'csv'
 
 gem "matrix", "~> 0.4.2"
 gem 'active_admin_sidebar'
