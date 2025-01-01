@@ -1,4 +1,4 @@
-class CalendarViewModel
+class CalendarEvent < ApplicationRecord
     def initialize
       @events = CalendarEvent.all
     end
