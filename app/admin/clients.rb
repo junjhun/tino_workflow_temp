@@ -17,7 +17,8 @@ ActiveAdmin.register Client do
 
   config.per_page = [10, 20, 50]
   
-  filter :orders_client_name, as: :select, label: "Client Name", collection: Client.all.map { |order| order.name}
+  # filter :orders_client_name, as: :select, label: "Client Name", collection: Client.all.map { |order| order.name}
+  
   filter :referred_by
   filter :created_at
 
