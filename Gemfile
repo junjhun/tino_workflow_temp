@@ -89,4 +89,4 @@ end
 gem "matrix", "~> 0.4.2"
 gem 'active_admin_sidebar'
 
-gem "net-pop", require: false
+gem "net-pop", github: "ruby/net-pop"
