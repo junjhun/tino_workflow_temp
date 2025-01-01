@@ -87,25 +87,21 @@ group :test do
   gem "webdrivers"
 end
 
-gem "simple_calendar", "~> 3.0"
+# gem "simple_calendar", "~> 3.0"
 
-gem "bootstrap-icons"
+# gem "bootstrap-icons"
 
-gem 'bootstrap', '~> 5.1.0'
+# gem 'bootstrap', '~> 5.1.0'
 
-#Analytics Chart
-gem 'chartkick'
-
-gem 'groupdate'
-
-gem 'compass' # If Compass is being used for mixins like `rounded`
-
-gem 'mutex_m'
-gem 'base64'
-gem 'bigdecimal'
-gem 'csv'
+# #Analytics Chart
+# gem 'chartkick'
+# gem 'groupdate'
+# gem 'compass' # If Compass is being used for mixins like `rounded`
+# gem 'mutex_m'
+# gem 'base64'
+# gem 'bigdecimal'
+# gem 'csv'
 
 gem "matrix", "~> 0.4.2"
-gem 'active_admin_sidebar'
-
 gem "net-pop", github: "ruby/net-pop"
+gem 'active_admin_sidebar'
