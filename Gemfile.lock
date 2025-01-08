@@ -46,8 +46,6 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    active_admin_sidebar (2.0.0)
-      activeadmin
     active_material (1.5.2)
     active_skin (0.0.13)
     activeadmin (3.0.0)
@@ -364,7 +362,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_admin_sidebar
   active_skin
   activeadmin
   activeadmin_addons

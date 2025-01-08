@@ -17,14 +17,14 @@ class Client < ApplicationRecord
     validates :name, presence: true, uniqueness: { case_sensitive: false }
     validates :contact, presence: true
     validates :email, presence: true
-    validates :IG_handle, presence: true
     validates :address, presence: true
     validates :how_did_you_learn_about_us, presence: true
     validates :referred_by, presence: true
-    validates :shoe_size, presence: true
     validates :gender, presence: true
-    validates :assisted_by, presence: true
-    validates :measured_by, presence: true
+    # validates :IG_handle, presence: true    
+    # validates :shoe_size, presence: true
+    # validates :assisted_by, presence: true
+    # validates :measured_by, presence: true
 
     before_save :uppercase_name
     
