@@ -3,4 +3,3 @@ class DropItems < ActiveRecord::Migration[7.0]
     drop_table :items
   end
 end
- 

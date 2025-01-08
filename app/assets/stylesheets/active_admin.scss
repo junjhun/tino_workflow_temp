@@ -137,6 +137,126 @@ body {
     display:inline-block;    
   }
 
+
+#header{
+    background-image: linear-gradient(180deg, #101112, #8f2424);
+    position: sticky;
+    top: 0;
+}
+
+/* Make header sticky */
+div#title_bar.title_bar { 
+    position: sticky;  
+    z-index: 1000; /* Adjust z-index as needed */
+    top: 4em;
+  }
+  
+  
+
+body {
+    background-color: #F7F7F7;
+    font-family: Arial, sans-serif;
+    color: #333333;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: #248f8f; //#008080;
+  }
+  
+  a {
+    color: #008080;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: #87CEEB;
+  }
+  
+  table {
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f0f0f0;
+  }
+
+  button {
+    background-color: #4CAF50; /* green */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #3e8e41; /* darker green */
+  }
+  
+  button.flat {
+    background-color: transparent;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button.flat:hover {
+    background-color: #f7f7f7;
+    border-color: #ccc;
+  }
+
+
+  #title_bar h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.6em;
+    line-height: 100%;
+    font-weight: bold;
+}
+
+
+#header ul.tabs > li.current > a {
+    background: rgba(120, 11, 11, 0.1);
+    color: #fff;
+    text-decoration-color:  #008080;
+}
+
+ 
+.cancel-button {
+    margin-left: 10px; /* Add some spacing from the submit button */
+}
+
+.square-div {
+    width: 150px; 
+    height: 150px; 
+    // background-color: teal;
+    background-color: goldenrod;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Change to column for vertical alignment */
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .square-div h1 h2 {
+    color: white;
+  }
+  .text-center panel{
+    text-align: center;
+    display:inline-block;    
+  }
+
   .panel_contents{
     text-align:center;
     width: 100%;

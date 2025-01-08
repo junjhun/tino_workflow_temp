@@ -1,6 +1,5 @@
 ActiveAdmin.register User do
-
-  menu if: proc { current_user.role == "Administrator" }
+  menu if: proc { current_user.role == 'Administrator' }
   permit_params :name, :email, :password, :password_confirmation, :role
 
   index do
@@ -30,5 +29,4 @@ ActiveAdmin.register User do
     end
     f.actions
   end
-
 end
