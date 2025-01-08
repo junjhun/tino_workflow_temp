@@ -50,20 +50,20 @@ ActiveRecord::Schema[7.0].define(version: 20_241_216_113_251) do
     t.datetime 'updated_at', null: false
   end
 
-  create_table 'clients', force: :cascade do |t|
-    t.string 'name'
-    t.string 'contact'
-    t.string 'email'
-    t.text 'address'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.string 'how_did_you_learn_about_us'
-    t.string 'referred_by'
-    t.integer 'gender', default: 0, null: false
-    t.string 'IG_handle'
-    t.float 'shoe_size'
-    t.string 'assisted_by'
-    t.string 'measured_by'
+  create_table "clients", force: :cascade do |t|
+    t.string "name"
+    t.string "contact"
+    t.string "email"
+    t.text "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "how_did_you_learn_about_us"
+    t.string "referred_by"
+    t.integer "gender", default: 0, null: false
+    t.string "IG_handle"
+    t.float "shoe_size"
+    t.string "assisted_by"
+    t.string "measured_by"
   end
 
   create_table 'coats', force: :cascade do |t|
@@ -114,32 +114,32 @@ ActiveRecord::Schema[7.0].define(version: 20_241_216_113_251) do
     t.integer 'front_side_pocket', default: 0, null: false
   end
 
-  create_table 'orders', force: :cascade do |t|
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.integer 'status', default: 0, null: false
-    t.integer 'client_id'
-    t.string 'purpose'
-    t.date 'first_fitting'
-    t.date 'second_fitting'
-    t.date 'finish'
-    t.string 'jo_number'
-    t.integer 'brand_name'
-    t.integer 'type_of_service', default: 0, null: false
-    t.date 'third_fitting'
-    t.date 'fourth_fitting'
-    t.string 'jacket_length'
-    t.string 'back_width'
-    t.string 'sleeves'
-    t.string 'cuffs_1'
-    t.string 'cuffs_2'
-    t.string 'collar'
-    t.string 'chest'
-    t.string 'waist'
-    t.string 'hips'
-    t.string 'stature'
-    t.string 'shoulders'
-    t.string 'item_type'
+  create_table "orders", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "status", default: 0, null: false
+    t.integer "client_id"
+    t.string "purpose"
+    t.date "first_fitting"
+    t.date "second_fitting"
+    t.date "finish"
+    t.string "jo_number"
+    t.integer "brand_name"
+    t.integer "type_of_service", default: 0, null: false
+    t.date "third_fitting"
+    t.date "fourth_fitting"
+    t.string "jacket_length"
+    t.string "back_width"
+    t.string "sleeves"
+    t.string "cuffs_1"
+    t.string "cuffs_2"
+    t.string "collar"
+    t.string "chest"
+    t.string "waist"
+    t.string "hips"
+    t.string "stature"
+    t.string "shoulders"
+    t.string "item_type"
   end
 
   create_table 'pants', force: :cascade do |t|
