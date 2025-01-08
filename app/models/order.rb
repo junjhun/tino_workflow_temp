@@ -20,14 +20,14 @@ class Order < ApplicationRecord
         "DONE"
     ]
 
-    enum purpose: [
-        "Bride",
-        "Groom",
-        "Wedding entourage or guest",
-        "Business",
-        "Personal Style",
-        "Travel",
-    ]
+    # enum purpose: [
+    #     "Bride",
+    #     "Groom",
+    #     "Wedding entourage or guest",
+    #     "Business",
+    #     "Personal Style",
+    #     "Travel",
+    # ]
  
     enum type_of_service: [
         "Bespoke",

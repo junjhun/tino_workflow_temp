@@ -54,14 +54,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_05_175748) do
     t.string "name"
     t.string "contact"
     t.string "email"
-    t.string "IG_handle"
     t.text "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "how_did_you_learn_about_us"
+    t.string "how_did_you_learn_about_us"
     t.string "referred_by"
-    t.float "shoe_size"
     t.integer "gender", default: 0, null: false
+    t.string "IG_handle"
+    t.float "shoe_size"
     t.string "assisted_by"
     t.string "measured_by"
   end
@@ -119,15 +119,26 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_05_175748) do
     t.datetime "updated_at", null: false
     t.integer "status", default: 0, null: false
     t.integer "client_id"
-    t.integer "purpose", default: 0, null: false
+    t.string "purpose"
     t.date "first_fitting"
     t.date "second_fitting"
-    t.date "third_fitting"
-    t.date "fourth_fitting"
     t.date "finish"
     t.string "jo_number"
     t.integer "brand_name"
     t.integer "type_of_service", default: 0, null: false
+    t.date "third_fitting"
+    t.date "fourth_fitting"
+    t.string "jacket_length"
+    t.string "back_width"
+    t.string "sleeves"
+    t.string "cuffs_1"
+    t.string "cuffs_2"
+    t.string "collar"
+    t.string "chest"
+    t.string "waist"
+    t.string "hips"
+    t.string "stature"
+    t.string "shoulders"
     t.string "item_type"
   end
 
@@ -190,7 +201,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_05_175748) do
     t.integer "quantity", default: 0, null: false
     t.integer "type_of_button", default: 0, null: false
   end
- 
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false

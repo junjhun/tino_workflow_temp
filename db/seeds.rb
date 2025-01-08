@@ -8,4 +8,3 @@
 
 User.create!(name: "Tiño Dela Cruz",email: 'admin@example.com', password: 'password', password_confirmation: 'password')
 User.create!(name: "Vieron Garcia",email: 'vagarcia@example.com', password: 'password', password_confirmation: 'password')
-Client.create!(name: "Bon Arum", contact: '123456', email: 'barum@gmail.com', address: 'city hall, quezon city, philippines') if Rails.env.development?

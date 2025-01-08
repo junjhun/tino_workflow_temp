@@ -399,5 +399,9 @@ ActiveAdmin.register Order do
     link_to 'Vests Print', reports_order_path(order, type: 'Vests')
   end
 
+  # Filter side bar
+  # filter :client_name, as: :select, label: "Client Name", collection: Client.all.map { |order| order.name}  
+  filter :type_of_service, as: :select, label: "Type of Service", collection: Order.type_of_services.keys
+  filter :created_at
   
 end
