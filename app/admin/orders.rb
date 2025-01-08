@@ -125,9 +125,11 @@ ActiveAdmin.register Order do
       f.input :status, disabled: f.object.persisted?
       # f.input :client_id, input_html: { value: client.name, disabled: true }
       # f.input :client, as: :select, collection: Client.all.map { |c| [c.name, c.id] }, disabled: f.object.persisted?
-      f.input :client_id, as: :select, collection: Client.all.map { |c| [c.name, c.id] },
-                          disabled: f.object.persisted?
-      f.input :purpose
+      
+      # f.input :client_id, as: :select, collection: Client.all.map { |c| [c.name, c.id] },
+                          # disabled: f.object.persisted?
+
+                          f.input :purpose
       f.input :brand_name, input_html: { id: 'type_of_brand' }
       f.input :type_of_service, label: 'Type of Service'
       f.input :first_fitting, input_html: { id: 'first_fitting', class: 'datepicker' }
@@ -661,7 +663,8 @@ ActiveAdmin.register Order do
   end
 
   # Filter side bar
-  filter :client_name, as: :select, label: 'Client Name', collection: Client.all.map { |order| order.name }
+  # filter :client_name, as: :select, label: 'Client Name', collection: Client.all.map { |order| order.name }
+
   filter :type_of_service, as: :select, label: 'Type of Service', collection: Order.type_of_services.keys
   filter :created_at
 end

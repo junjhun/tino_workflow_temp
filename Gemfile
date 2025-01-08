@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.3.3'
+ruby '3.3.6'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.4', '>= 7.0.4.3'
@@ -62,7 +62,7 @@ gem 'draper'
 # PDF
 gem 'prawn_rails'
 gem 'prawn-table', '~> 0.2.2'
-gem 'wkhtmltopdf-binary'
+# gem 'wkhtmltopdf-binary'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -71,7 +71,7 @@ end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem 'pry'
+  # gem 'pry'
   gem 'web-console'
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
@@ -87,11 +87,11 @@ group :test do
   gem 'webdrivers'
 end
 
-gem 'matrix', '~> 0.4.2'
+# gem 'matrix', '~> 0.4.2'
 
 gem 'simple_calendar', '~> 3.0'
 
-gem 'bootstrap-icons'
+# gem 'bootstrap-icons'
 
 gem 'bootstrap', '~> 5.1.0'
 
@@ -101,9 +101,9 @@ gem 'chartkick'
 gem 'groupdate'
 
 gem 'active_skin'
-gem 'compass' # If Compass is being used for mixins like `rounded`
+# gem 'compass' # If Compass is being used for mixins like `rounded`
 
-gem 'base64'
-gem 'bigdecimal'
-gem 'csv'
-gem 'mutex_m'
+# gem 'base64'
+# gem 'bigdecimal'
+# gem 'csv'
+# gem 'mutex_m'
