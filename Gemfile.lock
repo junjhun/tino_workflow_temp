@@ -56,7 +56,8 @@ GEM
     active_admin_sidebar (2.0.0)
       activeadmin
     active_material (1.5.2)
-    activeadmin (3.2.5)
+    active_skin (0.0.13)
+    activeadmin (3.0.0)
       arbre (~> 1.2, >= 1.2.1)
       csv
       formtastic (>= 3.1)
@@ -264,7 +265,7 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rake (13.2.1)
-    ransack (4.2.1)
+    ransack (4.0.0)
       activerecord (>= 6.1.5)
       activesupport (>= 6.1.5)
       i18n

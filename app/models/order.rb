@@ -1,7 +1,6 @@
 class Order < ApplicationRecord
-    
-    include Workflow
-    # include WorkflowActiverecord
+  include Workflow
+  # include WorkflowActiverecord
 
     # validates :name, presence: true
     # validates :name, presence: true, uniqueness: true
@@ -28,6 +27,7 @@ class Order < ApplicationRecord
           "In Progress"
         end
     end
+  end
 
     # enum purpose: [
     #     "Bride",
@@ -58,24 +58,42 @@ class Order < ApplicationRecord
     has_many :shirts
     has_many :vests
 
-    accepts_nested_attributes_for :coats, :pants, :shirts, :vests
+  enum type_of_service: [
+    'Bespoke',
+    'Bespoke Labor',
+    'Made to Order',
+    'Ready to Wear',
+    'Made to Measure'
+  ]
 
-    def name
-        client&.name
-    end
+  enum brand_name: [
+    'Tiño',
+    'Olpiana Andres',
+    'St. James'
+  ]
 
-    scope :with_orders, -> { joins(:orders).group("products.id").having("COUNT(orders.id) > 0") }
+  belongs_to :client
+  has_many :coats
+  has_many :pants
+  has_many :shirts
+  has_many :vests
 
+  accepts_nested_attributes_for :coats, :pants, :shirts, :vests
 
-    before_destroy :prevent_deletion_if_jo_number_present
-    private
-    def prevent_deletion_if_jo_number_present
-        if jo_number.present?
-            errors.add(:base, "Cannot delete order with existing JO Number.")
-            throw(:abort)
-        end
-    end
+  def name
+    client&.name
+  end
 
+  scope :with_orders, -> { joins(:orders).group('products.id').having('COUNT(orders.id) > 0') }
 
-    
+  before_destroy :prevent_deletion_if_jo_number_present
+
+  private
+
+  def prevent_deletion_if_jo_number_present
+    return unless jo_number.present?
+
+    errors.add(:base, 'Cannot delete order with existing JO Number.')
+    throw(:abort)
+  end
 end
