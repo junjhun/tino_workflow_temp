@@ -1,45 +1,49 @@
-require "test_helper"
+require 'test_helper'
 
 class CalendarsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @calendar = calendars(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get calendars_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_calendar_url
     assert_response :success
   end
 
-  test "should create calendar" do
-    assert_difference("Calendar.count") do
-      post calendars_url, params: { calendar: { description: @calendar.description, end_time: @calendar.end_time, start_time: @calendar.start_time, title: @calendar.title } }
+  test 'should create calendar' do
+    assert_difference('Calendar.count') do
+      post calendars_url,
+           params: { calendar: { description: @calendar.description, end_time: @calendar.end_time,
+                                 start_time: @calendar.start_time, title: @calendar.title } }
     end
 
     assert_redirected_to calendar_url(Calendar.last)
   end
 
-  test "should show calendar" do
+  test 'should show calendar' do
     get calendar_url(@calendar)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_calendar_url(@calendar)
     assert_response :success
   end
 
-  test "should update calendar" do
-    patch calendar_url(@calendar), params: { calendar: { description: @calendar.description, end_time: @calendar.end_time, start_time: @calendar.start_time, title: @calendar.title } }
+  test 'should update calendar' do
+    patch calendar_url(@calendar),
+          params: { calendar: { description: @calendar.description, end_time: @calendar.end_time,
+                                start_time: @calendar.start_time, title: @calendar.title } }
     assert_redirected_to calendar_url(@calendar)
   end
 
-  test "should destroy calendar" do
-    assert_difference("Calendar.count", -1) do
+  test 'should destroy calendar' do
+    assert_difference('Calendar.count', -1) do
       delete calendar_url(@calendar)
     end
 
