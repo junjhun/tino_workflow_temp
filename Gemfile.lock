@@ -97,6 +97,7 @@ GEM
       ruby2_keywords (>= 0.0.2)
     autoprefixer-rails (10.4.19.0)
       execjs (~> 2)
+    base64 (0.2.0)
     bcrypt (3.1.20)
     bigdecimal (3.1.9)
     bindex (0.8.1)
@@ -141,6 +142,8 @@ GEM
     erubi (1.13.1)
     execjs (2.10.0)
     ffi (1.17.1)
+    font-awesome-rails (4.7.0.9)
+      railties (>= 3.2, < 9.0)
     formtastic (5.0.0)
       actionpack (>= 6.0.0)
     formtastic_i18n (0.7.0)
@@ -153,6 +156,9 @@ GEM
       activesupport (>= 5.2)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
+    image_processing (1.13.0)
+      mini_magick (>= 4.9.5, < 5)
+      ruby-vips (>= 2.0.17, < 3)
     importmap-rails (2.1.0)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
@@ -185,6 +191,7 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
+    logger (1.6.4)
     loofah (2.24.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -196,10 +203,12 @@ GEM
     marcel (1.0.4)
     matrix (0.4.2)
     method_source (1.1.0)
+    mini_magick (4.13.2)
     mini_mime (1.1.5)
     mini_portile2 (2.8.8)
     minitest (5.25.4)
     msgpack (1.7.5)
+    mutex_m (0.3.0)
     net-imap (0.5.4)
       date
       net-protocol
@@ -283,6 +292,9 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.4.0)
+    ruby-vips (2.2.2)
+      ffi (~> 1.12)
+      logger
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
     sassc (2.4.0)
@@ -348,17 +360,23 @@ DEPENDENCIES
   active_skin
   activeadmin
   activeadmin_addons
+  base64
+  bigdecimal
   bootsnap
   bootstrap (~> 5.1.0)
   cancancan
   capybara
   chartkick
+  csv
   debug
   devise
   draper
+  font-awesome-rails
   groupdate
+  image_processing (~> 1.2)
   importmap-rails
   jbuilder
+  mutex_m
   pg (~> 1.1)
   prawn-table (~> 0.2.2)
   prawn_rails

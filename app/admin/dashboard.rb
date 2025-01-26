@@ -1,4 +1,6 @@
 ActiveAdmin.register_page 'Dashboard' do
+  menu priority: 1, label: 'Dashboard'
+
   # menu if: proc { !["Coat Maker", "Pants Maker", "Shirt Maker", "Vest Maker"].include?(current_user.role) }
   # content do
   #   if ["Administrator", "Master Tailor", "Sales Assistant", "Production Manager"].include?(current_user.role)

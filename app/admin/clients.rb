@@ -6,11 +6,7 @@ ActiveAdmin.register Client do
   # Uncomment all parameters which should be permitted for assignment
   #
   permit_params :order_id, :name, :contact, :email, :IG_handle, :address, :how_did_you_learn_about_us, :referred_by,
-                :shoe_size, :assisted_by, :measured_by, :gender
-
-  action_item :new_order, only: :show do
-    link_to 'New Order', new_admin_order_path(client_id: client.id)
-  end
+                :shoe_size, :assisted_by, :measured_by, :gender, :first_fitting, :second_fitting
 
   #
   # or
@@ -23,9 +19,18 @@ ActiveAdmin.register Client do
 
   config.per_page = [10, 20, 50]
 
-  # filter :orders_client_name, as: :select, label: 'Client Name', collection: Client.all.map { |order| order.name }
-
   
+  scope :all, default: true do |clients| clients end
+  scope :'Male' do |clients| clients.where(gender: '0') end
+  scope :'Female' do |clients| clients.where(gender: '1') end
+  scope :'Has orders' do |clients| clients.joins(:orders).distinct end
+  scope :'Empty Orders' do |clients|clients.where.not(id: clients.joins(:orders).distinct)
+  end
+  
+  
+  # actions :all, except: :destroy  # Apply at the resource level for consistency
+  
+  filter :orders_client_name, as: :select, label: 'Client Name', collection: Client.all.map { |order| order.name }
   filter :referred_by
   filter :created_at
 
@@ -36,15 +41,28 @@ ActiveAdmin.register Client do
     column 'Latest Order' do |client| # Show the latest order for each client
       if client.orders.any?
         link_to "#{client.orders.order(created_at: :desc).first.jo_number}",
-                admin_order_path(client.orders.order(created_at: :desc).first)
+                admin_client_path(client.orders.order(created_at: :desc).first)
       end
     end
+    # column "# of Orders" do |client|
+    #   client.orders.count
+    # end
+
+    column "Order Count" do |client|
+      count = client.orders.count
+      link_to count, admin_client_path(client)
+      # link_to count > 0 ? count : "No Orders", admin_orders_path(q: { customer_name_eq: client.name }), class: "link-to-orders"
+    end
+
     column :contact
     column :referred_by
     column :"Date Created", sortable: :created_at do |client|
       client.created_at.strftime('%d %b %Y')
     end
-    actions
+    
+    actions defaults: false do |client|
+      item "<i class='fa fa-eye'></i>".html_safe, admin_client_path(client), title: "View"
+    end
   end
 
   controller do
@@ -70,6 +88,8 @@ ActiveAdmin.register Client do
       row :contact
       row :how_did_you_learn_about_us
       row :referred_by
+      row :created_at	
+      row :assisted_by
     end
 
     panel 'Orders' do

@@ -1,5 +1,5 @@
 ActiveAdmin.register_page 'Calendar Dashboard' do
-  menu priority: 2, label: 'Calendar Dashboard'
+  menu priority: 2, label: 'Calendar'
   content do
     date = params[:month] ? Date.parse(params[:month]) : Date.today
     today = Date.today
@@ -15,45 +15,53 @@ ActiveAdmin.register_page 'Calendar Dashboard' do
     previous_month = date.prev_month
     next_month = date.next_month
 
+columns do
+  column do
     # Navigation buttons for previous and next month
-    div class: 'calendar-navigation', style: 'margin-bottom: 20px; text-align: center;' do
+    div class: 'calendar-navigation', style: 'margin-bottom: 5px; text-align: center;' do
       span do
         link_to '← Previous Month', admin_calendar_dashboard_path(month: previous_month.strftime('%Y-%m-%d')),
                 class: 'btn btn-outline-primary', style: 'margin: 0 10px; padding: 5px 15px; color: #007bff; border: 1px solid #007bff; text-decoration: none; border-radius: 5px;'
       end
-      span style: 'font-size: 1.5rem; font-weight: bold; margin: 0 10px; display: inline-block;' do
-        h2 "#{date.strftime('%B %Y')}"
+      span do
+        h2 class:'month-title' ,style: 'font-size: 24px; font-weight: bold; margin: 0 10px; display: inline-block; color: #7d1911;' do 
+          "#{date.strftime('%B %Y')}"
+        end
       end
       span do
         link_to 'Next Month →', admin_calendar_dashboard_path(month: next_month.strftime('%Y-%m-%d')),
                 class: 'btn btn-outline-primary', style: 'margin: 0 10px; padding: 5px 15px; color: #007bff; border: 1px solid #007bff; text-decoration: none; border-radius: 5px;'
       end
     end
+  end #end column one
 
     # Legend Table for Colors
-    panel 'Legend' do
-      div style: 'display: flex; justify-content: center;' do
-        table style: 'margin-bottom: 20px; text-align: center; display: inline-table; border-collapse: collapse;' do
-          tr do
-            td style: 'color: blue; font-size: 1.2rem; padding: 5px 10px;' do
-              text_node '• Finish'
-            end
-            td style: 'color: orange; font-size: 1.2rem; padding: 5px 10px;' do
-              text_node '• F1 (First Fitting)'
-            end
-            td style: 'color: brown; font-size: 1.2rem; padding: 5px 10px;' do
-              text_node '• F2 (Second Fitting)'
-            end
-            td style: 'color: green; font-size: 1.2rem; padding: 5px 10px;' do
-              text_node '• F3 (Third Fitting)'
-            end
-            td style: 'color: red; font-size: 1.2rem; padding: 5px 10px;' do
-              text_node '• F4 (Fourth Fitting)'
-            end
-          end
-        end
-      end
-    end
+    # panel 'Legend' do
+    #   div style: 'display: flex; justify-content: center;' do
+    #     table style: 'margin-bottom: 20px; text-align: center; display: inline-table; border-collapse: collapse;' do
+    #       tr do
+    #         td style: 'color: blue; font-size: 1.2rem; padding: 5px 10px;' do
+    #           text_node '• Finish'
+    #         end
+    #         td style: 'color: orange; font-size: 1.2rem; padding: 5px 10px;' do
+    #           text_node '• First Fitting'
+    #         end
+    #         td style: 'color: brown; font-size: 1.2rem; padding: 5px 10px;' do
+    #           text_node '• Second Fitting'
+    #         end
+    #         td style: 'color: green; font-size: 1.2rem; padding: 5px 10px;' do
+    #           text_node '• Third Fitting'
+    #         end
+    #         td style: 'color: red; font-size: 1.2rem; padding: 5px 10px;' do
+    #           text_node '• Fourth Fitting'
+    #         end
+    #       end
+    #     end
+    #   end
+    # end
+
+  
+end
 
     start_date = date.beginning_of_month.beginning_of_week(:sunday)
     end_date = date.end_of_month.end_of_week(:sunday)
@@ -81,18 +89,18 @@ ActiveAdmin.register_page 'Calendar Dashboard' do
               if date_day == today
                 cell_style = 'background-color: #fffbcc; color: #333; border: 2px solid #ffd700; border-radius: 8px;' # Light yellow background with gold border
               elsif [0, 6].include?(index) # Sunday and Saturday columns
-                cell_style = 'background-color: #f3e5f5; color: #333;'  # Light lavender for weekends
+                cell_style = 'background-color: #fff; color: #fff;'  # Light lavender for weekends
               elsif orders_on_this_day.any?
-                cell_style = 'background-color: #f5f5f5; color: #333;'  # Default style for cells with events
+                cell_style = 'background-color: #fff; color: #333;'  # Default style for cells with events
               else
-                cell_style = 'background-color: #ffffff;' # Default background for regular days
+                cell_style = 'background-color: #ddd;' # Default background for regular days
               end
 
               td style: "#{cell_style} padding: 10px; vertical-align: top; text-align: center;" do
                 strong date_day.day
 
                 if orders_on_this_day.any?
-                  ul style: 'padding: 0; list-style: none; margin: 10px 0 0 0;' do
+                  ul style: 'padding: 0; list-style: none; margin: 2px 0 0 0;' do
                     orders_on_this_day.each do |order|
                       fitting_type = case date_day
                                      when order.first_fitting
@@ -107,17 +115,17 @@ ActiveAdmin.register_page 'Calendar Dashboard' do
                                        { color: 'blue', label: 'Finish' }
                                      end
 
-                      li style: "margin-bottom: 5px; font-size: 0.95rem; display: flex; justify-content: space-between; align-items: center; color: #{fitting_type[:color]};" do
+                      li style: "margin-bottom: 1px; font-size: 12px;justify-content: space-between; align-items: center; color: #{fitting_type[:color]};" do
                         # Display fitting type and Order ID with "Order #"
-                        span do
-                          text_node "• #{fitting_type[:label]} - Order ##{order.id}"
-                        end
+                        # span do
+                        #   text_node "• #{fitting_type[:label]} - Order ##{order.id}"
+                        # end
 
                         # "View Order" button
                         span do
-                          link_to 'View Order', admin_order_path(order),
+                          link_to "#{order.jo_number} - #{order.name}", admin_order_path(order),
                                   class: 'btn btn-sm btn-light custom-view-order-link',
-                                  style: "color: #{fitting_type[:color]}; text-decoration: none; margin-left: 10px;",
+                                  style: "color: #{fitting_type[:color]}; text-decoration: none; margin-left: 0px; text-align:center; font-size:10px;",
                                   onmouseover: "this.style.textDecoration='underline'; this.style.color='#007bff';",
                                   onmouseout: "this.style.textDecoration='none'; this.style.color='#{fitting_type[:color]}';"
                         end

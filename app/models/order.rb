@@ -6,7 +6,9 @@ class Order < ApplicationRecord
     # validates :name, presence: true, uniqueness: true
     validates :status, :client, :purpose, :brand_name, :type_of_service, :finish, :jo_number, presence: true
     validates :jo_number, numericality: { only_integer: true, message: 'must be a valid number' }, presence: true
-  
+    validates :coats, :pants, :shirts, :vests, presence: { message:"Unable to Create Order without any item"} , if: :at_least_one_item_added?
+    
+
     enum status: [
       'Client Appointment',
       "JO's to receive by the PRODUCTION MANAGER (LAS PIÑAS)",
@@ -67,12 +69,18 @@ class Order < ApplicationRecord
     before_destroy :prevent_deletion_if_jo_number_present
   
     private
-  
     def prevent_deletion_if_jo_number_present
       return unless jo_number.present?
   
       errors.add(:base, 'Cannot delete order with existing JO Number.')
       throw(:abort)
+    end
+
+    private
+    def at_least_one_item_added?
+      unless coats.any? || pants.any? || shirts.any? || vests.any?
+        errors.add(:base, "Cannot create an order without any garments.") 
+      end      
     end
   end
   

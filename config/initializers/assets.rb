@@ -15,3 +15,6 @@ Rails.application.config.assets.precompile += %w[custom.css]
 
 # In config/initializers/assets.rb
 Rails.application.config.assets.precompile += %w[chartkick.js]
+
+
+Rails.application.config.assets.precompile += %w( active_admin.css active_admin.js )

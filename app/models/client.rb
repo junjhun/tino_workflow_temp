@@ -21,12 +21,10 @@ class Client < ApplicationRecord
   validates :how_did_you_learn_about_us, presence: true
   validates :referred_by, presence: true
   validates :gender, presence: true
-  # validates :IG_handle, presence: true
-  # validates :shoe_size, presence: true
-  # validates :assisted_by, presence: true
-  # validates :measured_by, presence: true
+  
 
   before_save :uppercase_name
+  before_destroy :prevent_deletion_if_orders_exist
 
   private
 
@@ -35,7 +33,7 @@ class Client < ApplicationRecord
   end
 
   # Prevent deletion of a client if there are associated orders
-  validate :cannot_delete_if_orders_exist
+  # validate :cannot_delete_if_orders_exist
 
   # Method that prevents deletion of a client if there are associated orders
 
@@ -43,15 +41,15 @@ class Client < ApplicationRecord
     errors.add(:base, 'Cannot delete a client with associated orders') if orders.any?
   end
 
-  # before_destroy :prevent_deletion_if_orders_exist
+  before_destroy :prevent_deletion_if_orders_exist
 
-  # private
-  # def prevent_deletion_if_orders_exist
-  #     if orders.present?
-  #     errors.add(:base, "Cannot delete client with existing orders.")
-  #     throw(:abort)
-  #     end
-  # end
+  private
+  def prevent_deletion_if_orders_exist
+      if orders.present?
+      errors.add(:base, "Cannot delete client with existing orders.")
+      throw(:abort)
+      end
+  end
 
   # default_sort ["order_count", "created_at"], :desc
 

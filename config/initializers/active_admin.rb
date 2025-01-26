@@ -211,7 +211,8 @@ ActiveAdmin.setup do |config|
   # Breadcrumbs are enabled by default. You can customize them for individual
   # resources or you can disable them globally from here.
   #
-  # config.breadcrumb = false
+  config.breadcrumb = true
+  # config.breadcrumb_sep = " / " 
 
   # == Create Another Checkbox
   #
@@ -336,7 +337,7 @@ ActiveAdmin.setup do |config|
   # By default, the footer shows the current Active Admin version. You can
   # override the content of the footer here.
   #
-  config.footer = 'JOW version 1.0.0  (Powered by COCO)'
+  config.footer = 'Tiño JOW v1.0.0  (Powered by COCO)'
 
   # == Sorting
   #

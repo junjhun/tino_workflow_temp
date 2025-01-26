@@ -148,4 +148,12 @@ $(document).ready(function() {
     const day = ('0' + date.getDate()).slice(-2);
     return `${year}-${month}-${day}`;
   }
+
+  $(".view-order-link").hover(function() {
+    var orderId = $(this).data("order-id");
+    $("#order-details-" + orderId).show();
+  }, function() {
+    $(".order-details").hide(); 
+  });
+  
 });
