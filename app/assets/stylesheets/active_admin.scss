@@ -144,19 +144,12 @@ button.flat:hover {
 }
 
 section > h3, .panel > h3 {
-    /* background-color: #8f2424; */    
-    // background-image: linear-gradient(270deg, #302034, #8f2424);
   text-shadow: #fff 0 1px 0;
-  /* border: solid 1px #cdcdcd; */
-  /* border-color: #d4d4d4; */
-  /* border-top-color: #e6e6e6; */
+  background-color: rgb(200, 193, 193);
   border-right-color: #8f2424; 
   border-bottom-color: #8f2424; 
-  /* border-left-color: #d4d4d4; */
-  // box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 1px #FFF inset; 
   font-size: 1em;
   font-weight: bold;
-  
   margin-bottom: 0.5em;
   color: #000000;
   padding: 5px 10px 3px 10p

@@ -35,6 +35,7 @@ columns do
     end
   end #end column one
 
+  # DISABLED FOR NOW TILL WE KNOW WHAT DESIGN WE WANT
     # Legend Table for Colors
     # panel 'Legend' do
     #   div style: 'display: flex; justify-content: center;' do

@@ -1,105 +1,87 @@
+# filepath: /Users/caan/Development/Tiño/joborder/workflow/app/admin/dashboard.rb
 ActiveAdmin.register_page 'Dashboard' do
   menu priority: 1, label: 'Dashboard'
 
-  # menu if: proc { !["Coat Maker", "Pants Maker", "Shirt Maker", "Vest Maker"].include?(current_user.role) }
-  # content do
-  #   if ["Administrator", "Master Tailor", "Sales Assistant", "Production Manager"].include?(current_user.role)
-  #   columns do
-  #     column do
-  #       panel "Order Stats" do
-  #         div class: "dashboard-statistics" do
+  content title: proc { I18n.t("active_admin.dashboard") } do
+    columns do
+      column do
+        panel "Order Metrics" do
+          div class: "dashboard-statistics" do
+            # Total Orders This Month
+            total_orders_this_month = Order.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).count
+            div class: "metric" do
+              h1 link_to total_orders_this_month, admin_orders_path(q: { created_at_gteq: Time.now.beginning_of_month, created_at_lteq: Time.now.end_of_month })
+              span "Orders This Month"
+            end
 
-  # content title: proc { I18n.t("active_admin.dashboard") } do
+            # Total Orders This Week
+            total_orders_this_week = Order.where(created_at: Time.now.beginning_of_week..Time.now.end_of_week).count
+            div class: "metric" do
+              h1 link_to total_orders_this_week, admin_orders_path(q: { created_at_gteq: Time.now.beginning_of_week, created_at_lteq: Time.now.end_of_week })
+              span "Orders This Week"
+            end
 
-  #   panel "Workflow Statistics", class:"text-center" do
-  #     columns do
-  #       column do
-  #         link_to "Orders", admin_orders_path(q: { "fitting_dates": [Date.today, Date.today] }.to_query)
-  #           # Calculate total orders this month
-  #           total_orders_this_month = Order.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).count
-  #           # Display the count
-  #           div class: "square-div" do
-  #             h1 total_orders_this_month
-  #             div do
-  #               span "Orders this Month"
-  #             end
-  #           end
-  #       end
-  #       column do
-  #           # Calculate fittings this week (adjust date range and logic as needed)
-  #           fittings_this_week = Order.where(status: 'pending_approval').count
-  #           start_of_week = Date.today.beginning_of_week
-  #           end_of_week = Date.today.end_of_week
-  #           fittings_this_week = Order.where(status: 'pending_approval').count
-  #           # Display the count
-  #           div class: "square-div" do
-  #             h1 3
-  #             div do
-  #               span "Fittings this Week"
-  #             end
-  #           end
+            # Orders by Status
+            Order.statuses.keys.each do |status|
+              orders_by_status = Order.where(status: status).count
+              div class: "metric" do
+                h1 link_to orders_by_status, admin_orders_path(q: { status_eq: status })
+                span "Orders #{status.titleize}"
+              end
+            end
 
-  #         # end
-  #       end
+            # Orders by Type of Service
+            Order.type_of_services.keys.each do |service|
+              orders_by_service = Order.where(type_of_service: service).count
+              div class: "metric" do
+                h1 link_to orders_by_service, admin_orders_path(q: { type_of_service_eq: service })
+                span "Orders #{service.titleize}"
+              end
+            end
 
-  #       column do
+            # Orders by Brand
+            Order.brand_names.keys.each do |brand|
+              orders_by_brand = Order.where(brand_name: brand).count
+              div class: "metric" do
+                h1 link_to orders_by_brand, admin_orders_path(q: { brand_name_eq: brand })
+                span "Orders #{brand.titleize}"
+              end
+            end
+          end
 
-  #           # Calculate total orders awaiting approval (adjust status logic as needed)
-  #           # Display the count
-  #           div class: "square-div" do
-  #             h1  Client.count
-  #             div do
-  #               span "Total Clients"
-  #             end
-  #           end
+          # Orders Over Time Graph
+          div do
+            h3 "Orders Over Time"
+            line_chart Order.group_by_day(:created_at).count
+          end
+        end
+      end
 
-  #       end
+      column do
+        panel "Client Metrics" do
+          div class: "dashboard-statistics" do
+            # Total Clients
+            total_clients = Client.count
+            div class: "metric" do
+              h1 link_to total_clients, admin_clients_path
+              span "Total Clients"
+            end
 
-  #       column do
+            # New Clients This Month
+            new_clients_this_month = Client.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).count
+            div class: "metric" do
+              h1 link_to new_clients_this_month, admin_clients_path(q: { created_at_gteq: Time.now.beginning_of_month, created_at_lteq: Time.now.end_of_month })
+              span "New Clients This Month"
+            end
+          end
 
-  #           # Display the count
-  #           div class: "square-div" do
-  #             h1 Order.count
-  #             div do
-  #               span "Total Orders"
-  #             end
-  #           end
-
-  #         # end
-  #       end
-  #   end
-  # end
-  #   panel ""  do
-  #     columns do
-  #       column do
-  #         panel "Recent Orders" do
-  #           table_for Order.order(created_at: :desc).limit(5) do
-  #             column :jo_number do | order |
-  #               link_to order.jo_number, admin_order_path(order)
-  #             end
-  #             span
-  #             column :client
-  #             column :created_at
-  #             column :first_fitting
-  #             column :second_fitting
-  #             column :finish
-  #           end
-  #         end
-  #       end
-
-  #       # column do
-  #       #   panel "Statistics" do
-  #       #     div class: "stats" do
-  #       #       ul do
-  #       #         # li "Total Orders: #{Order.count}"
-  #       #         li "Orders This Month: #{Order.where(created_at: Time.current.beginning_of_month..Time.current.end_of_month).count}"
-  #       #         li "Pending Fittings: #{Order.where(status: :ready_for_fitting).count}"
-  #       #         li "New Clients: #{Client.where(created_at: Time.current.beginning_of_month..Time.current.end_of_month).count}"
-  #       #       end
-  #       #     end
-  #       #   end
-  #       # end
-  #     end
-  #   end
-  # end
+          # Clients Over Time Graph
+          div do
+            h3 "Clients Over Time"
+            line_chart Client.group_by_day(:created_at).count
+          end
+        end
+      end
+    end
+  end
 end

@@ -55,6 +55,8 @@ ActiveAdmin.register Client do
     end
 
     column :contact
+    column :date_of_birth
+    column :membership_date
     column :referred_by
     column :"Date Created", sortable: :created_at do |client|
       client.created_at.strftime('%d %b %Y')
@@ -69,6 +71,25 @@ ActiveAdmin.register Client do
     def scoped_collection
       super.includes(:orders).distinct
     end
+  end
+
+  form do |f|
+    f.inputs do
+      f.input :name
+      f.input :contact
+      f.input :email
+      f.input :IG_handle
+      f.input :address
+      f.input :how_did_you_learn_about_us, as: :select, collection: Client.how_did_you_learn_about_us.keys
+      f.input :referred_by
+      f.input :shoe_size
+      f.input :assisted_by
+      f.input :measured_by
+      f.input :gender, as: :select, collection: Client.genders.keys
+      f.input :date_of_birth, as: :datepicker
+      f.input :membership_date, as: :datepicker
+    end
+    f.actions
   end
 
   # actions :index, :show, :new, :edit, :update do |client|
@@ -94,9 +115,6 @@ ActiveAdmin.register Client do
 
     panel 'Orders' do
       table_for client.orders do
-        # column :id do |order|
-        #   link_to order.id, admin_order_path(order)
-        # end
         column :jo_number do |order|
           link_to order.jo_number, admin_order_path(order)
         end

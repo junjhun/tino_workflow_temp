@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_12_16_113251) do
+ActiveRecord::Schema[7.0].define(version: 2025_01_26_153720) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -65,6 +65,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_16_113251) do
     t.float "shoe_size"
     t.string "assisted_by"
     t.string "measured_by"
+    t.date "date_of_birth"
+    t.date "membership_date"
   end
 
   create_table "coats", force: :cascade do |t|

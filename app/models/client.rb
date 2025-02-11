@@ -18,10 +18,11 @@ class Client < ApplicationRecord
   validates :contact, presence: true
   validates :email, presence: true
   validates :address, presence: true
-  validates :how_did_you_learn_about_us, presence: true
+  # validates :how_did_you_learn_about_us, presence: true
   validates :referred_by, presence: true
   validates :gender, presence: true
-  
+  validates :date_of_birth, presence: true
+  validates :membership_date, presence: true
 
   before_save :uppercase_name
   before_destroy :prevent_deletion_if_orders_exist
