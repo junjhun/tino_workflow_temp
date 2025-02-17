@@ -55,17 +55,27 @@ ActiveAdmin.register Order do
   
   index do
     column 'Job Order', sortable: :jo_number do |order|
-      link_to order.jo_number, admin_order_path(order)
+      link_to "##{order.jo_number}", admin_order_path(order)
     end
-    column :client
+    column :client do |order|
+      link_to order.client.name, admin_client_path(order.client)
+    end
+    column :"Order Type" do |order|
+      order_type = []
+      order_type << 'Coat' if order.coats.any?
+      order_type << 'Vest' if order.vests.any?
+      order_type << 'Shirt' if order.shirts.any?
+      order_type << 'Pants' if order.pants.any?
+      order_type.join(', ')
+    end
+    column :"Status", :status_label, sortable: :status
     column :"Brand", :brand_name
     column :"Service type", :type_of_service
-    column :purpose    
-    column :"Date Created", sortable: :created_at do |order|
-      order.created_at.strftime("%d %b '%y %I:%M%p")
+    column :purpose
+    column :created_at do |order|
+      order.created_at.strftime('%B %d %Y')
     end
     column :finish
-    column :"Status", :status_label, sortable: :status
     actions
 
   end
@@ -123,6 +133,12 @@ ActiveAdmin.register Order do
   end
 
   form do |f|
+
+    #go back button
+    div class: 'back-button' do
+      link_to '← Back', admin_orders_path
+    end
+
     f.semantic_errors
 
     f.inputs do
@@ -273,7 +289,13 @@ ActiveAdmin.register Order do
     f.actions
   end
   
-  show do   
+  show do
+    
+    #go back button
+    div class: 'back-button' do
+      link_to '← Back', admin_orders_path
+    end
+
     columns do      
       column do
         attributes_table title: 'Information' do
@@ -498,6 +520,7 @@ ActiveAdmin.register Order do
     link_to 'Vests Print', reports_order_path(order, type: 'Vests')
   end
 
+  
   # Filter side bar
   filter :client_name, as: :select, label: 'Client Name', collection: Client.all.map { |order| order.name }
   filter :type_of_service, as: :select, label: 'Type of Service', collection: Order.type_of_services.keys

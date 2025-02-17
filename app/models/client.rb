@@ -1,12 +1,13 @@
 class Client < ApplicationRecord
   has_many :orders, class_name: 'Order'
+  belongs_to :assisted_by_user, class_name: 'User', foreign_key: 'assisted_by', optional: true
 
   enum gender: %w[
     Male
     Female
   ]
 
-  enum how_did_you_learn_about_us: %w[
+  enum heard_from_source: %w[
     Google
     Facebook
     Instagram
@@ -18,14 +19,20 @@ class Client < ApplicationRecord
   validates :contact, presence: true
   validates :email, presence: true
   validates :address, presence: true
-  # validates :how_did_you_learn_about_us, presence: true
+  validates :heard_from_source, presence: true
+  validates :heard_from_source_other, presence: true, if: -> { heard_from_source == 'Others' }
   validates :referred_by, presence: true
   validates :gender, presence: true
   validates :date_of_birth, presence: true
   validates :membership_date, presence: true
+  validates :chest, :back_width, :waist, :crotch, :thigh, :seat, :hips, presence: true
 
   before_save :uppercase_name
   before_destroy :prevent_deletion_if_orders_exist
+
+  def assisted_by_name
+    assisted_by_user&.name
+  end
 
   private
 

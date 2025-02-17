@@ -5,8 +5,9 @@ ActiveAdmin.register Client do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :order_id, :name, :contact, :email, :IG_handle, :address, :how_did_you_learn_about_us, :referred_by,
-                :shoe_size, :assisted_by, :measured_by, :gender, :first_fitting, :second_fitting
+  permit_params :order_id, :name, :contact, :email, :IG_handle, :address, :heard_from_source, :referred_by,
+              :shoe_size, :assisted_by, :measured_by, :gender, :first_fitting, :second_fitting, :chest, :back_width,
+              :waist, :crotch, :thigh, :seat, :hips, :date_of_birth, :membership_date, :linkedin_handle, :viber_handle
 
   #
   # or
@@ -35,29 +36,18 @@ ActiveAdmin.register Client do
   filter :created_at
 
   index do
-    column :name do |client|
-      link_to client.name, admin_client_path(client)
-    end
-    column 'Latest Order' do |client| # Show the latest order for each client
-      if client.orders.any?
-        link_to "#{client.orders.order(created_at: :desc).first.jo_number}",
-                admin_client_path(client.orders.order(created_at: :desc).first)
-      end
-    end
-    # column "# of Orders" do |client|
-    #   client.orders.count
-    # end
-
-    column "Order Count" do |client|
+    column :name
+    column "No. of Orders" do |client|
       count = client.orders.count
-      link_to count, admin_client_path(client)
-      # link_to count > 0 ? count : "No Orders", admin_orders_path(q: { customer_name_eq: client.name }), class: "link-to-orders"
+      count > 0 ? count : "No Orders"
     end
 
     column :contact
-    column :date_of_birth
     column :membership_date
     column :referred_by
+    column :assisted_by_name, sortable: 'users.name' do |client|
+      client.assisted_by_name
+    end
     column :"Date Created", sortable: :created_at do |client|
       client.created_at.strftime('%d %b %Y')
     end
@@ -74,21 +64,47 @@ ActiveAdmin.register Client do
   end
 
   form do |f|
-    f.inputs do
-      f.input :name
-      f.input :contact
-      f.input :email
-      f.input :IG_handle
-      f.input :address
-      f.input :how_did_you_learn_about_us, as: :select, collection: Client.how_did_you_learn_about_us.keys
-      f.input :referred_by
-      f.input :shoe_size
-      f.input :assisted_by
-      f.input :measured_by
-      f.input :gender, as: :select, collection: Client.genders.keys
-      f.input :date_of_birth, as: :datepicker
-      f.input :membership_date, as: :datepicker
+    tabs do
+      tab 'Client Details' do
+        f.inputs do
+          f.input :name
+          f.input :gender, as: :select, collection: Client.genders.keys
+          f.input :date_of_birth, as: :datepicker
+          f.input :address
+          f.input :referred_by
+          f.input :assisted_by, as: :select, collection: User.all.map { |user| [user.name, user.id] }, include_blank: false
+          f.input :measured_by
+          f.input :membership_date, as: :datepicker
+          f.input :heard_from_source, as: :select, collection: Client.heard_from_sources.keys, input_html: { id: 'heard_from_source' }
+          f.input :heard_from_source_other, input_html: { id: 'heard_from_source_other', style: 'display: none;' }
+        end
+      end
+      
+      tab 'Contact Information' do
+        f.inputs do
+          f.input :contact
+          f.input :email
+          f.input :IG_handle
+          f.input :linkedin_handle
+          f.input :viber_handle
+        end
+      end
+
+
+      tab 'Measurements' do
+        f.inputs do
+          f.input :chest
+          f.input :back_width
+          f.input :waist
+          f.input :crotch
+          f.input :thigh
+          f.input :seat
+          f.input :hips
+          f.input :shoe_size
+        end
+      end
     end
+  
     f.actions
   end
 
@@ -101,16 +117,43 @@ ActiveAdmin.register Client do
   # scope :with_order_count, default: true
 
   show do
-    attributes_table do
-      row :name
-      row :email
-      row :gender
-      row :address
-      row :contact
-      row :how_did_you_learn_about_us
-      row :referred_by
-      row :created_at	
-      row :assisted_by
+    tabs do
+      tab 'Details' do
+        attributes_table do
+          row :name
+          row :gender
+          row :address
+          row :heard_from_source
+          row :referred_by
+          row :created_at
+          row :assisted_by_name
+        end
+      end
+
+      tab 'Contact Information' do
+        attributes_table do
+          row :contact
+          row :email
+          row :IG_handle
+          row :linkedin_handle
+          row :viber_handle
+        end
+      end
+
+      tab 'Measurements' do
+        attributes_table do
+          row :chest
+          row :back_width
+          row :waist
+          row :crotch
+          row :thigh
+          row :seat
+          row :hips
+          row :shoe_size
+        end
+      end
+
+
     end
 
     panel 'Orders' do
