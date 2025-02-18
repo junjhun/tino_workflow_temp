@@ -459,10 +459,23 @@ ActiveAdmin.register Order do
     active_admin_comments
   end
 
+  action_item :view, only: :show do
+    if order.status != 'DONE'
+      link_to 'Approve', approve_admin_orders_path(order), method: :post, class: 'green-button'
+    end
+  end
 
   controller do
     before_action :restrict_new_order_for_makers, only: :new
     before_action :restrict_actions_for_makers, only: %i[edit destroy approve]
+
+    private 
+    # Restrict makers from accessing "Edit" and "Delete"
+    def restrict_actions_for_makers
+      if ['Coat Maker', 'Pants Maker', 'Shirt Maker', 'Vest Maker', 'Production Manager'].include?(current_user.role)
+        redirect_to admin_orders_path, alert: 'You are not authorized to perform this action.'
+      end
+    end
 
     private
     # Restrict makers from accessing "New Order"
@@ -471,20 +484,10 @@ ActiveAdmin.register Order do
         redirect_to admin_orders_path, alert: 'You are not authorized to create new orders.'
       end
     end
-    
-    private 
-    # Restrict makers from accessing "Edit" and "Delete"
-    def restrict_actions_for_makers
-      if ['Coat Maker', 'Pants Maker', 'Shirt Maker', 'Vest Maker', 'Production Manager'].include?(current_user.role)
-        redirect_to admin_orders_path, alert: 'You are not authorized to perform this action.'
-      end
-    end
   end
 
   
-  action_item :view, only: :show do
-    link_to 'Approve', approve_admin_orders_path(order), method: :post if order.status != 'DONE'
-  end
+ 
 
 
 
@@ -500,24 +503,14 @@ ActiveAdmin.register Order do
   #   end
   # end
 
-  action_item :import_demo, only: :show do |_p|
-    link_to 'Master Print', reports_order_path(order, type: 'Master')
-  end
-
-  action_item :import_demo, only: :show do |_p|
-    link_to 'Coats Print', reports_order_path(order, type: 'Coats')
-  end
-
-  action_item :import_demo, only: :show do |_p|
-    link_to 'Pants Print', reports_order_path(order, type: 'Pants')
-  end
-
-  action_item :import_demo, only: :show do |_p|
-    link_to 'Shirts Print', reports_order_path(order, type: 'Shirts')
-  end
-
-  action_item :import_demo, only: :show do |_p|
-    link_to 'Vests Print', reports_order_path(order, type: 'Vests')
+  action_item :print_options, only: :show do
+    dropdown_menu "<i class='fa fa-print'></i>".html_safe do
+      item 'Master Print', reports_order_path(order, type: 'Master')
+      item 'Coats Print', reports_order_path(order, type: 'Coats')
+      item 'Pants Print', reports_order_path(order, type: 'Pants')
+      item 'Shirts Print', reports_order_path(order, type: 'Shirts')
+      item 'Vests Print', reports_order_path(order, type: 'Vests')
+    end
   end
 
   

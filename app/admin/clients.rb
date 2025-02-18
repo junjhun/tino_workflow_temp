@@ -76,7 +76,7 @@ ActiveAdmin.register Client do
           f.input :measured_by
           f.input :membership_date, as: :datepicker
           f.input :heard_from_source, as: :select, collection: Client.heard_from_sources.keys, input_html: { id: 'heard_from_source' }
-          f.input :heard_from_source_other, input_html: { id: 'heard_from_source_other', style: 'display: none;' }
+          # f.input :heard_from_source_other, input_html: { id: 'heard_from_source_other', style: 'display: none;' }
         end
       end
       
