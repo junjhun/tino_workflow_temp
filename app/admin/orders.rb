@@ -146,8 +146,8 @@ ActiveAdmin.register Order do
       # f.input :client_id, input_html: { value: client.name, disabled: true }
       # f.input :client, as: :select, collection: Client.all.map { |c| [c.name, c.id] }, disabled: f.object.persisted?
       
-      # f.input :client_id, as: :select, collection: Client.all.map { |c| [c.name, c.id] },
-                          # disabled: f.object.persisted?
+      f.input :client_id, as: :select, collection: Client.all.map { |c| [c.name, c.id] },
+                          disabled: f.object.persisted?
 
       f.input :purpose
       f.input :brand_name, as: :select, collection: Order.brand_names.keys
