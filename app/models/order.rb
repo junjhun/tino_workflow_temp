@@ -8,6 +8,15 @@ class Order < ApplicationRecord
     validates :jo_number, numericality: { only_integer: true, message: 'must be a valid number' }, presence: true
     validates :coats, :pants, :shirts, :vests, presence: { message:"Unable to Create Order without any item"} , if: :at_least_one_item_added?
     
+    #purpose value enum
+    enum purpose: %w[
+      Bride
+      Groom
+      Wedding_entourage_or_guest
+      Business
+      Personal_Style
+      Travel
+    ]
 
     enum status: [
       'Client Appointment',

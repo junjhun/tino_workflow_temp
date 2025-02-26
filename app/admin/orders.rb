@@ -71,7 +71,10 @@ ActiveAdmin.register Order do
     column :"Status", :status_label, sortable: :status
     column :"Brand", :brand_name
     column :"Service type", :type_of_service
-    column :purpose
+    # humanize to remove underscore
+    column :purpose do |order|
+      order.purpose.humanize
+    end
     column :created_at do |order|
       order.created_at.strftime('%B %d %Y')
     end
@@ -302,7 +305,10 @@ ActiveAdmin.register Order do
           row :jo_number
           row :client
           row :status
-          row :purpose
+          #humanize to remove underscore
+          row :purpose do |order|
+            order.purpose.humanize
+          end
           row :type_of_service
           row :brand_name          
         end
