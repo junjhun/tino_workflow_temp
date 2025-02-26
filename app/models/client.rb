@@ -19,8 +19,8 @@ class Client < ApplicationRecord
   validates :contact, presence: true
   validates :email, presence: true
   validates :address, presence: true
-  validates :heard_from_source, presence: true
-  validates :heard_from_source_other, presence: true, if: -> { heard_from_source == 'Others' }
+  validates :heard_from_source, presence: true, if: -> { heard_from_source == 'Others' }
+  # validates :heard_from_source_other, presence: true, if: -> { heard_from_source == 'Others' }
   validates :referred_by, presence: true
   validates :gender, presence: true
   validates :date_of_birth, presence: true

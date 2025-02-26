@@ -1,4 +1,3 @@
-# filepath: /Users/caan/Development/Tiño/joborder/workflow/app/admin/dashboard.rb
 ActiveAdmin.register_page 'Dashboard' do
   menu priority: 1, label: 'Dashboard'
 
@@ -7,45 +6,49 @@ ActiveAdmin.register_page 'Dashboard' do
       column do
         panel "Order Metrics" do
           div class: "dashboard-statistics" do
-            # Total Orders This Month
-            total_orders_this_month = Order.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month).count
+            # Number of Active Orders (status not done)
+            active_orders_count = Order.where.not(status: 'done').count
             div class: "metric" do
-              h1 link_to total_orders_this_month, admin_orders_path(q: { created_at_gteq: Time.now.beginning_of_month, created_at_lteq: Time.now.end_of_month })
-              span "Orders This Month"
+              h1 link_to active_orders_count, admin_orders_path(q: { status_not_eq: 'done' })
+              span "Active Orders"
             end
 
-            # Total Orders This Week
-            total_orders_this_week = Order.where(created_at: Time.now.beginning_of_week..Time.now.end_of_week).count
+            # Fittings for Today
+            today = Date.today
+            fittings_today_count = Order.where('first_fitting = ? OR second_fitting = ? OR third_fitting = ? OR fourth_fitting = ?', today, today, today, today).count
             div class: "metric" do
-              h1 link_to total_orders_this_week, admin_orders_path(q: { created_at_gteq: Time.now.beginning_of_week, created_at_lteq: Time.now.end_of_week })
-              span "Orders This Week"
+              h1 link_to fittings_today_count, admin_orders_path(q: { first_fitting_eq: today, second_fitting_eq: today, third_fitting_eq: today, fourth_fitting_eq: today })
+              span "Fittings Today"
             end
 
-            # Orders by Status
-            Order.statuses.keys.each do |status|
-              orders_by_status = Order.where(status: status).count
-              div class: "metric" do
-                h1 link_to orders_by_status, admin_orders_path(q: { status_eq: status })
-                span "Orders #{status.titleize}"
-              end
+            # Fittings for This Week
+            beginning_of_week = Date.today.beginning_of_week
+            end_of_week = Date.today.end_of_week
+            fittings_this_week_count = Order.where('first_fitting BETWEEN ? AND ? OR second_fitting BETWEEN ? AND ? OR third_fitting BETWEEN ? AND ? OR fourth_fitting BETWEEN ? AND ?', beginning_of_week, end_of_week, beginning_of_week, end_of_week, beginning_of_week, end_of_week, beginning_of_week, end_of_week).count
+            div class: "metric" do
+              h1 link_to fittings_this_week_count, admin_orders_path(q: { first_fitting_gteq: beginning_of_week, first_fitting_lteq: end_of_week, second_fitting_gteq: beginning_of_week, second_fitting_lteq: end_of_week, third_fitting_gteq: beginning_of_week, third_fitting_lteq: end_of_week, fourth_fitting_gteq: beginning_of_week, fourth_fitting_lteq: end_of_week })
+              span "Fittings This Week"
             end
 
-            # Orders by Type of Service
-            Order.type_of_services.keys.each do |service|
-              orders_by_service = Order.where(type_of_service: service).count
-              div class: "metric" do
-                h1 link_to orders_by_service, admin_orders_path(q: { type_of_service_eq: service })
-                span "Orders #{service.titleize}"
-              end
+            # Orders Olpiana Andres
+            orders_olpiana_andres_count = Order.where(brand_name: 'Olpiana Andres').count
+            div class: "metric" do
+              h1 link_to orders_olpiana_andres_count, admin_orders_path(q: { brand_name_eq: 'Olpiana Andres' })
+              span "Orders Olpiana Andres"
             end
 
-            # Orders by Brand
-            Order.brand_names.keys.each do |brand|
-              orders_by_brand = Order.where(brand_name: brand).count
-              div class: "metric" do
-                h1 link_to orders_by_brand, admin_orders_path(q: { brand_name_eq: brand })
-                span "Orders #{brand.titleize}"
-              end
+            # Orders St. James
+            orders_st_james_count = Order.where(brand_name: 'St. James').count
+            div class: "metric" do
+              h1 link_to orders_st_james_count, admin_orders_path(q: { brand_name_eq: 'St. James' })
+              span "Orders St. James"
+            end
+
+            # Orders Tiño
+            orders_tino_count = Order.where(brand_name: 'Tiño').count
+            div class: "metric" do
+              h1 link_to orders_tino_count, admin_orders_path(q: { brand_name_eq: 'Tiño' })
+              span "Orders Tiño"
             end
           end
 
