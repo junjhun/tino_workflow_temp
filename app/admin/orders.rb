@@ -525,5 +525,8 @@ ActiveAdmin.register Order do
   filter :type_of_service, as: :select, label: 'Type of Service', collection: Order.type_of_services.keys
   filter :jo_number, as: :select, label: 'Job Order #', collection: proc { Order.distinct.pluck(:jo_number) } 
   filter :purpose, as: :select, collection: Order.distinct.pluck(:purpose)
+  #add brand filter
+  filter :brand_name, as: :select, collection: Order.brand_names.keys
+  
   filter :created_at
 end

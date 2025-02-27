@@ -36,13 +36,15 @@ ActiveAdmin.register Client do
   filter :created_at
 
   index do
-    column :name
+    column :name do |client|
+      link_to client.name, admin_client_path(client)
+    end
     column "No. of Orders" do |client|
       count = client.orders.count
       count > 0 ? count : "No Orders"
     end
 
-    column :contact
+    column :contact, sortable: false
     column :membership_date
     column :referred_by
     column :assisted_by_name, sortable: 'users.name' do |client|
@@ -50,10 +52,6 @@ ActiveAdmin.register Client do
     end
     column :"Date Created", sortable: :created_at do |client|
       client.created_at.strftime('%d %b %Y')
-    end
-    
-    actions defaults: false do |client|
-      item "<i class='fa fa-eye'></i>".html_safe, admin_client_path(client), title: "View"
     end
   end
 
