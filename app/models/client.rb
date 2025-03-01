@@ -23,7 +23,7 @@ class Client < ApplicationRecord
   # validates :heard_from_source_other, presence: true, if: -> { heard_from_source == 'Others' }
   validates :referred_by, presence: true
   validates :gender, presence: true
-  validates :date_of_birth, presence: true
+  validates :date_of_birth, presence: false
   validates :membership_date, presence: true
   validates :chest, :back_width, :waist, :crotch, :thigh, :seat, :hips, presence: true
 

@@ -20,7 +20,7 @@ ActiveAdmin.register Order do
   # end
   #
 
-  show title: proc { |order| "Order ##{order.jo_number} - #{order.client.name}" }
+  show title: proc { |order| "Order ##{order.jo_number} - #{order.client.name}" }     
 
   config.per_page = [10, 20, 50]
   config.batch_actions = false 
@@ -29,11 +29,17 @@ ActiveAdmin.register Order do
   scope :all, default: true do |orders|
     orders
   end
+  
   scope :'Tiño' do |orders|
     orders.where(brand_name: '0')
   end
+  
   scope :'Olpiana Andres' do |orders|
     orders.where(brand_name: '1')
+  end
+  
+  scope :'St. James' do |orders|
+    orders.where(brand_name: '2')
   end
 
   scope :'Has Pants' do |orders|
@@ -79,7 +85,7 @@ ActiveAdmin.register Order do
       order.created_at.strftime('%B %d %Y')
     end
     column :finish
-    actions
+    # actions
 
   end
 
@@ -136,7 +142,6 @@ ActiveAdmin.register Order do
   end
 
   form do |f|
-
     #go back button
     div class: 'back-button' do
       link_to '← Back', admin_orders_path
@@ -155,18 +160,13 @@ ActiveAdmin.register Order do
       f.input :purpose
       f.input :brand_name, as: :select, collection: Order.brand_names.keys
       f.input :type_of_service, label: 'Type of Service'
-      f.input :first_fitting, input_html: { id: 'first_fitting', class: 'datepicker' }
-      f.input :second_fitting, input_html: { id: 'second_fitting', class: 'datepicker' }
-      f.input :third_fitting, input_html: { id: 'third_fitting', class: 'datepicker' }
-      f.input :fourth_fitting, input_html: { id: 'fourth_fitting', class: 'datepicker' }
-      f.input :finish
+      f.input :first_fitting, as: :datepicker, input_html: { id: 'first_fitting', class: 'datepicker' }
+      f.input :second_fitting,as: :datepicker, input_html: { id: 'second_fitting', class: 'datepicker' }
+      f.input :third_fitting, as: :datepicker,input_html: { id: 'third_fitting', class: 'datepicker' }
+      f.input :fourth_fitting, as: :datepicker,input_html: { id: 'fourth_fitting', class: 'datepicker' }
+      f.input :finish, as: :datepicker, input_html: { id: 'finish', class: 'datepicker' }
       f.input :jo_number
     end
-
-    # f.inputs 'Select Garment Item' do
-    #   f.input :item_type, as: :select, collection: ['Coats', 'Pants/Skirt', 'Vests', 'Shirts'],
-    #                       input_html: { id: 'item-type-selector' }
-    # end
 
     tabs do
       tab 'Coats' do
@@ -192,7 +192,6 @@ ActiveAdmin.register Order do
             t.input :pocket_type
             t.input :front_side_pocket
             t.input :remarks
-
             t.input :fabric_code
             t.input :lining_code
             t.input :fabric_label
@@ -244,7 +243,6 @@ ActiveAdmin.register Order do
       end
     
       tab 'Vests' do
-
         f.inputs 'Vests', id: 'vests-section' do
           f.has_many :vests, allow_destroy: true, heading: '' do |t|
             t.input :quantity
@@ -293,55 +291,53 @@ ActiveAdmin.register Order do
   end
   
   show do
-    
-    #go back button
+    # Go back button
     div class: 'back-button' do
       link_to '← Back', admin_orders_path
     end
-
-    columns do      
+    
+    columns do
       column do
         attributes_table title: 'Information' do
           row :jo_number
           row :client
-          row :status
+        row :status
           #humanize to remove underscore
-          row :purpose do |order|
-            order.purpose.humanize
-          end
-          row :type_of_service
-          row :brand_name          
+        row :purpose do |order|
+          order.purpose.humanize
         end
+        row :type_of_service
+        row :brand_name
       end
-      column do
-        attributes_table title: 'Default Body Measurements' do
-          row :chest
-          row :back_width
-          row :waist
-          row :crotch
-          row :thigh
-          row :seat
-          row :hips
+    end
+    column do
+      attributes_table title: 'Body Measurements' do
+        row :chest
+        row :back_width
+        row :waist
+        row :crotch
+        row :thigh
+        row :seat
+        row :hips
+      end
+    end
+    column do
+      attributes_table title: 'Date Details' do
+        row :"Date Created", :created_at do |order|
+          order.created_at.strftime('%B %d %Y')
         end
-      end
-      column do
-        attributes_table title: 'Date Details' do
-          row :"Date Created", :created_at do |order|
-            order.created_at.strftime('%B %d %Y')
-          end
-          row :first_fitting
-          row :second_fitting
-          row :third_fitting
-          row :fourth_fitting
-          row :finish
+        row :first_fitting
+        row :second_fitting
+        row :third_fitting
+        row :fourth_fitting
+        row :finish
         end
       end
     end
-
+  
     tabs do
       if order.coats.any?
         tab 'Coat' do
-          # Content for the Coat section
           table_for order.coats do
             column :fabric_consumption
             column :breast
@@ -364,8 +360,7 @@ ActiveAdmin.register Order do
 
       if order.coats.any?
         tab 'Coat Style' do
-          # Content for the Panel section
-          if current_user.role == 'Administrator' || current_user.role == 'Master Tailor' || current_user.role == 'Sales Assistant' || current_user.role == 'Production Manager' || current_user.role == 'Coat Maker'
+          if current_user.role.in?(['Administrator', 'Master Tailor', 'Sales Assistant', 'Production Manager', 'Coat Maker'])
             table_for order.coats do
               column :quantity
               column :fabric_consumption
@@ -390,7 +385,7 @@ ActiveAdmin.register Order do
 
       if order.pants.any?
         tab 'Pants' do
-          if current_user.role == 'Administrator' || current_user.role == 'Master Tailor' || current_user.role == 'Sales Assistant' || current_user.role == 'Production Manager' || current_user.role == 'Coat Maker'
+          if current_user.role.in?(['Administrator', 'Master Tailor', 'Sales Assistant', 'Production Manager', 'Coat Maker'])
             table_for order.pants do
               column :quantity
               column :fabric_consumption
@@ -413,8 +408,7 @@ ActiveAdmin.register Order do
 
       if order.vests.any?
         tab 'Vest' do
-          # Content for the Vest section
-          if current_user.role == 'Administrator' || current_user.role == 'Master Tailor' || current_user.role == 'Sales Assistant' || current_user.role == 'Production Manager' || current_user.role == 'Vest Maker'
+          if current_user.role.in?(['Administrator', 'Master Tailor', 'Sales Assistant', 'Production Manager', 'Vest Maker'])
             table_for order.vests do
               column :quantity
               column :fabric_consumption
@@ -423,12 +417,12 @@ ActiveAdmin.register Order do
               column :back_width
               column :chest
               column :waist
-              column  :hips
-              column  :vest_style
-              column  :remarks
-              column  :number_of_front_buttons
-              column  :lapel_style
-              column  :adjuster_type
+              column :hips
+              column :vest_style
+              column :remarks
+              column :number_of_front_buttons
+              column :lapel_style
+              column :adjuster_type
             end
           end
         end
@@ -436,7 +430,7 @@ ActiveAdmin.register Order do
 
       if order.shirts.any?
         tab 'Shirt' do
-          if current_user.role == 'Administrator' || current_user.role == 'Master Tailor' || current_user.role == 'Sales Assistant' || current_user.role == 'Production Manager' || current_user.role == 'Vest Maker'
+          if current_user.role.in?(['Administrator', 'Master Tailor', 'Sales Assistant', 'Production Manager', 'Vest Maker'])
             table_for order.shirts do
               column :quantity
               column :fabric_consumption
@@ -445,25 +439,45 @@ ActiveAdmin.register Order do
               column :fabric_label
               column :brand_label
               column :tafetta
-              column  :fabric_code
-              column  :lining_code
-              column  :remarks
-              column  :cuffs
-              column  :pleats
-              column  :front_placket
-              column  :back_placket
-              column  :sleeves
-              column  :number_of_buttons
-              column  :pocket
-              column  :collar
-              column  :bottom
+              column :fabric_code
+              column :lining_code
+              column :remarks
+              column :cuffs
+              column :pleats
+              column :front_placket
+              column :back_placket
+              column :sleeves
+              column :number_of_buttons
+              column :pocket
+              column :collar
+              column :bottom
             end
           end
         end
       end
     end
+
+    panel 'Version History' do
+      table_for order.versions do
+        column 'Event' do |version|
+          version.event
+        end
+        column 'Modified At' do |version|
+          version.created_at.strftime('%B %d %Y %H:%M:%S')
+        end
+        column 'Modified By' do |version|
+          User.find(version.whodunnit).name if version.whodunnit
+        end
+        column 'Changes' do |version|
+          version.changeset.map { |k, v| "#{k}: #{v[0]} -> #{v[1]}" }.join(", ").html_safe if version.changeset.present?
+        end
+      end
+    end
+
     active_admin_comments
-  end
+end
+
+
 
   action_item :view, only: :show do
     if order.status != 'DONE'
@@ -475,39 +489,20 @@ ActiveAdmin.register Order do
     before_action :restrict_new_order_for_makers, only: :new
     before_action :restrict_actions_for_makers, only: %i[edit destroy approve]
 
-    private 
-    # Restrict makers from accessing "Edit" and "Delete"
+    private
+
     def restrict_actions_for_makers
-      if ['Coat Maker', 'Pants Maker', 'Shirt Maker', 'Vest Maker', 'Production Manager'].include?(current_user.role)
+      if current_user.role.in?(['Coat Maker', 'Pants Maker', 'Shirt Maker', 'Vest Maker', 'Production Manager'])
         redirect_to admin_orders_path, alert: 'You are not authorized to perform this action.'
       end
     end
 
-    private
-    # Restrict makers from accessing "New Order"
     def restrict_new_order_for_makers
-      if ['Coat Maker', 'Pants Maker', 'Shirt Maker', 'Vest Maker', 'Production Manager'].include?(current_user.role)
+      if current_user.role.in?(['Coat Maker', 'Pants Maker', 'Shirt Maker', 'Vest Maker', 'Production Manager'])
         redirect_to admin_orders_path, alert: 'You are not authorized to create new orders.'
       end
     end
   end
-
-  
- 
-
-
-
-  #   # Conditionally show actions based on the user role
-  #   if ['Coat Maker', 'Pants Maker', 'Shirt Maker', 'Vest Maker'].include?(current_user.role)
-  #     # For maker roles, only show the View action
-  #     actions defaults: false do |order|
-  #       item 'View', admin_order_path(order)
-  #     end
-  #   else
-  #     # For other roles, show all actions (View, Edit, Delete)
-  #     actions
-  #   end
-  # end
 
   action_item :print_options, only: :show do
     dropdown_menu "<i class='fa fa-print'></i>".html_safe do
@@ -519,14 +514,13 @@ ActiveAdmin.register Order do
     end
   end
 
-  
   # Filter side bar
   filter :client_name, as: :select, label: 'Client Name', collection: Client.all.map { |order| order.name }
   filter :type_of_service, as: :select, label: 'Type of Service', collection: Order.type_of_services.keys
   filter :jo_number, as: :select, label: 'Job Order #', collection: proc { Order.distinct.pluck(:jo_number) } 
   filter :purpose, as: :select, collection: Order.distinct.pluck(:purpose)
-  #add brand filter
-  # filter :brand_name, as: :select, collection: Order.brand_names.keys
+  filter :created_at, as: :date_range
   
   filter :created_at
 end
+

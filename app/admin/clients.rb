@@ -32,6 +32,7 @@ ActiveAdmin.register Client do
   # actions :all, except: :destroy  # Apply at the resource level for consistency
   
   filter :orders_client_name, as: :select, label: 'Client Name', collection: Client.all.map { |order| order.name }
+  filter :assisted_by, as: :select, collection: User.all.map { |user| [user.name, user.id] }
   filter :referred_by
   filter :created_at
 
@@ -67,12 +68,12 @@ ActiveAdmin.register Client do
         f.inputs do
           f.input :name
           f.input :gender, as: :select, collection: Client.genders.keys
-          f.input :date_of_birth, as: :datepicker
+          f.input :date_of_birth, as: :datepicker, datepicker_options: { changeYear: true, yearRange: "1900:+nn", changeMonth: true , monthRange: "1:12"}
           f.input :address
           f.input :referred_by
           f.input :assisted_by, as: :select, collection: User.all.map { |user| [user.name, user.id] }, include_blank: false
           f.input :measured_by
-          f.input :membership_date, as: :datepicker
+          f.input :membership_date, as: :datepicker,datepicker_options: { changeYear: true, yearRange: "1900:+nn", changeMonth: true , monthRange: "1:12"}
           f.input :heard_from_source, as: :select, collection: Client.heard_from_sources.keys, input_html: { id: 'heard_from_source' }
           # f.input :heard_from_source_other, input_html: { id: 'heard_from_source_other', style: 'display: none;' }
         end
@@ -140,13 +141,20 @@ ActiveAdmin.register Client do
 
       tab 'Measurements' do
         attributes_table do
-          row :chest
+          row :jacket_length
           row :back_width
+          row :sleeves
+          row :collar
+          row :cuffs_1
+          row :cuffs_2
+          row :chest
           row :waist
+          row :hips
+          #lower body
           row :crotch
+          row :outseam
           row :thigh
           row :seat
-          row :hips
           row :shoe_size
         end
       end

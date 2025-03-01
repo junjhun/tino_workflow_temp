@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_02_25_182030) do
+ActiveRecord::Schema[7.0].define(version: 2025_03_01_040703) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -214,33 +214,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_25_182030) do
     t.string "back_placket"
     t.integer "quantity", default: 0, null: false
     t.integer "type_of_button", default: 0, null: false
-    t.string "coat_length"
-    t.string "back_width"
-    t.string "right_cuff"
-    t.string "left_cuff"
-    t.string "chest"
-    t.string "shirt_waist"
-    t.string "stature"
-    t.string "shoulders"
-    t.integer "opening"
-    t.integer "front_bar"
-    t.integer "no_of_studs"
-    t.integer "front_pleats"
-    t.integer "back_pleats"
-    t.integer "front_pocket"
-    t.boolean "with_flap"
-    t.integer "front_pocket_flap"
-    t.integer "sleeve_length"
-    t.boolean "buttoned_down"
-    t.boolean "buttoned_down_with_loop"
-    t.integer "hem"
-    t.integer "contrast"
-    t.string "contrast_placement"
-    t.string "monogram_initials"
-    t.integer "monogram_placement"
-    t.integer "monogram_font"
-    t.string "monogram_color"
-    t.string "monogram_thread_code"
   end
 
   create_table "users", force: :cascade do |t|
@@ -256,13 +229,29 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_25_182030) do
     t.integer "role", default: 0, null: false
     t.string "name"
     t.string "unlock_token"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  create_table "versions", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.bigint "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.text "object"
+    t.datetime "created_at"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+  end
+
   create_table "vests", force: :cascade do |t|
     t.integer "order_id"
+    t.string "side_pocket"
     t.string "chest_pocket"
     t.string "vest_length"
     t.string "back_width"
@@ -271,6 +260,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_25_182030) do
     t.string "hips"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "vest_style", default: 0, null: false
     t.text "remarks"
     t.string "number_of_front_buttons"
     t.integer "lapel_style", default: 0, null: false
@@ -279,11 +269,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_25_182030) do
     t.integer "quantity", default: 0, null: false
     t.string "fabric_code"
     t.string "lining_code"
-    t.string "fabric_label"
-    t.integer "vest_model"
-    t.string "lapel_width"
-    t.integer "fabric"
-    t.integer "side_pocket"
   end
 
 end

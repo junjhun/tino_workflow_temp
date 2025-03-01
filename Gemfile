@@ -110,3 +110,5 @@ gem 'mutex_m'
 
 gem 'font-awesome-rails' 
 
+# track all changes to your models' data
+gem 'paper_trail', '~> 12.0'
