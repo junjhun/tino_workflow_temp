@@ -311,14 +311,46 @@ ActiveAdmin.register Order do
       end
     end
     column do
-      attributes_table title: 'Body Measurements' do
+      tabs do
+      tab 'Coats' do
+        attributes_table title: 'Coat Measurements' do
         row :chest
         row :back_width
         row :waist
-        row :crotch
-        row :thigh
+        row :shoulders
+        row :jacket_length
+        row :sleeves
+        end
+      end
+      tab 'Pants' do
+        attributes_table title: 'Pants Measurements' do
+        row :waist
         row :seat
+        row :thigh
+        row :knee
+        row :bottom
+        row :outseam
+        end
+      end
+      tab 'Shirts' do
+        attributes_table title: 'Shirt Measurements' do
+        row :chest
+        row :waist
+        row :sleeves
+        row :collar
+        row :cuffs
+        row :length
+        end
+      end
+      tab 'Vests' do
+        attributes_table title: 'Vest Measurements' do
+        row :chest
+        row :waist
         row :hips
+        row :back_width
+        row :vest_length
+        end
+      end
       end
     end
     column do
