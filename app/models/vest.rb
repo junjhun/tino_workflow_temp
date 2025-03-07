@@ -12,14 +12,20 @@ class Vest < ApplicationRecord
   ]
 
   enum lapel_style: [
+    'No lapel',
     'Notch',
     'Peak',
-    'Notch Tuxedo',
-    'Peaky Shiny',
-    'Shawl',
-    'Lapel Trimming',
-    'No lapel'
+    'Shawl'
   ]
+
+  enum vest_model: {
+    Single_breasted_3_buttons: 1,
+    Single_breasted_4_buttons: 2,
+    Single_breasted_5_buttons: 3,
+    Double_breasted_4_on_2_buttons: 4,
+    Double_breasted_6_on_2_buttons: 5, 
+    Double_breasted_6_on_3_buttons: 6
+  }
 
   validates :quantity, presence: { message: 'cannot be blank' },
                        numericality: { only_integer: true, greater_than: 0, message: 'must be a positive integer' }

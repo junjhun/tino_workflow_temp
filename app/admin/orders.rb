@@ -6,7 +6,7 @@ ActiveAdmin.register Order do
   #
   permit_params :client_id, :name, :status, :purpose, :type_of_service, :first_fitting, :second_fitting, :third_fitting, :fourth_fitting, :finish, :jo_number, :brand_name, :item_type,
                 items_attributes: %i[id name quantity fabric_and_linning_code _destroy],
-                vests_attributes: %i[id quantity fabric_consumption side_pocket chest_pocket vest_length back_width chest waist hips vest_style remarks number_of_front_buttons lapel_style adjuster_type _destroy],
+                vests_attributes: %i[id quantity fabric_consumption side_pocket chest_pocket vest_length back_width chest waist hips vest_model vest_style remarks number_of_front_buttons lapel_style adjuster_type _destroy],
                 shirts_attributes: %i[id quantity fabric_consumption specs_form number_of_buttons shirting_barong fabric_label fabric_code lining_code remarks collar cuffs pleats front_placket back_placket sleeves pocket collar bottom type_of_button control_no _destroy],
                 coats_attributes: %i[id fabric_consumption specs_form fabric_label no_of_buttons breast quantity coat_no jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code lining_code style lapel_style vent lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color boutonniere_thread_code button_spacing coat_pockets vent control_no pocket_type front_side_pocket _destroy],
                 pants_attributes: %i[id fabric_consumption type_of_pocket pleat_style specs_form fabric_label pleats quantity fabric_code lining_code crotch outseam waist seat thigh remarks knee bottom remarks control_no back_pocket strap pant_cuffs add_suspender_buttons no_of_pleats waist_area _destroy]
@@ -245,7 +245,10 @@ ActiveAdmin.register Order do
       tab 'Vests' do
         f.inputs 'Vests', id: 'vests-section' do
           f.has_many :vests, allow_destroy: true, heading: '' do |t|
+            #get JO number and display as disabled field
             t.input :quantity
+            t.input :fabric_code
+            t.input :lining_code
             t.input :fabric_consumption
             t.input :side_pocket
             t.input :chest_pocket
@@ -254,10 +257,12 @@ ActiveAdmin.register Order do
             t.input :chest
             t.input :waist
             t.input :hips
-            t.input :vest_style
+            t.input :vest_model
             t.input :lapel_style
+            t.input :lapel_width
+            t.input :fabric
             t.input :adjuster_type
-            t.input :number_of_front_buttons
+            t.input :side_pocket
             t.input :remarks
           end
         end
