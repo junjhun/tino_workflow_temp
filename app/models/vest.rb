@@ -25,18 +25,17 @@ class Vest < ApplicationRecord
   ]
 
   enum side_pocket: {
-    welt_pocket: 1,
-    no_pocket: 2
+    "Welt Pocket": 1,
+    "No Pocket": 2
   }
-    
 
   enum vest_model: {
-    Single_breasted_3_buttons: 1,
-    Single_breasted_4_buttons: 2,
-    Single_breasted_5_buttons: 3,
-    Double_breasted_4_on_2_buttons: 4,
-    Double_breasted_6_on_2_buttons: 5, 
-    Double_breasted_6_on_3_buttons: 6
+    "Single Breasted 3 Buttons": 1,
+    "Single Breasted 4 Buttons": 2,
+    "Single Breasted 5 Buttons": 3,
+    "Double Breasted 4 on 2 Buttons": 4,
+    "Double Breasted 6 on 2 Buttons": 5, 
+    "Double Breasted 6 on 3 Buttons": 6
   }
 
   validates :quantity, presence: { message: 'cannot be blank' },
