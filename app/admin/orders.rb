@@ -278,22 +278,38 @@ ActiveAdmin.register Order do
         f.inputs 'Shirts', id: 'shirts-section' do
           f.has_many :shirts, allow_destroy: true, heading: '' do |t|
             t.input :quantity
-            t.input :fabric_consumption
-            t.input :specs_form
-            t.input :control_no
-            t.input :fabric_label
             t.input :fabric_code
             t.input :lining_code
-            t.input :remarks
-            t.input :cuffs
-            t.input :pleats
-            t.input :front_placket
-            t.input :back_placket
+            t.input :fabric_consumption
+            #shirt length
+            t.input :back_width
             t.input :sleeves
-            t.input :pocket
+            t.input :right_cuff
+            t.input :left_cuff
+            t.input :chest
+            t.input :shirt_waist
+            t.input :stature
+            t.input :shoulders
+            t.input :opening
+            t.input :front_bar
+            t.input :no_of_studs
+            t.input :front_pleats
+            t.input :back_pleats
+            t.input :with_flap, as: :boolean
+            t.input :front_pocket_flap
+            t.input :sleeve_length
+            t.input :cuffs
             t.input :collar
-            t.input :bottom
-            t.input :type_of_button
+            t.input :buttoned_down, as: :boolean
+            t.input :buttoned_down_with_loop, as: :boolean
+            t.input :hem
+            t.input :contrast
+            t.input :contrast_placement
+            t.input :monogram_initials
+            t.input :monogram_placement
+            t.input :monogram_font
+            # t.input :monograp_thread_color
+            t.input :remarks
           end
         end
       end
