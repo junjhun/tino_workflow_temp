@@ -295,6 +295,7 @@ ActiveAdmin.register Order do
             t.input :no_of_studs
             t.input :front_pleats
             t.input :back_pleats
+            t.input :front_pocket
             t.input :with_flap, as: :boolean
             t.input :front_pocket_flap
             t.input :sleeve_length
@@ -308,7 +309,7 @@ ActiveAdmin.register Order do
             t.input :monogram_initials
             t.input :monogram_placement
             t.input :monogram_font
-            # t.input :monograp_thread_color
+            t.input :monogram_color 
             t.input :remarks
           end
         end

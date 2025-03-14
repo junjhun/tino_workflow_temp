@@ -1,21 +1,70 @@
 class Shirt < ApplicationRecord
   belongs_to :order
 
+  enum opening: %w[
+    Full_Open
+    Half_Open
+  ]
+
+  enum front_bar: %w[
+    With_bar_(standard_placket)
+    No_bar_(no_placket)
+    Hidden_(concealed_placket)
+  ]
+
+  enum front_pleats: %w[
+    Full
+    Bib
+    None
+  ], _prefix: true
+
+  enum back_pleats: %w[
+    Box_(center)
+    Sides
+    Norfolk
+    None
+  ], _prefix: true
+
+  enum front_pocket: %w[
+    Round
+    Square
+    Pointed
+    Square_with_pleat
+    Wine_Glass
+    None
+  ], _prefix: true
+
+  enum front_pocket_flap: %w[
+    Squared
+    Pointed
+    Slanted
+    Pointed_Curve
+  ], _prefix: true
+
+  enum sleeve_length: %w[
+    Long
+    Short
+  ]
+
+  enum hem: %w[
+    Straight
+    Am-boy
+  ]
+    
   enum specs_form: %w[
     Shirting
     Barong
     Tux
   ]
 
-  enum cuffs: [
-    'Single Cuffs (1 button round)',
-    'Single Cuffs (1 button angle)',
-    'Single Cuffs (1 button square)',
-    'Double Cuffs (French Square)',
-    'Double Cuffs (French Angle)',
-    'Double Cuffs (Cocktail)',
-    'Not Applicable'
-
+  enum cuffs: %w[
+    Single_1-button_square
+    Single_1-button_angled
+    Single_1-button_curve
+    Double_French_square
+    Double_French_angled
+    Double_French_cocktail
+    No_cuffs
   ]
 
   enum pleats: [
