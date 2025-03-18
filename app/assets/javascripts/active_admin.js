@@ -4,25 +4,25 @@
 //= require Chart.bundle
  
 $(document).ready(function() {
-  // Start of the Dynamic forms for (Coats, Vests, Pants/Skirts, Shirts)
+  // Start of the Dynamic forms for (Coats, Vests, Pants, Shirts)
   const itemTypeSelector = $('#item-type-selector');
  
   if (itemTypeSelector.length) {
     const coatsSection = $('#coats-section');
-    const pantsSkirtSection = $('#pants-skirt-section');
+    const pantsSection = $('#pants-section');
     const vestsSection = $('#vests-section');
     const shirtsSection = $('#shirts-section');
  
     const toggleSections = (selectedType) => {
       coatsSection.hide();
-      pantsSkirtSection.hide();
+      pantsSection.hide();
       vestsSection.hide();
       shirtsSection.hide();
  
       if (selectedType === 'Coats') {
         coatsSection.show();
-      } else if (selectedType === 'Pants/Skirt') {
-        pantsSkirtSection.show();
+      } else if (selectedType === 'Pants') {
+        pantsSection.show();
       } else if (selectedType === 'Vests') {
         vestsSection.show();
       } else if (selectedType === 'Shirts') {

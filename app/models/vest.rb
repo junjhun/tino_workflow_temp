@@ -13,10 +13,13 @@ class Vest < ApplicationRecord
   ]
 
   enum lapel_style: [
-    'No lapel',
     'Notch',
     'Peak',
-    'Shawl'
+    'Notch Tuxedo',
+    'Peaky Shiny',
+    'Shawl',
+    'Lapel Trimming',
+    'No lapel'
   ]
 
   enum fabric: [

@@ -46,48 +46,81 @@ class Shirt < ApplicationRecord
     Short
   ]
 
-  enum hem: %w[
-    Straight
-    Am-boy
-  ]
-    
-  enum specs_form: %w[
-    Shirting
-    Barong
-    Tux
-  ]
-
   enum cuffs: %w[
+    Single_1-button_round
+    Single_1-button_angle
     Single_1-button_square
-    Single_1-button_angled
-    Single_1-button_curve
     Double_French_square
     Double_French_angled
     Double_French_cocktail
     No_cuffs
+    Single_1-button_curve
   ]
 
-  enum pleats: [
-    'TWO SIDE PLEAT',
-    'CENTER PLEAT',
-    'NO PLEAT',
-    'BACK POCKETS (Dart Pleats)'
+  enum collar: [
+    'Traditional',
+    'Spread',
+    'Wide_(Italian)',
+    'Button Down', 
+    'Hidden Button Down',
+    'Wing',
+    'Chinese',
+    'Semi-spread',
+    'No_collar',
+    'Nehru'
   ]
 
-  enum type_of_button: [
-    'Hidden button',
-    'Front bar',
-    'No Pockets',
-    'Button Down ',
-    'Not hidden',
-    'Button down loop'
+  enum hem: %w[
+    Straight
+    Am-boy
   ]
 
-  enum front_placket: [
-    'W/BAR (standard-placket)',
-    'NO BAR (NO placket)',
-    'HIDDEN BUTTON (concealed placket)'
-  ], _prefix: :comments
+  enum contrast: %w[
+    With
+    Without
+  ]
+    
+  enum monogram_placement: %w[
+    Back_of_Collar
+    Left_Chest
+    Right_Chest
+    Left_Waist
+    Right_Waist
+    Left_Hem
+    Right_Hem
+    Left_Sleeve_Cuff
+    Right_Sleeve_Cuff
+  ]
+    
+  # enum specs_form: %w[
+  #   Shirting
+  #   Barong
+  #   Tux
+  # ]
+
+  
+
+  # enum pleats: [
+  #   'TWO SIDE PLEAT',
+  #   'CENTER PLEAT',
+  #   'NO PLEAT',
+  #   'BACK POCKETS (Dart Pleats)'
+  # ]
+
+  # enum type_of_button: [
+  #   'Hidden button',
+  #   'Front bar',
+  #   'No Pockets',
+  #   'Button Down ',
+  #   'Not hidden',
+  #   'Button down loop'
+  # ]
+
+  # enum front_placket: [
+  #   'W/BAR (standard-placket)',
+  #   'NO BAR (NO placket)',
+  #   'HIDDEN BUTTON (concealed placket)'
+  # ], _prefix: :comments
 
   # enum back_placket: [
   #     "W/BAR (standard-placket)",
@@ -95,48 +128,38 @@ class Shirt < ApplicationRecord
   #     "HIDDEN BUTTON (concealed placket)"
   # ]
 
-  enum sleeves: [
-    'Contrast 1 (full white collar and white cuff)',
-    'Contrast 2 (full white collar)',
-    'Contrast 3 (inside collar, cuff and)',
-    'No contrast'
-  ]
+  # enum sleeves: [
+  #   'Contrast 1 (full white collar and white cuff)',
+  #   'Contrast 2 (full white collar)',
+  #   'Contrast 3 (inside collar, cuff and)',
+  #   'No contrast'
+  # ]
 
-  enum pocket: [
-    'Round',
-    'Agile',
-    'Pointed',
-    'Square w/ Pleats',
-    'w/ squared flaps',
-    'w/ pointed flaps',
-    'w/ slanted flaps',
-    'w/ pointed curve flaps',
-    'Wine glass',
-    'Without Pocket'
-  ]
+  # enum pocket: [
+  #   'Round',
+  #   'Agile',
+  #   'Pointed',
+  #   'Square w/ Pleats',
+  #   'w/ squared flaps',
+  #   'w/ pointed flaps',
+  #   'w/ slanted flaps',
+  #   'w/ pointed curve flaps',
+  #   'Wine glass',
+  #   'Without Pocket'
+  # ]
 
-  enum collar: [
-    'Classic/Traditional',
-    'Cutaway/Spread Out',
-    'Italian/Wider Collar',
-    'Button Down',
-    'Hidden Button Down',
-    'Wing Tip/Tux',
-    'Chinese Collar',
-    'Semi-spread',
-    'Not applicable'
-  ]
 
-  enum bottom: [
-    'Straight Bottom',
-    'American Boy Cut'
-  ]
 
-  enum shirting_barong: [
-    'SHIRTING',
-    'BARONG',
-    'TUX SPECS FORM'
-  ]
+  # enum bottom: [
+  #   'Straight Bottom',
+  #   'American Boy Cut'
+  # ]
+
+  # enum shirting_barong: [
+  #   'SHIRTING',
+  #   'BARONG',
+  #   'TUX SPECS FORM'
+  # ]
 
   validates :quantity, presence: { message: 'cannot be blank' },
                        numericality: { only_integer: true, greater_than: 0, message: 'must be a positive integer' }
