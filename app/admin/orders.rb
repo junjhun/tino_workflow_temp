@@ -8,17 +8,19 @@ ActiveAdmin.register Order do
                 items_attributes: %i[id name quantity fabric_and_linning_code _destroy],
                 vests_attributes: %i[id quantity fabric_code lining_code fabric_consumption chest_pocket vest_length back_width
                   chest waist hips vest_model lapel_style lapel_width fabric adjuster_type side_pocket remarks _destroy],
-                shirts_attributes: %i[id quantity fabric_consumption specs_form number_of_buttons shirting_barong fabric_label
-                  fabric_code lining_code remarks collar cuffs pleats front_placket back_placket sleeves pocket collar bottom 
-                  type_of_button control_no _destroy],
+                shirts_attributes: %i[id quantity fabric_code lining_code fabric_consumption shirt_length back_width sleeves
+                  right_cuff left_cuff chest shirt_waist stature shoulders opening front_bar no_of_studs front_pleats back_pleats
+                  front_pocket with_flap front_pocket_flap sleeve_length cuffs collar buttoned_down buttoned_down_with_loop hem
+                  contrast contrast_placement monogram_initials monogram_placement monogram_font monogram_color specs_form
+                  number_of_buttons shirting_barong fabric_label remarks control_no _destroy],
                 coats_attributes: %i[id fabric_consumption specs_form fabric_label no_of_buttons breast quantity coat_no
                   jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code
                   lining_code style lapel_style vent lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color
                   boutonniere_thread_code button_spacing coat_pockets vent control_no pocket_type front_side_pocket _destroy],
-                pants_attributes: %i[id quantity fabric_code lining_code fabric_consumption crotch outseam waist seat thigh knee bottom
-                  rise cut pleats overlap waistband_thickness tightening closure crotch_saddle front_pocket coin_pocket flap_on_coin_pocket
-                  back_pocket flap_on_jetted_pocket buttons_on_jetted_pockets button_loops_on_jetted_pockets add_suspender_buttons satin_trim
-                  cuff_on_hem width_of_cuff remarks _destroy]
+                pants_attributes: %i[id quantity fabric_code lining_code fabric_consumption crotch outseam waist seat thigh knee
+                  bottom rise cut pleats overlap waistband_thickness tightening closure crotch_saddle front_pocket coin_pocket
+                  flap_on_coin_pocket back_pocket flap_on_jetted_pocket buttons_on_jetted_pockets button_loops_on_jetted_pockets
+                  add_suspender_buttons satin_trim cuff_on_hem width_of_cuff remarks _destroy]
                   
   #
   # or
