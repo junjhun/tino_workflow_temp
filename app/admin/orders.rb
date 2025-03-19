@@ -223,14 +223,9 @@ ActiveAdmin.register Order do
         f.inputs 'Pants', id: 'pants-section' do
           f.has_many :pants, allow_destroy: true, heading: '' do |t|
             t.input :quantity
-            
-            t.input :fabric_consumption
-            t.input :specs_form
-            t.input :control_no
-            t.input :pleats
-            t.input :fabric_label
             t.input :fabric_code
             t.input :lining_code
+            t.input :fabric_consumption
             t.input :crotch
             t.input :outseam
             t.input :waist
@@ -238,14 +233,25 @@ ActiveAdmin.register Order do
             t.input :thigh
             t.input :knee
             t.input :bottom
+            t.input :rise
+            t.input :cut
+            t.input :pleats
+            t.input :overlap
+            t.input :waistband_thickness
+            t.input :tightening
+            t.input :closure
+            t.input :crotch_saddle, as: :boolean
+            t.input :front_pocket
+            t.input :coin_pocket, as: :boolean
+            t.input :flap_on_coin_pocket, as: :boolean
             t.input :back_pocket
-            t.input :strap
-            t.input :pant_cuffs
-            t.input :pleat_style
-            t.input :type_of_pocket
-            t.input :add_suspender_buttons
-            t.input :no_of_pleats
-            t.input :waist_area
+            t.input :flap_on_jetted_pocket, as: :boolean
+            t.input :buttons_on_jetted_pockets, as: :boolean
+            t.input :button_loops_on_jetted_pockets, as: :boolean
+            t.input :add_suspender_buttons, as: :boolean
+            t.input :satin_trim, as: :boolean
+            t.input :cuff_on_hem, as: :boolean
+            t.input :width_of_cuff
             t.input :remarks
           end
         end
