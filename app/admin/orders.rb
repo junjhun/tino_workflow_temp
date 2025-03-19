@@ -15,9 +15,11 @@ ActiveAdmin.register Order do
                   jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code
                   lining_code style lapel_style vent lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color
                   boutonniere_thread_code button_spacing coat_pockets vent control_no pocket_type front_side_pocket _destroy],
-                pants_attributes: %i[id fabric_consumption type_of_pocket pleat_style specs_form fabric_label pleats quantity
-                  fabric_code lining_code crotch outseam waist seat thigh remarks knee bottom remarks control_no back_pocket strap
-                  pant_cuffs add_suspender_buttons no_of_pleats waist_area _destroy]
+                pants_attributes: %i[id quantity fabric_code lining_code fabric_consumption crotch outseam waist seat thigh knee bottom
+                  rise cut pleats overlap waistband_thickness tightening closure crotch_saddle front_pocket coin_pocket flap_on_coin_pocket
+                  back_pocket flap_on_jetted_pocket buttons_on_jetted_pockets button_loops_on_jetted_pockets add_suspender_buttons satin_trim
+                  cuff_on_hem width_of_cuff remarks _destroy]
+                  
   #
   # or
   #
