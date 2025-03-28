@@ -10,15 +10,15 @@ ActiveAdmin.register Order do
                   chest waist hips vest_model lapel_style lapel_width fabric adjuster_type side_pocket remarks _destroy],
                 shirts_attributes: %i[id quantity fabric_code lining_code fabric_consumption shirt_length back_width sleeves
                   right_cuff left_cuff chest shirt_waist stature shoulders opening front_bar no_of_studs front_pleats back_pleats
-                  front_pocket with_flap front_pocket_flap sleeve_length cuffs collar buttoned_down buttoned_down_with_loop hem
-                  contrast contrast_placement monogram_initials monogram_placement monogram_font monogram_color specs_form
+                  front_pocket sleeves type_of_pocket with_flap front_pocket_flap sleeve_length cuffs collar buttoned_down buttoned_down_with_loop hem
+                  bottom contrast contrast_placement monogram_initials monogram_placement monogram_font monogram_color specs_form
                   number_of_buttons shirting_barong fabric_label remarks control_no _destroy],
                 coats_attributes: %i[id fabric_consumption specs_form fabric_label no_of_buttons breast quantity coat_no
                   jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code
                   lining_code style lapel_style vent lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color
                   boutonniere_thread_code button_spacing coat_pockets vent control_no pocket_type front_side_pocket _destroy],
                 pants_attributes: %i[id quantity fabric_code lining_code fabric_consumption crotch outseam waist seat thigh knee
-                  bottom rise cut pleats overlap waistband_thickness tightening closure crotch_saddle front_pocket coin_pocket
+                  bottom rise cut pleats overlap waistband_thickness waist_area tightening closure crotch_saddle front_pocket coin_pocket
                   flap_on_coin_pocket back_pocket flap_on_jetted_pocket buttons_on_jetted_pockets button_loops_on_jetted_pockets
                   add_suspender_buttons satin_trim cuff_on_hem width_of_cuff remarks _destroy]
                   
@@ -186,40 +186,52 @@ ActiveAdmin.register Order do
         f.inputs 'Coats', id: 'coats-section' do
           f.has_many :coats, allow_destroy: true, heading: '' do |t|
             t.input :quantity
+            t.input :fabric_code
+            t.input :lining_code
             t.input :fabric_consumption
-            t.input :specs_form
-            t.input :control_no
-            t.input :breast
             t.input :jacket_length
             t.input :back_width
             t.input :sleeves
-            t.input :cuffs_1
-            t.input :cuffs_2
-            t.input :collar
+            t.input :cuffs_1, label: 'Right Cuff'
+            t.input :cuffs_2, label: 'Left Cuff'
             t.input :chest
             t.input :waist
-            t.input :hips
             t.input :stature
-            t.input :shoulders
-            t.input :pocket_type
-            t.input :front_side_pocket
-            t.input :remarks
-            t.input :fabric_code
-            t.input :lining_code
-            t.input :fabric_label
-            t.input :style
+            t.input :shoulders           
+            t.input :style, label: "Model"
             t.input :lapel_style
+            t.input :lapel_width
             t.input :vent
+            t.input :sleeves_and_padding, label: 'Shoulder Padding'
             t.input :lining
-            t.input :sleeves_and_padding
-            t.input :button
-            t.input :sleeve_buttons
-            t.input :no_of_buttons
-            t.input :boutonniere
-            t.input :boutonniere_color
-            t.input :boutonniere_thread_code
-            t.input :button_spacing
-            t.input :coat_pockets
+            t.input :sleeve_buttons, label: 'Sleeve Button Function'
+            # (Not applicable when sleeve button function is none)
+            t.input :button_spacing, label: 'Sleeve Button Spacing'
+            # (Not applicable when sleeve button function is none)
+            t.input :button, label: 'Type of Sleeve Button'
+            # (Not applicable when sleeve button function is none)
+            t.input :no_of_buttons, label: 'No. of  Sleeve Buttons'
+            # (Not applicable when sleeve button function is none)
+            t.input :color_of_sleeve_buttons
+            t.input :boutonniere, label: 'Lapel Buttonhole' 
+            # Not applicable for none lapel buttonhole option
+            t.input :flower_holder, as: :boolean, label: 'With Flower Holder'
+            t.input :lapel_buttonhole_thread_color
+            t.input :pocket_type, label: 'Chest Pocket'
+            t.input :chest_pocket_satin, as: :boolean, label: 'With Satin'
+            t.input :front_side_pocket, label: 'Side Pockets'
+            t.input :side_pockets_flap, as: :boolean, label: 'With Flap'
+            # (Not applicable for patch chest pocket option and no chest pocket option)
+            t.input :side_pockets_satin, as: :boolean, label: 'With Satin'
+            t.input :side_pockets_ticket, as: :boolean, label: 'With Ticket Pocket'
+            t.input :side_pocket_placement, label: 'Side Pocket Placement'
+            t.input :monogram_initials
+            # incl. others and will type their option
+            t.input :monogram_placement
+            # incl. others and will type their option
+            t.input :monogram_font 
+            t.input :monogram_thread_color
+            t.input :remarks
           end
         end
       end
@@ -242,10 +254,10 @@ ActiveAdmin.register Order do
             t.input :pleats
             t.input :overlap
             t.input :waistband_thickness
-            t.input :tightening
+            t.input :waist_area, label: 'Tightening'
             t.input :closure
             t.input :crotch_saddle, as: :boolean
-            t.input :front_pocket
+            t.input :type_of_pocket, label: 'Front Pocket'
             t.input :coin_pocket, as: :boolean
             t.input :flap_on_coin_pocket, as: :boolean
             t.input :back_pocket
@@ -303,11 +315,11 @@ ActiveAdmin.register Order do
             t.input :stature
             t.input :shoulders
             t.input :opening
-            t.input :front_bar
+            t.input :front_placket, label: 'Front Bar'
             t.input :no_of_studs
             t.input :front_pleats
             t.input :back_pleats
-            t.input :front_pocket
+            t.input :pocket, label: 'Front Pocket'
             t.input :with_flap, as: :boolean
             t.input :front_pocket_flap
             t.input :sleeve_length
@@ -315,8 +327,8 @@ ActiveAdmin.register Order do
             t.input :collar
             t.input :buttoned_down, as: :boolean
             t.input :buttoned_down_with_loop, as: :boolean
-            t.input :hem
-            t.input :contrast
+            t.input :bottom, label: 'Hem'
+            t.input :sleeves, label: 'Contrast'
             t.input :contrast_placement
             t.input :monogram_initials
             t.input :monogram_placement

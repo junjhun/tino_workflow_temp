@@ -6,11 +6,11 @@ class Shirt < ApplicationRecord
     Half_Open
   ]
 
-  enum front_bar: %w[
-    With_bar_(standard_placket)
-    No_bar_(no_placket)
-    Hidden_(concealed_placket)
-  ]
+  enum front_placket: [
+    'With_bar_(standard_placket)',
+    'No_bar_(no_placket)',
+    'Hidden_(concealed_placket)'
+  ], _prefix: :true
 
   enum front_pleats: %w[
     Full
@@ -25,13 +25,19 @@ class Shirt < ApplicationRecord
     None
   ], _prefix: true
 
-  enum front_pocket: %w[
-    Round
-    Square
-    Pointed
-    Square_with_pleat
-    Wine_Glass
-    None
+  enum pocket: [
+    'Round',
+    'Agile',
+    'Pointed',
+    'Square w/ Pleats',
+    'w/ squared flaps',
+    'w/ pointed flaps',
+    'w/ slanted flaps',
+    'w/ pointed curve flaps',
+    'Wine glass',
+    'Without Pocket',
+    'Sqaure',
+    'None'
   ], _prefix: true
 
   enum front_pocket_flap: %w[
@@ -69,15 +75,18 @@ class Shirt < ApplicationRecord
     'No_collar',
     'Nehru'
   ]
-
-  enum hem: %w[
-    Straight
-    Am-boy
+  
+  enum bottom: [
+    'Straight',
+    'Am-Boy'
   ]
-
-  enum contrast: %w[
-    With
-    Without
+  #  updated to contrast
+  enum sleeves: [
+    'Contrast 1 (full white collar and white cuff)',
+    'Contrast 2 (full white collar)',
+    'Contrast 3 (inside collar, cuff and)',
+    'Without',
+    'With'
   ]
     
   enum monogram_placement: %w[
@@ -116,11 +125,7 @@ class Shirt < ApplicationRecord
   #   'Button down loop'
   # ]
 
-  # enum front_placket: [
-  #   'W/BAR (standard-placket)',
-  #   'NO BAR (NO placket)',
-  #   'HIDDEN BUTTON (concealed placket)'
-  # ], _prefix: :comments
+
 
   # enum back_placket: [
   #     "W/BAR (standard-placket)",
@@ -150,10 +155,6 @@ class Shirt < ApplicationRecord
 
 
 
-  # enum bottom: [
-  #   'Straight Bottom',
-  #   'American Boy Cut'
-  # ]
 
   # enum shirting_barong: [
   #   'SHIRTING',

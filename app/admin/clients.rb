@@ -149,6 +149,8 @@ ActiveAdmin.register Client do
           row :cuffs_2
           row :chest
           row :waist
+          row :stature
+          row :shoulders
           row :hips
           #lower body
           row :crotch
