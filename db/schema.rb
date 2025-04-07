@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_03_25_095450) do
+ActiveRecord::Schema[7.0].define(version: 2025_03_18_084805) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -125,19 +125,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_03_25_095450) do
     t.string "fabric_consumption"
     t.integer "pocket_type", default: 0, null: false
     t.integer "front_side_pocket", default: 0, null: false
-    t.string "lapel_width"
-    t.string "color_of_sleeve_buttons"
-    t.boolean "flower_holder", default: false
-    t.string "lapel_buttonhole_thread_color"
-    t.boolean "chest_pocket_satin", default: false
-    t.boolean "side_pockets_flap", default: false
-    t.boolean "side_pockets_satin", default: false
-    t.boolean "side_pockets_ticket", default: false
-    t.integer "side_pocket_placement"
-    t.string "monogram_initials"
-    t.integer "monogram_placement"
-    t.integer "monogram_font"
-    t.string "monogram_thread_color"
   end
 
   create_table "orders", force: :cascade do |t|
