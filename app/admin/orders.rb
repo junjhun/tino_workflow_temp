@@ -4,7 +4,7 @@ ActiveAdmin.register Order do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :client_id, :name, :status, :purpose, :type_of_service, :first_fitting, :second_fitting, :third_fitting, :fourth_fitting, :finish, :jo_number, :brand_name, :item_type,
+  permit_params :client_id, :name, :status, :purpose, :type_of_service, :first_fitting, :second_fitting, :third_fitting, :fourth_fitting, :event_date, :finish, :jo_number, :brand_name, :item_type,
                 items_attributes: %i[id name quantity fabric_and_linning_code _destroy],
                 vests_attributes: %i[id quantity fabric_code lining_code fabric_consumption chest_pocket vest_length back_width
                   chest waist hips vest_model lapel_style lapel_width fabric adjuster_type side_pocket remarks _destroy],
@@ -175,7 +175,7 @@ ActiveAdmin.register Order do
       f.input :first_fitting, as: :datepicker, input_html: { id: 'first_fitting', class: 'datepicker' }
       f.input :second_fitting,as: :datepicker, input_html: { id: 'second_fitting', class: 'datepicker' }
       f.input :third_fitting, as: :datepicker,input_html: { id: 'third_fitting', class: 'datepicker' }
-      f.input :fourth_fitting, as: :datepicker,input_html: { id: 'fourth_fitting', class: 'datepicker' }
+      f.input :event_date, as: :datepicker, input_html: { id: 'event_date', class: 'datepicker' }
       f.input :finish, as: :datepicker, input_html: { id: 'finish', class: 'datepicker' }
       f.input :jo_number
     end
@@ -416,7 +416,7 @@ ActiveAdmin.register Order do
         row :first_fitting
         row :second_fitting
         row :third_fitting
-        row :fourth_fitting
+        row :event_date
         row :finish
         end
       end
