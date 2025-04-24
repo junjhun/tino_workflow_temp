@@ -15,14 +15,28 @@ class Pant < ApplicationRecord
   ]
 
   enum pleats: [
-    '2 PLEATS TOWARDS POCKETS',
-    '2 PLEATS TOWARDS FLY',
+    'PLEATS TOWARDS POCKETS',
+    'PLEATS TOWARDS FLY',
     'NO PLEATS',
-    'BACK POCKETS',
-    '1 PLEAT TOWARDS POCKETS',
-    '1 PLEAT TOWARDS FLY',
+    'BACK POCKETS'
+  ]
+
+  enum pleat_style: [
+    'NO PLEAT',
+    'SINGLE PLEATS',
+    'TWO PLEATS',
     'BOX PLEATS'
   ]
+
+  # enum pleats: [
+  #   '2 PLEATS TOWARDS POCKETS',
+  #   '2 PLEATS TOWARDS FLY',
+  #   'NO PLEATS',
+  #   'BACK POCKETS',
+  #   '1 PLEAT TOWARDS POCKETS',
+  #   '1 PLEAT TOWARDS FLY',
+  #   'BOX PLEATS'
+  # ]
 
  enum overlap: %w[
     Standard_2.5"_overlap
