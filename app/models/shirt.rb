@@ -27,9 +27,9 @@ class Shirt < ApplicationRecord
 
   enum pocket: [
     'Round',
-    'Agile',
+    'Square',
     'Pointed',
-    'Square w/ Pleats',
+    'Square w/ Pleat',
     'w/ squared flaps',
     'w/ pointed flaps',
     'w/ slanted flaps',
@@ -58,9 +58,8 @@ class Shirt < ApplicationRecord
     Single_1-button_square
     Double_French_square
     Double_French_angled
-    Double_French_cocktail
+    Double_French_curve
     No_cuffs
-    Single_1-button_curve
   ]
 
   enum collar: [
@@ -80,13 +79,13 @@ class Shirt < ApplicationRecord
     'Straight',
     'Am-Boy'
   ]
+
   #  updated to contrast
   enum sleeves: [
-    'Contrast 1 (full white collar and white cuff)',
-    'Contrast 2 (full white collar)',
-    'Contrast 3 (inside collar, cuff and)',
-    'Without',
-    'With'
+    'Contrast 1 (full collar and full cuff)',
+    'Contrast 2 (full collar only)',
+    'Contrast 3 (inside collar and cuff)',
+    'No Contrast'
   ]
     
   enum monogram_placement: %w[
@@ -165,7 +164,7 @@ class Shirt < ApplicationRecord
   validates :quantity, presence: { message: 'cannot be blank' },
                        numericality: { only_integer: true, greater_than: 0, message: 'must be a positive integer' }
 
-  validates :fabric_consumption, :specs_form, :control_no, :fabric_label,
+  validates :fabric_consumption, :control_no,
             :fabric_code, :lining_code, :remarks, :cuffs, :pleats, :front_placket, :back_placket, :sleeves, :pocket,
             :collar, :bottom, :type_of_button, presence: true
 end

@@ -307,7 +307,6 @@ ActiveAdmin.register Order do
             #shirt length
             t.input :shirt_length
             t.input :back_width
-            t.input :sleeves
             t.input :right_cuff
             t.input :left_cuff
             t.input :chest

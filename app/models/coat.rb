@@ -172,7 +172,7 @@ class Coat < ApplicationRecord
   validates :fabric_consumption, :specs_form, :control_no, :breast, :jacket_length,
             :back_width, :sleeves, :cuffs_1, :cuffs_2, :collar, :chest, :waist, :hips,
             :stature, :shoulders, :pocket_type, :front_side_pocket, :remarks, :fabric_code,
-            :lining_code, :fabric_label, :style, :lapel_style, :vent, :lining, :sleeves_and_padding,
+            :lining_code, :style, :lapel_style, :vent, :lining, :sleeves_and_padding,
             :button, :sleeve_buttons, :no_of_buttons, :boutonniere, :boutonniere_color,
             :boutonniere_thread_code, :button_spacing, :coat_pockets, presence: { message: 'cannot be blank' }
 
