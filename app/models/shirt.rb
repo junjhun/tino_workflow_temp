@@ -35,7 +35,6 @@ class Shirt < ApplicationRecord
     'w/ slanted flaps',
     'w/ pointed curve flaps',
     'Wine glass',
-    'Without Pocket',
     'None'
   ], _prefix: true
 
