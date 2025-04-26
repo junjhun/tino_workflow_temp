@@ -214,8 +214,6 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
         coat_pocket_style = "#"
       #when "Barchetta" #no image available
         coat_pocket_style = "#"
-      #when "None" #no image available
-        coat_pocket_style = "#"
       else
         coat_pocket_style = "#{dir}x.png"
     end
@@ -728,7 +726,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
     #cuffs
     case shirt.cuffs
-      when "Single_1-button_curve" || "Single_1-button_round"
+      when "Single_1-button_curve", "Single_1-button_round"
         shirt_cuffs_style = "#{dir}shirt/cuffs/Single1_button_curve.png"
       when "Single_1-button_angle"
 				shirt_cuffs_style = "#{dir}shirt/cuffs/Single1_button_angled.png"
@@ -747,17 +745,17 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
     #pocket
     case shirt.pocket
       when "Round"
-        shirt_cuffs_style = "#{dir}shirt/pocket/Round_Pocket.png"
-      when "Agile"
-        shirt_cuffs_style = "#{dir}shirt/pocket/Agile_Pocket.png"
+        shirt_pocket_style = "#{dir}shirt/pocket/Round_Pocket.png"
+      #when "Agile"
+        #shirt_pocket_style = "#{dir}shirt/pocket/Agile_Pocket.png"
       when "Pointed"
-        shirt_cuffs_style = "#{dir}shirt/pocket/Pointed_Pocket.png"
+        shirt_pocket_style = "#{dir}shirt/pocket/Pointed_Pocket.png"
       when "Square w/ Pleats"
-        shirt_cuffs_style = "#{dir}shirt/pocket/Square_wPleat_Pocket.png"
+        shirt_pocket_style = "#{dir}shirt/pocket/Square_wPleat_Pocket.png"
       when "Wine glass"
-        shirt_cuffs_style = "#{dir}shirt/pocket/Wine_Glass_Pocket.png"
-      when "Square"
-        shirt_cuffs_style = "#{dir}shirt/pocket/Square_Pocket.png"
+        shirt_pocket_style = "#{dir}shirt/pocket/Wine_Glass_Pocket.png"
+      when "Square", "Agile"
+        shirt_pocket_style = "#{dir}shirt/pocket/Square_Pocket.png"
       else
         shirt_pocket_style = "#{dir}x.png"
     end
