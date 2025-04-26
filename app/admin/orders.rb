@@ -591,11 +591,11 @@ end
 
   action_item :print_options, only: :show do
     dropdown_menu "<i class='fa fa-print'></i>".html_safe do
-      item 'Master Print', reports_order_path(order, type: 'Master')
-      item 'Coats Print', reports_order_path(order, type: 'Coats')
-      item 'Pants Print', reports_order_path(order, type: 'Pants')
-      item 'Shirts Print', reports_order_path(order, type: 'Shirts')
-      item 'Vests Print', reports_order_path(order, type: 'Vests')
+      item 'Master Print', reports_order_path(order, type: 'Master'), target: '_blank'
+      #item 'Coats Print', reports_order_path(order, type: 'Coats')
+      #item 'Pants Print', reports_order_path(order, type: 'Pants')
+      #item 'Shirts Print', reports_order_path(order, type: 'Shirts')
+      #item 'Vests Print', reports_order_path(order, type: 'Vests')
     end
   end
 
