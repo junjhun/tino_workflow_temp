@@ -540,8 +540,9 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
   end # pant end
 
   @vests.each do |vest| #vest start
+    vest_model_top = vest.vest_model.nil? ? "NONE" : vest.vest_model
     top_row = [
-      [{content: "VESTS"},{content: "STYLE: #{vest.vest_style.upcase}"},]
+      [{content: "VESTS"},{content: "MODEL: #{vest_model_top.upcase}"},]
     ]
 
     header_column_widths = [150, (overall_table_width -150)] # logical column width for top row

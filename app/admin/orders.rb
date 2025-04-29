@@ -562,8 +562,6 @@ ActiveAdmin.register Order do
     active_admin_comments
 end
 
-
-
   action_item :view, only: :show do
     if order.status != 'DONE'
       link_to 'Approve', approve_admin_orders_path(order), method: :post, class: 'green-button'
@@ -590,13 +588,7 @@ end
   end
 
   action_item :print_options, only: :show do
-    dropdown_menu "<i class='fa fa-print'></i>".html_safe do
-      item 'Master Print', reports_order_path(order, type: 'Master'), target: '_blank'
-      #item 'Coats Print', reports_order_path(order, type: 'Coats')
-      #item 'Pants Print', reports_order_path(order, type: 'Pants')
-      #item 'Shirts Print', reports_order_path(order, type: 'Shirts')
-      #item 'Vests Print', reports_order_path(order, type: 'Vests')
-    end
+    link_to "<i class='fa fa-print'></i> Print".html_safe, reports_order_path(order, type: 'Master'), target: '_blank'
   end
 
   # Filter side bar
