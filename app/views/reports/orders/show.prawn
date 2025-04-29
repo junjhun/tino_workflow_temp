@@ -324,7 +324,11 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 			],
 		]
 
-		nested_table_coat_images = pdf.make_table(coat_images, width: measurements_column_widths.sum) do
+		images_col_num = 7
+    column0_table_width = 400
+    column_width = column0_table_width / images_col_num
+
+		nested_table_coat_images = pdf.make_table(coat_images, column_widths: [column_width]*images_col_num ) do
       cells.position = :center
       cells.align = :center
       cells.style(:padding => 4, borders: [], size: 8)
