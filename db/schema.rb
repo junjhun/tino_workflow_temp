@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_04_26_141947) do
+ActiveRecord::Schema[7.0].define(version: 2025_05_01_230803) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -250,8 +250,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_04_26_141947) do
     t.string "left_cuff"
     t.string "chest"
     t.string "shirt_waist"
-    t.string "stature"
-    t.string "shoulders"
+    t.integer "stature"
+    t.integer "shoulders"
     t.integer "opening"
     t.integer "front_bar"
     t.integer "no_of_studs"

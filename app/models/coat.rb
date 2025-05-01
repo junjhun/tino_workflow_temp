@@ -74,7 +74,7 @@ class Coat < ApplicationRecord
   ]
 
   enum front_side_pocket: [
-    'NoPocket',
+    'No Pocket',
     '2 Pockets',
     '3 Pockets (w/ticket pocket)',
     'Patch',

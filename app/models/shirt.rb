@@ -97,6 +97,20 @@ class Shirt < ApplicationRecord
     Left_Sleeve_Cuff
     Right_Sleeve_Cuff
   ]
+
+  enum stature: [
+    'Erect',
+    'Stooping Stature',
+    'Prominent Stomach',
+    'Stout',
+    'Normal'
+  ], _prefix: :comments
+
+  enum shoulders: [
+    'Stooping Shoulders',
+    'Square',
+    'Normal'
+  ]
     
   # enum specs_form: %w[
   #   Shirting
