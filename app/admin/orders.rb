@@ -286,7 +286,7 @@ ActiveAdmin.register Order do
             t.input :chest
             t.input :waist
             t.input :hips
-            t.input :vest_model
+            t.input :vest_style, label: 'Vest Model'
             t.input :lapel_style
             t.input :lapel_width
             t.input :fabric
@@ -457,7 +457,9 @@ ActiveAdmin.register Order do
               column :vent
               column :lining
               column :sleeves_and_padding
-              column :button
+              column "Type of Sleeve Button" do |coat|
+                coat.button
+              end
               column :sleeve_buttons
               column :boutonniere
               column :boutonniere_color
@@ -497,17 +499,30 @@ ActiveAdmin.register Order do
           if current_user.role.in?(['Administrator', 'Master Tailor', 'Sales Assistant', 'Production Manager', 'Vest Maker'])
             table_for order.vests do
               column :quantity
+              column :fabric_code
+              column :lining_code
               column :fabric_consumption
-              column :side_pocket
               column :vest_length
               column :back_width
               column :chest
               column :waist
               column :hips
-              column :vest_model
-              column :remarks
+            end
+          end
+        end
+
+        tab 'Vest Style' do
+          if current_user.role.in?(['Administrator', 'Master Tailor', 'Sales Assistant', 'Production Manager', 'Vest Maker'])
+            table_for order.vests do
+              column "Vest Model" do |vest|
+                vest.vest_style
+              end
               column :lapel_style
+              column :lapel_width
+              column :fabric
               column :adjuster_type
+              column :side_pocket
+              column :remarks
             end
           end
         end
