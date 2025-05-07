@@ -2,14 +2,11 @@ class Coat < ApplicationRecord
   belongs_to :order
 
   
-  enum lapel_style: [
-    'Notch',
-    'Peak',
-    'Notch Tuxedo',
-    'Peaky Shiny',
-    'Shawl',
-    'Lapel Trimming'
-  ],  _prefix: true
+  enum lapel_style: {
+    'Notch' => 0,
+    'Peak' => 1,
+    'Shawl' => 4
+  }, _prefix: true
 
   enum vent: [
     'No Vent',
@@ -17,72 +14,60 @@ class Coat < ApplicationRecord
     '2 vents (side)'
   ],  _prefix: true
 
-  enum sleeves_and_padding: [
-    'House cut',
-    'Regular shoulders - thin padding',
-    'Spalla-camicia - minimal shirring',
-    'Spalla-camicia - not shirred',
-    'Conrolino',
-    'Regular shoulders - regular padding',
-    'Spalla-camicia - shirred'
-  ]
+  enum sleeves_and_padding: {
+    'Regular shoulders - regular padding' => 5,
+    'Regular shoulders - thin padding' => 1,
+    'Spalla-camicia - shirred' => 2,
+    'Spalla-camicia - minimal shirring' => 6,
+    'Spalla-camicia - not shirred' => 3,
+    'Conrolino' => 4
+  }
 
   enum lining: %w[
-    Unlined_none)
+    Unlined(none)
     Half_Lining
     Full_Lining
     Quarter_Lining
   ]
 
-  enum sleeve_buttons: [
-    'All Fake',
-    'All Functional',
-    '2 Fake 2 Functional',
-    'None'
-  ],  _prefix: true
+  enum sleeve_buttons: {
+    'All Functional' => 1,
+    '2 Fake 2 Functional' => 2,
+    'All Fake' => 0,
+    'None' => 3
+  }, _prefix: true
 
   enum button_spacing: %w[
     Stacking
-    kissing
+    Kissing
   ]
 
-  enum button: [
-    'Regular Button',
-    'Horn',
-    'Brass',
-    'Covered'
-  ]
+  enum button: {
+    'Horn' => 1,
+    'Brass' => 2,
+    'Covered' => 3
+  }
 
-  enum boutonniere: [
-    'No boutonniere',
-    '2 Boutonniere',
-    'Regular',
-    'w/ flower holder',
-    '1 Milanese',
-    '1 Boutonniere',
-    '2 Milanese'
-  ]
+  enum boutonniere: {
+    '1 Boutonniere' => 2,
+    '2 Boutonniere' => 1,
+    '1 Milanese' => 4,
+    '2 Milanese' => 5,
+    'No boutonniere' => 0
+  }
 
-  enum pocket_type: [
-    'Curved Chest Pocket',
-    'Flat Chest Pocket',
-    'Patch',
-    'Satin on Chest Pocket',
-    'Straight',
-    'Barchetta',
-    'None'
-  ]
+  enum pocket_type: {
+    'Straight' => 1,
+    'Barchetta' => 0,
+    'Patch' => 2,
+    'None' => 4
+  }
 
-  enum front_side_pocket: [
-    'No Pocket',
-    '2 Pockets',
-    '3 Pockets (w/ticket pocket)',
-    'Patch',
-    'Pockets with flaps?',
-    'Hacking/Italian Pocket?',
-    'Satin on Pockets Trimming',
-    'Jetted'
-  ], _prefix: true
+  enum front_side_pocket: {
+    'Jetted' => 7,
+    'Patch' => 3,
+    'None' => 0
+  }, _prefix: true
 
   enum side_pocket_placement: %w[
     Right_only
@@ -130,41 +115,22 @@ class Coat < ApplicationRecord
     'Normal'
   ]
 
-  enum style: [
-    'Single-breasted 1 button',
-    'Single-breasted 2 buttons',
-    'Single-breasted 3 buttons',
-    'Single 4 button',
-    'Double 4 button',
-    'Double 6 button',
-    'Single-breasted 3-on-2 buttons',
-    'Double-breasted 4-on-1 buttons',
-    'Double-breasted 4-on-2 buttons',
-    'Double-breasted 6-on-1 buttons',
-    'Double-breasted 6-on-2 buttons'
-  ]
+  enum style: {
+    'Single-breasted 1 button' => 0,
+    'Single-breasted 2 buttons' => 1,
+    'Single-breasted 3-on-2 buttons' => 3,
+    'Single-breasted 3 buttons' => 2,
+    'Double-breasted 4-on-1 buttons' => 4,
+    'Double-breasted 4-on-2 buttons' => 5,
+    'Double-breasted 6-on-1 buttons' => 6,
+    'Double-breasted 6-on-2 buttons' => 7
+  }
   
   enum vent: [
     'No Vent',
     '1 vent (center)',
     '2 vents (side)'
   ]
-
- 
-
-
-  
-
-
-
-
-
-  
-
-
-
-  
-
 
   validates :quantity, presence: { message: 'cannot be blank' },
                        numericality: { only_integer: true, greater_than: 0, message: 'must be a positive integer' }
