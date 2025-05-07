@@ -531,26 +531,62 @@ ActiveAdmin.register Order do
       if order.shirts.any?
         tab 'Shirt' do
           if current_user.role.in?(['Administrator', 'Master Tailor', 'Sales Assistant', 'Production Manager', 'Vest Maker'])
-            table_for order.shirts do
-              column :quantity
-              column :fabric_consumption
-              column :control_no
-              column :shirting_barong
-              column :fabric_label
-              column :brand_label
-              column :tafetta
-              column :fabric_code
-              column :lining_code
-              column :remarks
-              column :cuffs
-              column :pleats
-              column :front_placket
-              column :back_placket
-              column :sleeves
-              column :number_of_buttons
-              column :pocket
-              column :collar
-              column :bottom
+            panel 'Shirt Measurements' do
+              table_for order.shirts do
+                column :quantity
+                column :fabric_code
+                column :lining_code
+                column :fabric_consumption
+                column :shirt_length
+                column :back_width
+                column :right_cuff
+                column :left_cuff
+                column :chest
+                column :shirt_waist
+                column :stature
+                column :shoulders
+                column :sleeve_length
+              end
+            end
+
+            panel 'Shirt Subsection 1' do
+              table_for order.shirts do
+          column :opening  
+          column :front_placket
+          column "Front Bar" do |shirt|
+            shirt.front_placket
+          end
+          column :no_of_studs
+          column :front_pleats
+          column :back_pleats
+          column "Front Pocket" do |shirt|
+            shirt.pocket
+          end
+          column :with_flap
+          column :front_pocket_flap
+              end
+            end
+
+            panel 'Shirt Subsection 2' do
+              table_for order.shirts do
+          column :cuffs
+          column :collar
+          column :buttoned_down
+          column :buttoned_down_with_loop
+          column :bottom
+          column "Hem" do |shirt|
+            shirt.bottom
+          end
+          column "Contrast" do |shirt|
+            shirt.sleeves
+          end
+          column :contrast_placement
+          column :monogram_initials
+          column :monogram_placement
+          column :monogram_font
+          column :monogram_color
+          column :remarks
+              end
             end
           end
         end

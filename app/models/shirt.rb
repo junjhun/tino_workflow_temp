@@ -25,18 +25,14 @@ class Shirt < ApplicationRecord
     None
   ], _prefix: true
 
-  enum pocket: [
-    'Round',
-    'Square',
-    'Pointed',
-    'Square w/ Pleat',
-    'w/ squared flaps',
-    'w/ pointed flaps',
-    'w/ slanted flaps',
-    'w/ pointed curve flaps',
-    'Wine glass',
-    'None'
-  ], _prefix: true
+  enum pocket: {
+    'Round'=> 0,
+    'Square'=> 1,
+    'Pointed'=> 2,
+    'Square w/ Pleat'=> 3,
+    'Wine glass'=> 8,
+    'None'=> 9,
+  }, _prefix: true
 
   enum front_pocket_flap: %w[
     Squared
@@ -60,18 +56,17 @@ class Shirt < ApplicationRecord
     No_cuffs
   ]
 
-  enum collar: [
-    'Traditional',
-    'Spread',
-    'Wide_(Italian)',
-    'Button Down', 
-    'Hidden Button Down',
-    'Wing',
-    'Chinese',
-    'Semi-spread',
-    'No_collar',
-    'Nehru'
-  ]
+  enum collar: {
+    'Traditional'=> 0,
+    'Spread'=> 1,
+    'Semi-spread'=> 7,
+    'Wide(Italian)'=> 2,
+    'Wing'=> 5,
+    'Chinese'=> 6,
+    'Nehru'=> 9,
+    'No_collar'=> 8
+  }
+    
   
   enum bottom: [
     'Straight',
@@ -79,12 +74,12 @@ class Shirt < ApplicationRecord
   ]
 
   #  updated to contrast
-  enum sleeves: [
-    'Contrast 1 (full collar and full cuff)',
-    'Contrast 2 (full collar only)',
-    'Contrast 3 (inside collar and cuff)',
-    'No Contrast'
-  ]
+  enum sleeves: {
+    'Contrast 1 (full collar and full cuff)' => 0,
+    'Contrast 2 (full collar only)' => 1,
+    'Contrast 3 (inside collar and cuff)' => 2,
+    'No Contrast' => 3
+  }
     
   enum monogram_placement: %w[
     Back_of_Collar
