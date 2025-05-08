@@ -28,58 +28,51 @@ class Pant < ApplicationRecord
     'BOX PLEATS'
   ]
 
-  # enum pleats: [
-  #   '2 PLEATS TOWARDS POCKETS',
-  #   '2 PLEATS TOWARDS FLY',
-  #   'NO PLEATS',
-  #   'BACK POCKETS',
-  #   '1 PLEAT TOWARDS POCKETS',
-  #   '1 PLEAT TOWARDS FLY',
-  #   'BOX PLEATS'
-  # ]
+  enum pleats_combined: {
+    'None' => 0,
+    '1 pleat towards fly' => 1,
+    '1 pleat towards pocket' => 2,
+    '2 pleats towards fly' => 3,
+    '2 pleats towards pocket' => 4,
+    'Box pleats' => 5
+  }
 
- enum overlap: %w[
-    Standard_2.5"_overlap
-    Extended_pointed_strap_1_button
-    Extended_squared_strap_2_buttons
-    Gurkha
-    No_overlap
-    ]
+  #Overlap
+  enum strap: {
+    'Standard_2.5"_overlap' => 5,
+    'Extended_pointed_strap_1_button' => 1,
+    'Extended_squared_strap_2_buttons' => 2,
+    'Gurkha' => 6,
+    'No_overlap' => 0
+    }
 
-  # waist_area = 0=Belt loop, 1=Side Adjuster, 2=no belt loop/ no side adjuster
-  enum waist_area: [
-    'Belt loops',
-    'Side Adjuster',
-    'no belt loop/ no side adjuster',
-    'Buckle_side_adjusters',
-    'Button_side_adjusters',
-    'Garterized'
-  ]
+  #Tightening
+  enum waist_area: {
+    'Buckle_side_adjusters' => 0,
+    'Button_side_adjusters' => 1,
+    'Belt loops' => 2,
+    'Garterized' => 3
+  }
 
   enum closure: %w[
     Zippered
     Button_fly
   ]
     
-  # type_of_pocket = 0=SLANTED POCKET, 1=STRAIGHT POCKET, 2=NACIDO POCKET
-  enum type_of_pocket: [
-    'Slanted',
-    'Straight Pocket',
-    'Nacido',
-    'None'
-  ]
+  #front_pocket
+  enum type_of_pocket: {
+    'Straight' => 1,
+    'Slanted' => 0,
+    'Nacido' => 2,
+    'None' => 3
+  }, _prefix: true
 
-  enum back_pocket: [
-    'No Back Pocket',
-    '2 Back Pocket',
-    '1 left Back Pocket',
-    '1 right Back Pocket',
-    'Pockets with Button?',
-    'Pockets with Flap',
-    'Jetted both sides',
-    'Jetted right only',
-    'Jetted left only'
-  ]
+  enum back_pocket: {
+    'Jetted both sides' => 1,
+    'Jetted right only' => 3,
+    'Jetted left only' => 2,
+    'None' => 0,
+  }, _prefix: true
 
   # specs_form = 0=Pants, 1=Tux Pants
   # enum specs_form: [
@@ -100,13 +93,7 @@ class Pant < ApplicationRecord
   # ]
 
   # strap = 0=No overlap / no extended strap, 1=Extended Overlap / Pointed Strap / 1 Button, 2=Extended Overlap / Squared Strap / 2 Button, 3=Thick waistband, 4=Other Design
-  # enum strap: [
-  #   'No overlap / no extended strap',
-  #   'Extended Overlap / Pointed Strap / 1 Button',
-  #   'Extended Overlap / Squared Strap / 2 Button',
-  #   'Thick waistband',
-  #   'Other Design'
-  # ]
+
 
 
 
