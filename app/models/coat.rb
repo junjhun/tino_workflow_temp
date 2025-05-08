@@ -118,12 +118,12 @@ class Coat < ApplicationRecord
   enum style: {
     'Single-breasted 1 button' => 0,
     'Single-breasted 2 buttons' => 1,
-    'Single-breasted 3-on-2 buttons' => 3,
+    'Single-breasted 3-on-2 buttons' => 6,
     'Single-breasted 3 buttons' => 2,
-    'Double-breasted 4-on-1 buttons' => 4,
-    'Double-breasted 4-on-2 buttons' => 5,
-    'Double-breasted 6-on-1 buttons' => 6,
-    'Double-breasted 6-on-2 buttons' => 7
+    'Double-breasted 4-on-1 buttons' => 7,
+    'Double-breasted 4-on-2 buttons' => 8,
+    'Double-breasted 6-on-1 buttons' => 9,
+    'Double-breasted 6-on-2 buttons' => 10
   }
   
   enum vent: [
