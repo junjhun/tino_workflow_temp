@@ -48,10 +48,10 @@ class Pant < ApplicationRecord
 
   #Tightening
   enum waist_area: {
-    'Buckle_side_adjusters' => 0,
-    'Button_side_adjusters' => 1,
-    'Belt loops' => 2,
-    'Garterized' => 3
+    'Buckle_side_adjusters' => 3,
+    'Button_side_adjusters' => 4,
+    'Belt loops' => 0,
+    'Garterized' => 5
   }
 
   enum closure: %w[
