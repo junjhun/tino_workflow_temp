@@ -194,12 +194,14 @@ ActiveAdmin.register Order do
             t.input :sleeves
             t.input :cuffs_1, label: 'Right Cuff'
             t.input :cuffs_2, label: 'Left Cuff'
+            t.input :collar
             t.input :chest
             t.input :waist
             t.input :stature
             t.input :shoulders           
             t.input :style, label: "Model"
             t.input :lapel_style
+            t.input :lapel_satin, as: :boolean, label: 'With Satin'
             t.input :lapel_width
             t.input :vent
             t.input :sleeves_and_padding, label: 'Shoulder Padding'
@@ -235,7 +237,7 @@ ActiveAdmin.register Order do
           end
         end
       end
-      
+
       tab 'Pants' do
         f.inputs 'Pants', id: 'pants-section' do
           f.has_many :pants, allow_destroy: true, heading: '' do |t|
@@ -281,7 +283,6 @@ ActiveAdmin.register Order do
             t.input :fabric_code
             t.input :lining_code
             t.input :fabric_consumption
-            t.input :chest_pocket
             t.input :vest_length
             t.input :back_width
             t.input :chest
@@ -292,6 +293,7 @@ ActiveAdmin.register Order do
             t.input :lapel_width
             t.input :fabric
             t.input :adjuster_type
+            t.input :chest_pocket
             t.input :side_pocket
             t.input :remarks
           end
