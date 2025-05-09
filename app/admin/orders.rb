@@ -235,6 +235,7 @@ ActiveAdmin.register Order do
           end
         end
       end
+      
       tab 'Pants' do
         f.inputs 'Pants', id: 'pants-section' do
           f.has_many :pants, allow_destroy: true, heading: '' do |t|
@@ -251,8 +252,8 @@ ActiveAdmin.register Order do
             t.input :bottom
             t.input :rise
             t.input :cut
-            t.input :pleats
-            t.input :overlap
+            t.input :pleats_combined, label: 'Pleats'
+            t.input :strap, label: 'Overlap'
             t.input :waistband_thickness
             t.input :waist_area, label: 'Tightening'
             t.input :closure
@@ -473,14 +474,13 @@ ActiveAdmin.register Order do
 
       if order.pants.any?
         tab 'Pants' do
-          if current_user.role.in?(['Administrator', 'Master Tailor', 'Sales Assistant', 'Production Manager', 'Coat Maker'])
-            table_for order.pants do
+            if current_user.role.in?(['Administrator', 'Master Tailor', 'Sales Assistant', 'Production Manager', 'Coat Maker'])
+            panel 'Pants Measurements' do
+              table_for order.pants do
               column :quantity
-              column :fabric_consumption
-              column :control_no
-              column :pleats
               column :fabric_code
               column :lining_code
+              column :fabric_consumption
               column :crotch
               column :outseam
               column :waist
@@ -488,9 +488,41 @@ ActiveAdmin.register Order do
               column :thigh
               column :knee
               column :bottom
-              column :remarks
+              column :rise
+              column :cut
+              column "Pleats" do |pant|
+                pant.pleats_combined
+              end
+              column :strap
+              column :waistband_thickness
+              column :waist_area
+              column "Tightening" do |pant|
+                pant.waist_area
+              end
+              column :closure
+              column :crotch_saddle
+              end
             end
-          end
+
+            panel 'Pants Details' do
+              table_for order.pants do
+              column "Front Pocket" do |pant|
+                pant.type_of_pocket
+              end
+              column :coin_pocket
+              column :flap_on_coin_pocket
+              column :back_pocket
+              column :flap_on_jetted_pocket
+              column :buttons_on_jetted_pockets
+              column :button_loops_on_jetted_pockets
+              column :add_suspender_buttons
+              column :satin_trim
+              column :cuff_on_hem
+              column :width_of_cuff
+              column :remarks
+              end
+            end
+            end
         end
       end
 
@@ -507,13 +539,6 @@ ActiveAdmin.register Order do
               column :chest
               column :waist
               column :hips
-            end
-          end
-        end
-
-        tab 'Vest Style' do
-          if current_user.role.in?(['Administrator', 'Master Tailor', 'Sales Assistant', 'Production Manager', 'Vest Maker'])
-            table_for order.vests do
               column "Vest Model" do |vest|
                 vest.vest_style
               end

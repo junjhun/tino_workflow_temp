@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_05_01_230803) do
+ActiveRecord::Schema[7.0].define(version: 2025_05_08_085735) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -216,6 +216,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_01_230803) do
     t.boolean "satin_trim", default: false
     t.boolean "cuff_on_hem", default: false
     t.string "width_of_cuff"
+    t.integer "pleats_combined", default: 0
   end
 
   create_table "shirts", force: :cascade do |t|
