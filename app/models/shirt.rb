@@ -78,7 +78,8 @@ class Shirt < ApplicationRecord
     'Contrast 1 (full collar and full cuff)' => 0,
     'Contrast 2 (full collar only)' => 1,
     'Contrast 3 (inside collar and cuff)' => 2,
-    'No Contrast' => 3
+    'No Contrast' => 3,
+    'Others' => 4
   }
     
   enum monogram_placement: %w[
@@ -106,7 +107,13 @@ class Shirt < ApplicationRecord
     'Square',
     'Normal'
   ]
-    
+
+  enum monogram_font: [
+    'Galant',
+    'Script',
+    'Others'
+  ],_prefix: true
+  
   # enum specs_form: %w[
   #   Shirting
   #   Barong
