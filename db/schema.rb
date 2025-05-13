@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_05_09_072208) do
+ActiveRecord::Schema[7.0].define(version: 2025_05_13_000600) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -169,6 +169,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_09_072208) do
     t.string "item_type"
     t.integer "purpose", default: 0, null: false
     t.date "event_date"
+    t.boolean "rush"
   end
 
   create_table "pants", force: :cascade do |t|

@@ -100,47 +100,39 @@ $(document).ready(function() {
     });
   }
  
-  // New Auto-Population Logic for Fittings
-  function populateFittingDates() {
-    const firstFittingDate = new Date($('#first_fitting').val());
-    const secondFittingDate = new Date($('#second_fitting').val());
-    const thirdFittingDate = new Date($('#third_fitting').val());
- 
-    // If First Fitting is provided, calculate Second, Third, and Fourth fitting dates
-    if (!isNaN(firstFittingDate.getTime())) {
-      const secondFittingDate = new Date(firstFittingDate);
-      secondFittingDate.setDate(firstFittingDate.getDate() + 17); // Add 17 days (2.5 weeks)
-      $('#second_fitting').val(formatDate(secondFittingDate));
- 
-      const thirdFittingDate = new Date(secondFittingDate);
-      thirdFittingDate.setDate(secondFittingDate.getDate() + 17); // Add 17 days (2.5 weeks)
-      $('#third_fitting').val(formatDate(thirdFittingDate));
- 
-      const fourthFittingDate = new Date(thirdFittingDate);
-      fourthFittingDate.setDate(thirdFittingDate.getDate() + 17); // Add 17 days (2.5 weeks)
-      $('#fourth_fitting').val(formatDate(fourthFittingDate));
- 
-    // If Second Fitting is provided and First Fitting is ignored
-    } else if (!isNaN(secondFittingDate.getTime())) {
-      const thirdFittingDate = new Date(secondFittingDate);
-      thirdFittingDate.setDate(secondFittingDate.getDate() + 17); // Add 17 days (2.5 weeks)
-      $('#third_fitting').val(formatDate(thirdFittingDate));
- 
-      const fourthFittingDate = new Date(thirdFittingDate);
-      fourthFittingDate.setDate(thirdFittingDate.getDate() + 17); // Add 17 days (2.5 weeks)
-      $('#fourth_fitting').val(formatDate(fourthFittingDate));
- 
-    // If Third Fitting is provided and First and Second Fittings are ignored
-    } else if (!isNaN(thirdFittingDate.getTime())) {
-      const fourthFittingDate = new Date(thirdFittingDate);
-      fourthFittingDate.setDate(thirdFittingDate.getDate() + 17); // Add 17 days (2.5 weeks)
-      $('#fourth_fitting').val(formatDate(fourthFittingDate));
+  // Function to handle enabling/disabling fields based on "Rush Order"
+  function handleRushOrder() {
+    const isRushOrder = $('#rush-checkbox').is(':checked'); // Check if "Rush Order" is checked
+
+    if (isRushOrder) {
+      // Enable second and third fitting fields for manual input
+      $('#second_fitting, #third_fitting').prop('disabled', false);
+    } else {
+      // For non-rush orders: disable fields but auto-calculate values
+      $('#second_fitting, #third_fitting').prop('disabled', true);
+      // Auto-calculate fitting dates based on first fitting
+      populateFittingDates();
     }
   }
- 
-  // Listen for changes on the fitting fields
-  $('#first_fitting, #second_fitting, #third_fitting').change(populateFittingDates);
- 
+
+  // Function to auto-populate fitting dates
+  function populateFittingDates() {
+    const firstFittingDate = new Date($('#first_fitting').val());
+    
+    // Only proceed if first fitting date is valid
+    if (!isNaN(firstFittingDate.getTime())) {
+      // Calculate Second Fitting (first + 17 days)
+      const secondFittingDate = new Date(firstFittingDate);
+      secondFittingDate.setDate(firstFittingDate.getDate() + 17);
+      $('#second_fitting').val(formatDate(secondFittingDate));
+      
+      // Calculate Third Fitting (second + 17 days)
+      const thirdFittingDate = new Date(secondFittingDate);
+      thirdFittingDate.setDate(secondFittingDate.getDate() + 17);
+      $('#third_fitting').val(formatDate(thirdFittingDate));
+    }
+  }
+
   // Helper function to format date as YYYY-MM-DD
   function formatDate(date) {
     const year = date.getFullYear();
@@ -148,6 +140,22 @@ $(document).ready(function() {
     const day = ('0' + date.getDate()).slice(-2);
     return `${year}-${month}-${day}`;
   }
+
+  $(document).ready(function() {
+    // Event listeners
+    $('#rush-checkbox').on('change', handleRushOrder);
+    
+    // For first fitting date changes
+    $('#first_fitting').on('change', function() {
+      // Only auto-calculate if not a rush order
+      if (!$('#rush-checkbox').is(':checked')) {
+        populateFittingDates();
+      }
+    });
+    
+    // Initial setup
+    handleRushOrder(); // Ensure fields are correctly enabled/disabled on page load
+  });
 
   $(".view-order-link").hover(function() {
     var orderId = $(this).data("order-id");
