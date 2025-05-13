@@ -599,7 +599,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
       [{content: "FABRIC"},{content: vest.fabric.nil? ? "None" : vest.fabric}],
       [{content: "FABRIC CONSUMPTION"},{content: vest.fabric_consumption.nil? ? "None" : vest.fabric_consumption}],
       [{content: "SIDE POCKET"},{content: vest.side_pocket.nil? ? "None" : vest.side_pocket}],
-      [{content: "VEST MODEL"},{content: vest.vest_model.nil? ? "None" : vest.vest_model}],
+      [{content: "VEST MODEL"},{content: vest.vest_style.nil? ? "None" : vest.vest_style}],
     ]
 
     nested_table_specifications = pdf.make_table(specifications, width: 180, column_widths: [90,90]) do
