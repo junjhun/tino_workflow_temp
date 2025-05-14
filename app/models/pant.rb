@@ -52,6 +52,7 @@ class Pant < ApplicationRecord
     'Button_side_adjusters' => 4,
     'Belt loops' => 0,
     'Garterized' => 5
+    'None' => 2
   }
 
   enum closure: %w[
