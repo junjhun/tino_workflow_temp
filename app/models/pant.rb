@@ -53,7 +53,7 @@ class Pant < ApplicationRecord
     'Belt loops' => 0,
     'Garterized' => 5,
     'None' => 2
-  }
+  }, _prefix: true
 
   enum closure: %w[
     Zippered
