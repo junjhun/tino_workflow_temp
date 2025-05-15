@@ -26,7 +26,7 @@ class Pant < ApplicationRecord
     'SINGLE PLEATS',
     'TWO PLEATS',
     'BOX PLEATS'
-  ]
+  ], _prefix: true
 
   enum pleats_combined: {
     'None' => 0,
@@ -51,7 +51,7 @@ class Pant < ApplicationRecord
     'Buckle_side_adjusters' => 3,
     'Button_side_adjusters' => 4,
     'Belt loops' => 0,
-    'Garterized' => 5
+    'Garterized' => 5,
     'None' => 2
   }
 
@@ -72,7 +72,7 @@ class Pant < ApplicationRecord
     'Jetted both sides' => 1,
     'Jetted right only' => 3,
     'Jetted left only' => 2,
-    'None' => 0,
+    'None' => 0
   }, _prefix: true
 
   # specs_form = 0=Pants, 1=Tux Pants
