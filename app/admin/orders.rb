@@ -91,7 +91,7 @@ ActiveAdmin.register Order do
     column :"Service type", :type_of_service
     # humanize to remove underscore
     column :purpose do |order|
-      order.purpose.humanize
+      order.purpose.nil? || order.purpose.empty? ? 'None' : order.purpose.humanize
     end
     column :created_at do |order|
       order.created_at.strftime('%B %d %Y')
