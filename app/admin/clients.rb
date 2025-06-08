@@ -140,28 +140,44 @@ ActiveAdmin.register Client do
       end
 
       tab 'Measurements' do
-        attributes_table do
-          row :jacket_length
-          row :back_width
-          row :sleeves
-          row :collar
-          row :cuffs_1
-          row :cuffs_2
-          row :chest
-          row :waist
-          row :stature
-          row :shoulders
-          row :hips
-          #lower body
-          row :crotch
-          row :outseam
-          row :thigh
-          row :seat
-          row :shoe_size
+        latest_order = client.orders.order(created_at: :desc).first
+        if latest_order
+          panel "Measurements from Latest Order (##{latest_order.jo_number})" do
+            # Get the first associated record for each type
+            coat  = latest_order.coats.first
+            pant  = latest_order.pants.first
+            shirt = latest_order.shirts.first
+            vest  = latest_order.vests.first
+
+            attributes_table_for latest_order do
+              row("Jacket Length")    { coat&.jacket_length }
+              row("Back Width")       { coat&.back_width }
+              row("Sleeves")          { coat&.sleeves }
+              row("Right Cuff")       { coat&.cuffs_1 }
+              row("Left Cuff")        { coat&.cuffs_2 }
+              row("Chest")            { coat&.chest }
+              row("Coat Waist")       { coat&.waist }
+              row("Stature")          { coat&.stature }
+              row("Shoulders")        { coat&.shoulders }
+              row("Crotch")           { pant&.crotch }
+              row("Outseam")          { pant&.outseam }
+              row("Pants Waist")      { pant&.waist }
+              row("Seat")             { pant&.seat }
+              row("Thigh")            { pant&.thigh }
+              row("Knee")             { pant&.knee }
+              row("Bottom")           { pant&.bottom }
+              row("Shirt Length")     { shirt&.shirt_length }
+              row("Vest Length")      { vest&.vest_length }
+              row("Vest Back Width")  { vest&.back_width }
+              row("Vest Chest")       { vest&.chest }
+              row("Vest Waist")       { vest&.waist }
+              row("Vest Hips")        { vest&.hips }
+            end
+          end
+        else
+          span "No orders found."
         end
       end
-
-
     end
 
     panel 'Orders' do

@@ -25,7 +25,7 @@ class Client < ApplicationRecord
   validates :gender, presence: true
   validates :date_of_birth, presence: false
   validates :membership_date, presence: true
-  validates :chest, :back_width, :waist, :crotch, :thigh, :seat, :hips, presence: true
+  # validates :chest, :back_width, :waist, :crotch, :thigh, :seat, :hips, presence: true
 
   before_save :uppercase_name
   before_destroy :prevent_deletion_if_orders_exist
