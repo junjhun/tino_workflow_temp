@@ -237,3 +237,13 @@ table.index_table th {
 .green-button:hover {
   background-color: #3e8e41 !important; /* Darker green on hover */
 }
+
+input[readonly].readonly-style,
+textarea[readonly].readonly-style,
+select[readonly].readonly-style {
+  background-color: #e9e9e9; /* A common light gray for disabled inputs */
+  cursor: not-allowed;     /* Change cursor to indicate no interaction */
+  /* You can add more styles like: */
+  /* opacity: 0.7; */
+  /* border-color: #ccc; */
+}

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_05_13_000600) do
+ActiveRecord::Schema[7.0].define(version: 2025_06_05_085346) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
@@ -275,6 +275,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_05_13_000600) do
     t.string "monogram_color"
     t.string "monogram_thread_code"
     t.string "shirt_length"
+    t.string "sleeve"
   end
 
   create_table "users", force: :cascade do |t|

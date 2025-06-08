@@ -39,6 +39,7 @@ class Shirt < ApplicationRecord
     Pointed
     Slanted
     Pointed_Curve
+    None
   ], _prefix: true
 
   enum sleeve_length: %w[
@@ -178,7 +179,5 @@ class Shirt < ApplicationRecord
   validates :quantity, presence: { message: 'cannot be blank' },
                        numericality: { only_integer: true, greater_than: 0, message: 'must be a positive integer' }
 
-  validates :fabric_consumption, :control_no,
-            :fabric_code, :lining_code, :remarks, :cuffs, :pleats, :front_placket, :back_placket, :sleeves, :pocket,
-            :collar, :bottom, :type_of_button, presence: true
+  validates :fabric_code, :lining_code, :fabric_consumption, :shirt_length, :back_width, :right_cuff, :left_cuff, :chest, :shirt_waist, :stature, :shoulders, :opening, :front_placket, :no_of_studs, :front_pleats, :back_pleats, :pocket, :front_pocket_flap, :sleeve_length, :cuffs, :collar, :bottom, :sleeves, :contrast_placement, :monogram_initials, :monogram_placement, :monogram_font, :monogram_color, presence: true
 end

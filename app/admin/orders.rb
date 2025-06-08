@@ -4,33 +4,12 @@ ActiveAdmin.register Order do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :client_id, :name, :status, :purpose, :type_of_service, :first_fitting, :second_fitting, :third_fitting, :fourth_fitting, :event_date, :finish, :jo_number, :brand_name, :rush, :item_type,
+  permit_params :client_id, :name, :status, :purpose, :type_of_service, :first_fitting, :second_fitting, :third_fitting, :event_date, :finish, :jo_number, :brand_name, :rush, :item_type,
                 items_attributes: %i[id name quantity fabric_and_linning_code _destroy],
-                vests_attributes: %i[id quantity fabric_code lining_code fabric_consumption chest_pocket vest_length back_width
-                  chest waist hips vest_model lapel_style lapel_width fabric adjuster_type side_pocket remarks _destroy],
-                shirts_attributes: %i[id quantity fabric_code lining_code fabric_consumption shirt_length back_width sleeves
-                  right_cuff left_cuff chest shirt_waist stature shoulders opening front_bar no_of_studs front_pleats back_pleats
-                  front_pocket sleeves type_of_pocket with_flap front_pocket_flap sleeve_length cuffs collar buttoned_down buttoned_down_with_loop hem
-                  bottom contrast contrast_placement monogram_initials monogram_placement monogram_font monogram_color specs_form
-                  number_of_buttons shirting_barong fabric_label remarks control_no _destroy],
-                coats_attributes: %i[id fabric_consumption specs_form fabric_label no_of_buttons breast quantity coat_no
-                  jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist hips stature shoulders remarks fabric_code
-                  lining_code style lapel_style vent lining sleeves_and_padding button sleeve_buttons boutonniere boutonniere_color
-                  boutonniere_thread_code button_spacing coat_pockets vent control_no pocket_type front_side_pocket _destroy],
-                pants_attributes: %i[id quantity fabric_code lining_code fabric_consumption crotch outseam waist seat thigh knee
-                  bottom rise cut pleats overlap waistband_thickness waist_area tightening closure crotch_saddle front_pocket coin_pocket
-                  flap_on_coin_pocket back_pocket flap_on_jetted_pocket buttons_on_jetted_pockets button_loops_on_jetted_pockets
-                  add_suspender_buttons satin_trim cuff_on_hem width_of_cuff remarks _destroy]
-                  
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:name]
-  #   permitted << :other if params[:action] == 'create' && current_user.admin?
-  #   permitted
-  # end
-  #
+                vests_attributes: %i[id quantity fabric_code lining_code fabric_consumption vest_length back_width chest waist hips vest_style lapel_style lapel_width fabric adjuster_type chest_pocket side_pocket remarks _destroy],
+                shirts_attributes: %i[id quantity fabric_code lining_code fabric_consumption shirt_length back_width right_cuff left_cuff chest shirt_waist stature shoulders opening front_placket no_of_studs front_pleats back_pleats pocket with_flap front_pocket_flap sleeve_length cuffs collar buttoned_down buttoned_down_with_loop bottom sleeves contrast_placement monogram_initials monogram_placement monogram_font monogram_color remarks _destroy],
+                coats_attributes: %i[id quantity fabric_code lining_code  fabric_consumption jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist stature shoulders style lapel_style lapel_satin lapel_width vent sleeves_and_padding lining sleeve_buttons button_spacing button no_of_buttons color_of_sleeve_buttons boutonniere flower_holder lapel_buttonhole_thread_color pocket_type chest_pocket_satin front_side_pocket side_pockets_flap side_pockets_satin side_pockets_ticket side_pocket_placement monogram_initials monogram_placement monogram_font monogram_thread_color remarks _destroy],   
+                pants_attributes: %i[id quantity fabric_code lining_code fabric_consumption crotch outseam waist seat thigh knee bottom rise cut pleats_combined strap waistband_thickness waist_area closure crotch_saddle type_of_pocket front_pocket coin_pocket flap_on_coin_pocket back_pocket flap_on_jetted_pocket buttons_on_jetted_pockets button_loops_on_jetted_pockets add_suspender_buttons satin_trim cuff_on_hem width_of_cuff remarks _destroy]                
 
   show title: proc { |order| "Order ##{order.jo_number} - #{order.client.name}" }     
 
@@ -106,6 +85,21 @@ ActiveAdmin.register Order do
   controller do
     def scoped_collection
       super.includes :client
+    end
+
+    def create
+      # Call the default Active Admin create method first
+      super do |format|
+        if resource.persisted? # If the resource was successfully saved
+          flash[:notice] = "Order was successfully created."
+          redirect_to admin_order_path(resource) and return
+        else
+          # If save failed, resource.errors will contain the validation messages
+          Rails.logger.debug "Order errors: #{resource.errors.full_messages}"
+          # Render the new form again with errors shown by Active Admin
+          flash.now[:error] = "Order could not be created. Please check the form for errors."
+        end
+      end
     end
 
     def scoped_collection
@@ -193,8 +187,8 @@ ActiveAdmin.register Order do
             t.input :jacket_length
             t.input :back_width
             t.input :sleeves
-            t.input :cuffs_1, label: 'Right Cuff'
-            t.input :cuffs_2, label: 'Left Cuff'
+            t.input :cuffs_1, label: 'Right cuff'
+            t.input :cuffs_2, label: 'Left cuff'
             t.input :collar
             t.input :chest
             t.input :waist
@@ -202,32 +196,32 @@ ActiveAdmin.register Order do
             t.input :shoulders           
             t.input :style, label: "Model"
             t.input :lapel_style
-            t.input :lapel_satin, as: :boolean, label: 'With Satin'
+            t.input :lapel_satin, as: :boolean, label: 'With satin'
             t.input :lapel_width
             t.input :vent
-            t.input :sleeves_and_padding, label: 'Shoulder Padding'
+            t.input :sleeves_and_padding, label: 'Shoulder padding'
             t.input :lining
-            t.input :sleeve_buttons, label: 'Sleeve Button Function'
+            t.input :sleeve_buttons, label: 'Sleeve button function'
             # (Not applicable when sleeve button function is none)
-            t.input :button_spacing, label: 'Sleeve Button Spacing'
+            t.input :button_spacing, label: 'Sleeve button spacing'
             # (Not applicable when sleeve button function is none)
-            t.input :button, label: 'Type of Sleeve Button'
+            t.input :button, label: 'Type of sleeve button'
             # (Not applicable when sleeve button function is none)
-            t.input :no_of_buttons, label: 'No. of  Sleeve Buttons'
+            t.input :no_of_buttons, label: 'No. of  sleeve buttons'
             # (Not applicable when sleeve button function is none)
             t.input :color_of_sleeve_buttons
-            t.input :boutonniere, label: 'Lapel Buttonhole' 
+            t.input :boutonniere, label: 'Lapel buttonhole' 
             # Not applicable for none lapel buttonhole option
-            t.input :flower_holder, as: :boolean, label: 'With Flower Holder'
+            t.input :flower_holder, as: :boolean, label: 'With flower holder'
             t.input :lapel_buttonhole_thread_color
-            t.input :pocket_type, label: 'Chest Pocket'
-            t.input :chest_pocket_satin, as: :boolean, label: 'With Satin'
-            t.input :front_side_pocket, label: 'Side Pockets'
-            t.input :side_pockets_flap, as: :boolean, label: 'With Flap'
+            t.input :pocket_type, label: 'Chest pocket'
+            t.input :chest_pocket_satin, as: :boolean, label: 'With satin'
+            t.input :front_side_pocket, label: 'Side pockets'
+            t.input :side_pockets_flap, as: :boolean, label: 'With flap'
             # (Not applicable for patch chest pocket option and no chest pocket option)
             t.input :side_pockets_satin, as: :boolean, label: 'With Satin'
-            t.input :side_pockets_ticket, as: :boolean, label: 'With Ticket Pocket'
-            t.input :side_pocket_placement, label: 'Side Pocket Placement'
+            t.input :side_pockets_ticket, as: :boolean, label: 'With ticket pocket'
+            t.input :side_pocket_placement, label: 'Side pocket placement'
             t.input :monogram_initials
             # incl. others and will type their option
             t.input :monogram_placement
@@ -289,7 +283,7 @@ ActiveAdmin.register Order do
             t.input :chest
             t.input :waist
             t.input :hips
-            t.input :vest_style, label: 'Vest Model'
+            t.input :vest_style, label: 'Vest model'
             t.input :lapel_style
             t.input :lapel_width
             t.input :fabric
@@ -308,7 +302,7 @@ ActiveAdmin.register Order do
             t.input :fabric_code
             t.input :lining_code
             t.input :fabric_consumption
-            #shirt length
+            t.input :sleeve
             t.input :shirt_length
             t.input :back_width
             t.input :right_cuff
@@ -318,11 +312,11 @@ ActiveAdmin.register Order do
             t.input :stature
             t.input :shoulders
             t.input :opening
-            t.input :front_placket, label: 'Front Bar'
+            t.input :front_placket, label: 'Front bar'
             t.input :no_of_studs
             t.input :front_pleats
             t.input :back_pleats
-            t.input :pocket, label: 'Front Pocket'
+            t.input :pocket, label: 'Front pocket'
             t.input :with_flap, as: :boolean
             t.input :front_pocket_flap
             t.input :sleeve_length
@@ -365,65 +359,65 @@ ActiveAdmin.register Order do
         row :brand_name
       end
     end
+    # column do
+    #   tabs do
+    #     tab 'Coats' do
+    #       attributes_table title: 'Coat Measurements' do
+    #         row :jacket_length
+    #         row :back_width
+    #         row :sleeves
+    #         row :cuffs_1
+    #         row :cuffs_2
+    #         row :collar
+    #         row :chest
+    #         row :waist
+    #         row :hips
+    #       end
+    #     end
+    #     tab 'Pants' do
+    #       attributes_table title: 'Pants Measurements' do
+    #       row :waist
+    #       row :seat
+    #       row :thigh
+    #       row :knee
+    #       row :bottom
+    #       row :outseam
+    #       end
+    #     end
+    #     tab 'Shirts' do
+    #       attributes_table title: 'Shirt Measurements' do
+    #       row :chest
+    #       row :waist
+    #       row :sleeves
+    #       row :collar
+    #       row :cuffs
+    #       row :length
+    #       end
+    #     end
+    #     tab 'Vests' do
+    #       attributes_table title: 'Vest Measurements' do
+    #       row :chest
+    #       row :waist
+    #       row :hips
+    #       row :back_width
+    #       row :vest_length
+    #       end
+    #     end
+    #   end
+    # end
     column do
-      tabs do
-        tab 'Coats' do
-          attributes_table title: 'Coat Measurements' do
-            row :jacket_length
-            row :back_width
-            row :sleeves
-            row :cuffs_1
-            row :cuffs_2
-            row :collar
-            row :chest
-            row :waist
-            row :hips
-          end
-        end
-        tab 'Pants' do
-          attributes_table title: 'Pants Measurements' do
-          row :waist
-          row :seat
-          row :thigh
-          row :knee
-          row :bottom
-          row :outseam
-          end
-        end
-        tab 'Shirts' do
-          attributes_table title: 'Shirt Measurements' do
-          row :chest
-          row :waist
-          row :sleeves
-          row :collar
-          row :cuffs
-          row :length
-          end
-        end
-        tab 'Vests' do
-          attributes_table title: 'Vest Measurements' do
-          row :chest
-          row :waist
-          row :hips
-          row :back_width
-          row :vest_length
-          end
+      panel 'Date Details' do
+        attributes_table_for order do
+          row("Date Created") { order.created_at.strftime('%B %d %Y') }
+          row :first_fitting
+          row :second_fitting
+          row :third_fitting
+          row :event_date
+          row :finish
         end
       end
     end
-    column do
-      attributes_table title: 'Date Details' do
-        row :"Date Created", :created_at do |order|
-          order.created_at.strftime('%B %d %Y')
-        end
-        row :first_fitting
-        row :second_fitting
-        row :third_fitting
-        row :event_date
-        row :finish
-        end
-      end
-    end
+  end
   
     tabs do
       if order.coats.any?

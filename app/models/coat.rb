@@ -135,12 +135,7 @@ class Coat < ApplicationRecord
   validates :quantity, presence: { message: 'cannot be blank' },
                        numericality: { only_integer: true, greater_than: 0, message: 'must be a positive integer' }
 
-  validates :fabric_consumption, :specs_form, :control_no, :breast, :jacket_length,
-            :back_width, :sleeves, :cuffs_1, :cuffs_2, :collar, :chest, :waist, :hips,
-            :stature, :shoulders, :pocket_type, :front_side_pocket, :remarks, :fabric_code,
-            :lining_code, :style, :lapel_style, :vent, :lining, :sleeves_and_padding,
-            :button, :sleeve_buttons, :no_of_buttons, :boutonniere, :boutonniere_color,
-            :boutonniere_thread_code, :button_spacing, :coat_pockets, presence: { message: 'cannot be blank' }
+  validates :fabric_code, :lining_code, :fabric_consumption, :jacket_length, :back_width, :sleeves, :cuffs_1, :cuffs_2, :back_width, :sleeves, :collar, :chest, :waist, :stature, :shoulders, :style, :lapel_style, :lapel_width, :vent, :sleeves_and_padding, :lining, :sleeve_buttons, :button_spacing, :button, :no_of_buttons, :color_of_sleeve_buttons, :boutonniere, :lapel_buttonhole_thread_color, :pocket_type, :front_side_pocket, :side_pocket_placement, :monogram_initials, :monogram_placement, :monogram_font, :monogram_thread_color, presence: { message: 'cannot be blank' }
 
   validates :no_of_buttons, numericality: { only_integer: true, message: 'must be a valid number' }, presence: true
 end

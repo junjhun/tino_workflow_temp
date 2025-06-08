@@ -38,6 +38,5 @@ class Vest < ApplicationRecord
   validates :quantity, presence: { message: 'cannot be blank' },
       numericality: { only_integer: true, greater_than: 0, message: 'must be a positive integer' }
 
-  validates :fabric_consumption, :side_pocket, :chest_pocket, :vest_length, :back_width,
-      :chest, :waist, :hips, :vest_model, :lapel_style, :adjuster_type, :remarks, presence: true
+  validates :fabric_code, :lining_code, :fabric_consumption, :vest_length, :back_width, :chest, :waist, :hips, :vest_style, :lapel_style, :lapel_width, :fabric, :adjuster_type, :chest_pocket, :side_pocket, presence: true
 end
