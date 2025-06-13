@@ -736,7 +736,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
       when "Single_1-button_angle"
 				shirt_cuffs_style = "#{dir}shirt/cuffs/Single1_button_angled.png"
       when "Single_1-button_square"
-				shirt_cuffs_style = "#{dir}shirt/cuffs/single1_button_square.png"
+				shirt_cuffs_style = "#{dir}shirt/cuffs/Single1_button_square.png"
       when "Double_French_square"
 				shirt_cuffs_style = "#{dir}shirt/cuffs/Double_French_square.png"
       when "Double_French_angled"
