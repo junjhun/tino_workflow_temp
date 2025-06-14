@@ -453,7 +453,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
   @pants.each do |pant| # pant start
 		top_row = [
-	    [{content: "TROUSERS"},{content: "PLEATS: #{pant.pleats}"}]
+	    [{content: "TROUSERS"},{content: "PLEATS: #{pant.pleats_combined}"}]
 	  ]
 
 	  header_column_widths = [150, (overall_table_width -150)] # logical column width for top row
@@ -504,7 +504,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
       [{content: "SPECIFICATION", colspan: 2}],
       [{content: "RISE"},{ content: pant.rise.nil? ? "None" : pant.rise }],
       [{content: "CUT"},{ content: pant.cut.nil? ? "None" : pant.cut }],
-      [{content: "OVERLAP"},{ content: pant.overlap.nil? ? "None" : pant.overlap }],
+      [{content: "OVERLAP"},{ content: pant.strap.nil? ? "None" : pant.strap }],
       [{content: "WAIST AREA"},{ content: pant.waist_area.nil? ? "None" : pant.waist_area }],
       [{content: "CLOSURE"},{ content: pant.closure.nil? ? "None" : pant.closure }],
       [{content: "TYPE OF POCKET"},{ content: pant.type_of_pocket.nil? ? "None" : pant.type_of_pocket }],
@@ -512,7 +512,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
       [{content: "FABRIC CONSUMPTION"},{ content: pant.fabric_consumption.nil? ? "None" : pant.fabric_consumption }],
     ]
 
-    nested_table_specifications = pdf.make_table(specifications, width: 180, column_widths: [90,90]) do
+    nested_table_specifications = pdf.make_table(specifications, width: 180, column_widths: [70,110]) do
       row(0).style(font_style: :bold, align: :center)
       cells.style(:padding => 2, border: [], size: 8)
     end

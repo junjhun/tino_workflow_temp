@@ -490,7 +490,9 @@ ActiveAdmin.register Order do
               column "Pleats" do |pant|
                 pant.pleats_combined
               end
-              column :strap
+              column "Overlap" do |pant|
+                pant.strap
+              end
               column :waistband_thickness
               column :waist_area
               column "Tightening" do |pant|
