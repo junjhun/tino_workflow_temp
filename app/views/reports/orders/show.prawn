@@ -693,8 +693,8 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
     ) # as a single cell
 
     # images initialization
-    #collar
-	  case shirt.collar
+    #collar_style
+	  case shirt.collar_style
 		  when "Traditional"
 				shirt_collar_style = "#{dir}shirt/collar/Traditional.png"
 		  when "Spread"
@@ -771,7 +771,7 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
         {image: shirt_cuffs_style, fit:[60,60]},
         {image: shirt_pocket_style, fit:[60,60]},
       ],
-      [{content: "#{shirt.collar}\nCOLLAR"},
+      [{content: "#{shirt.collar_style}\nCOLLAR STYLE"},
         {content: "#{shirt.sleeves}\nSLEEVES"},
         {content: "#{shirt.cuffs}\nCUFFS"},
         {content: "#{shirt.pocket}\nPOCKET"},

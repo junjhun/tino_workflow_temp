@@ -7,8 +7,8 @@ ActiveAdmin.register Order do
   permit_params :client_id, :name, :status, :purpose, :type_of_service, :first_fitting, :second_fitting, :third_fitting, :event_date, :finish, :jo_number, :brand_name, :rush, :item_type,
                 items_attributes: %i[id name quantity fabric_and_linning_code _destroy],
                 vests_attributes: %i[id quantity fabric_code lining_code fabric_consumption vest_length back_width chest waist hips vest_style lapel_style lapel_width fabric adjuster_type chest_pocket side_pocket remarks _destroy],
-                shirts_attributes: %i[id quantity fabric_code lining_code fabric_consumption shirt_length back_width right_cuff left_cuff chest shirt_waist stature shoulders opening front_placket no_of_studs front_pleats back_pleats pocket with_flap front_pocket_flap sleeve_length cuffs collar buttoned_down buttoned_down_with_loop bottom sleeves contrast_placement monogram_initials monogram_placement monogram_font monogram_color remarks _destroy],
-                coats_attributes: %i[id quantity fabric_code lining_code  fabric_consumption jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist stature shoulders style lapel_style lapel_satin lapel_width vent sleeves_and_padding lining sleeve_buttons button_spacing button no_of_buttons color_of_sleeve_buttons boutonniere flower_holder lapel_buttonhole_thread_color pocket_type chest_pocket_satin front_side_pocket side_pockets_flap side_pockets_satin side_pockets_ticket side_pocket_placement monogram_initials monogram_placement monogram_font monogram_thread_color remarks _destroy],   
+                shirts_attributes: %i[id quantity fabric_code lining_code fabric_consumption shirt_length back_width right_cuff left_cuff chest shirt_waist stature shoulders opening front_placket no_of_studs front_pleats sleeve back_pleats pocket with_flap front_pocket_flap sleeve_length cuffs collar collar_style buttoned_down buttoned_down_with_loop bottom sleeves contrast_placement monogram_initials monogram_placement hips monogram_font monogram_color remarks _destroy],
+                coats_attributes: %i[id quantity fabric_code lining_code  fabric_consumption jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist stature shoulders style lapel_style lapel_satin lapel_width hips vent sleeves_and_padding lining sleeve_buttons button_spacing button no_of_buttons color_of_sleeve_buttons boutonniere flower_holder lapel_buttonhole_thread_color pocket_type chest_pocket_satin front_side_pocket side_pockets_flap side_pockets_satin side_pockets_ticket side_pocket_placement monogram_initials monogram_placement monogram_font monogram_thread_color remarks _destroy],
                 pants_attributes: %i[id quantity fabric_code lining_code fabric_consumption crotch outseam waist seat thigh knee bottom rise cut pleats_combined strap waistband_thickness waist_area closure crotch_saddle type_of_pocket front_pocket coin_pocket flap_on_coin_pocket back_pocket flap_on_jetted_pocket buttons_on_jetted_pockets button_loops_on_jetted_pockets add_suspender_buttons satin_trim cuff_on_hem width_of_cuff remarks _destroy]                
 
   show title: proc { |order| "Order ##{order.jo_number} - #{order.client.name}" }     
@@ -192,6 +192,7 @@ ActiveAdmin.register Order do
             t.input :collar
             t.input :chest
             t.input :waist
+            t.input :hips
             t.input :stature
             t.input :shoulders           
             t.input :style, label: "Model"
@@ -302,13 +303,15 @@ ActiveAdmin.register Order do
             t.input :fabric_code
             t.input :lining_code
             t.input :fabric_consumption
-            t.input :sleeve
             t.input :shirt_length
             t.input :back_width
+            t.input :sleeve
             t.input :right_cuff
             t.input :left_cuff
+            t.input :collar
             t.input :chest
             t.input :shirt_waist
+            t.input :hips
             t.input :stature
             t.input :shoulders
             t.input :opening
@@ -321,7 +324,7 @@ ActiveAdmin.register Order do
             t.input :front_pocket_flap
             t.input :sleeve_length
             t.input :cuffs
-            t.input :collar
+            t.input :collar_style
             t.input :buttoned_down, as: :boolean
             t.input :buttoned_down_with_loop, as: :boolean
             t.input :bottom, label: 'Hem'
@@ -359,52 +362,7 @@ ActiveAdmin.register Order do
         row :brand_name
       end
     end
-    # column do
-    #   tabs do
-    #     tab 'Coats' do
-    #       attributes_table title: 'Coat Measurements' do
-    #         row :jacket_length
-    #         row :back_width
-    #         row :sleeves
-    #         row :cuffs_1
-    #         row :cuffs_2
-    #         row :collar
-    #         row :chest
-    #         row :waist
-    #         row :hips
-    #       end
-    #     end
-    #     tab 'Pants' do
-    #       attributes_table title: 'Pants Measurements' do
-    #       row :waist
-    #       row :seat
-    #       row :thigh
-    #       row :knee
-    #       row :bottom
-    #       row :outseam
-    #       end
-    #     end
-    #     tab 'Shirts' do
-    #       attributes_table title: 'Shirt Measurements' do
-    #       row :chest
-    #       row :waist
-    #       row :sleeves
-    #       row :collar
-    #       row :cuffs
-    #       row :length
-    #       end
-    #     end
-    #     tab 'Vests' do
-    #       attributes_table title: 'Vest Measurements' do
-    #       row :chest
-    #       row :waist
-    #       row :hips
-    #       row :back_width
-    #       row :vest_length
-    #       end
-    #     end
-    #   end
-    # end
+
     column do
       panel 'Date Details' do
         attributes_table_for order do
@@ -563,53 +521,56 @@ ActiveAdmin.register Order do
                 column :fabric_consumption
                 column :shirt_length
                 column :back_width
+                column :sleeve
                 column :right_cuff
                 column :left_cuff
+                column :collar
                 column :chest
                 column :shirt_waist
-                column :stature
-                column :shoulders
-                column :sleeve_length
+                column :hips
               end
             end
 
             panel 'Shirt Subsection 1' do
               table_for order.shirts do
-          column :opening  
-          column :front_placket
-          column "Front Bar" do |shirt|
-            shirt.front_placket
-          end
-          column :no_of_studs
-          column :front_pleats
-          column :back_pleats
-          column "Front Pocket" do |shirt|
-            shirt.pocket
-          end
-          column :with_flap
-          column :front_pocket_flap
+              column :opening
+              column :front_placket
+              column "Front Bar" do |shirt|
+                shirt.front_placket
+              end
+              column :no_of_studs
+              column :front_pleats
+              column :back_pleats
+              column "Front Pocket" do |shirt|
+                shirt.pocket
+              end
+              column :with_flap
+              column :front_pocket_flap
+              column :stature
+              column :shoulders
+              column :sleeve_length
               end
             end
 
             panel 'Shirt Subsection 2' do
               table_for order.shirts do
-          column :cuffs
-          column :collar
-          column :buttoned_down
-          column :buttoned_down_with_loop
-          column :bottom
-          column "Hem" do |shirt|
-            shirt.bottom
-          end
-          column "Contrast" do |shirt|
-            shirt.sleeves
-          end
-          column :contrast_placement
-          column :monogram_initials
-          column :monogram_placement
-          column :monogram_font
-          column :monogram_color
-          column :remarks
+              column :cuffs
+              column :collar_style
+              column :buttoned_down
+              column :buttoned_down_with_loop
+              column :bottom
+              column "Hem" do |shirt|
+                shirt.bottom
+              end
+              column "Contrast" do |shirt|
+                shirt.sleeves
+              end
+              column :contrast_placement
+              column :monogram_initials
+              column :monogram_placement
+              column :monogram_font
+              column :monogram_color
+              column :remarks
               end
             end
           end
