@@ -223,12 +223,13 @@ ActiveAdmin.register Order do
             t.input :side_pockets_satin, as: :boolean, label: 'With Satin'
             t.input :side_pockets_ticket, as: :boolean, label: 'With ticket pocket'
             t.input :side_pocket_placement, label: 'Side pocket placement'
-            t.input :monogram_initials
-            # incl. others and will type their option
-            t.input :monogram_placement
-            # incl. others and will type their option
-            t.input :monogram_font 
+
+            # Monogram Fields
+            t.input :monogram_initials, input_html: { class: 'monogram-initials-input' }
+            t.input :monogram_placement, as: :select, collection: Coat.monogram_placements.keys.map { |m| [m.humanize, m] }, include_blank: true, input_html: { class: 'monogram-placement-input' }
+            t.input :monogram_font, as: :select, collection: Coat.monogram_fonts.keys.map { |m| [m.humanize, m] }, include_blank: true, input_html: { class: 'monogram-font-input' }
             t.input :monogram_thread_color
+
             t.input :remarks
           end
         end
@@ -330,10 +331,13 @@ ActiveAdmin.register Order do
             t.input :bottom, label: 'Hem'
             t.input :sleeves, label: 'Contrast'
             t.input :contrast_placement
-            t.input :monogram_initials
-            t.input :monogram_placement
-            t.input :monogram_font
-            t.input :monogram_color 
+
+            # Monogram Fields
+            t.input :monogram_initials, input_html: { class: 'monogram-initials-input' }
+            t.input :monogram_placement, as: :select, collection: Coat.monogram_placements.keys.map { |m| [m.humanize, m] }, include_blank: true, input_html: { class: 'monogram-placement-input' }
+            t.input :monogram_font, as: :select, collection: Coat.monogram_fonts.keys.map { |m| [m.humanize, m] }, include_blank: true, input_html: { class: 'monogram-font-input' }
+            t.input :monogram_color
+
             t.input :remarks
           end
         end
@@ -422,6 +426,11 @@ ActiveAdmin.register Order do
               column :boutonniere_thread_code
               column :button_spacing
               column :coat_pockets
+              column :contrast_placement
+              column :monogram_initials
+              column :monogram_placement
+              column :monogram_font
+              column :monogram_thread_color
             end
           end
         end

@@ -84,6 +84,7 @@ $(document).ready(function() {
         $fourthFittingInput.prop('readonly', false).attr('placeholder', '').removeClass('readonly-style');
         $fourthFittingMessage.hide();
       }
+      handleRushOrder();
     }
 
     updateFittings();
@@ -140,6 +141,49 @@ $(document).ready(function() {
     const day = ('0' + date.getDate()).slice(-2);
     return `${year}-${month}-${day}`;
   }
+
+  // --- Monogram Fields Logic ---
+  // Function to handle monogram field states
+  function handleMonogramFields(initialsInput) {
+    const $initialsInput = $(initialsInput);
+    const $parentContainer = $initialsInput.closest('.inputs.has_many_fields');
+    const $placementSelect = $parentContainer.find('select.monogram-placement-input');
+    const $fontSelect = $parentContainer.find('select.monogram-font-input');
+
+    if ($initialsInput.val().trim() === '') {
+      // Monogram initials are blank
+      $placementSelect.prop('disabled', true).addClass('readonly-style').val('').trigger('change');
+      $fontSelect.prop('disabled', true).addClass('readonly-style').val('').trigger('change');
+    } else {
+      // Monogram initials have a value
+      $placementSelect.prop('disabled', false).removeClass('readonly-style');
+      $fontSelect.prop('disabled', false).removeClass('readonly-style');
+    }
+  }
+
+  // Event delegation for monogram initials inputs
+  // Apply to both coats and shirts sections when their specific initials field changes
+  $('#coats-section, #shirts-section').on('change', 'input.monogram-initials-input', function() {
+    handleMonogramFields(this);
+  });
+
+  // Ensure initial state on page load for existing records
+  // This needs to run for each existing coat/shirt on load
+  $('#coats-section input.monogram-initials-input').each(function() {
+    handleMonogramFields(this);
+  });
+  $('#shirts-section input.monogram-initials-input').each(function() {
+    handleMonogramFields(this);
+  });
+
+  // When a new nested form is added (e.g., via "Add New Coat/Shirt" button)
+  // Re-run the initial state setup for the *newly added* form fields.
+  // Active Admin appends new forms within the .has_many_container
+  $('.has_many_container').on('has_many_add', function(event, fieldset) {
+    $(fieldset).find('input.monogram-initials-input').each(function() {
+      handleMonogramFields(this);
+    });
+  });
 
   $(document).ready(function() {
     // Event listeners
