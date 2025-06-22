@@ -135,118 +135,121 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
     # setting images var
     case coat.style
       when "Single-breasted 1 button"
-        coat_button_style = "#{dir}button_1.png"
+        coat_button_style = "#{dir}coat/style/Single-breasted_1B.png"
       when "Single-breasted 2 buttons"
-        coat_button_style = "#{dir}button_2.png"
+        coat_button_style = "#{dir}coat/style/Single-breasted_2B.png"
       when "Single-breasted 3 buttons"
-        coat_button_style = "#{dir}button_3.png"
-      when "Single 4 button"
-        coat_button_style = "#{dir}button_4.png"
-      when "Double 4 button"
-        coat_button_style = "#{dir}button_5.png"
-      when "Double 6 button"
-        coat_button_style = "#{dir}button_6.png"
-      #when 'Single-breasted 3-on-2 buttons' #no image
-        #coat_button_style = "#"
-      #when 'Double-breasted 4-on-1 buttons' #no image
-        #coat_button_style = "#"
-      #when 'Double-breasted 4-on-2 buttons' #no image
-        #coat_button_style = "#"
-      #when 'Double-breasted 6-on-1 buttons' #no image
-        #coat_button_style = "#"
-      #when 'Double-breasted 6-on-2 buttons' #no image
-        #coat_button_style = "#"
+        coat_button_style = "#{dir}coat/style/Single-breasted_3B.png"
+      when 'Single-breasted 3-on-2 buttons'
+        coat_button_style = "#{dir}coat/style/Single-breasted_3-on-2B.png"
+      when 'Double-breasted 4-on-1 buttons'
+        coat_button_style = "#{dir}coat/style/Double-breasted_4-on-1B.png"
+      when 'Double-breasted 4-on-2 buttons'
+        coat_button_style = "#{dir}coat/style/Double-breasted_4-on-2B.png"
+      when 'Double-breasted 6-on-1 buttons'
+        coat_button_style = "#{dir}coat/style/Double-breasted_6-on-1B.png"
+      when 'Double-breasted 6-on-2 buttons'
+        coat_button_style = "#{dir}coat/style/Double-breasted_6-on-2B.png"
       else
         coat_button_style = "#{dir}x.png"
     end
 
     case coat.lapel_style
       when "Notch"
-        coat_lapel_style = "#{dir}lapel_1.png"
+        coat_lapel_style = "#{dir}coat/lapel/Notch.png"
       when "Peak"
-        coat_lapel_style = "#{dir}lapel_2.png"
-      when "Notch Tuxedo"
-        coat_lapel_style = "#{dir}lapel_3.png"
-      when "Peaky Shiny"
-        coat_lapel_style = "#{dir}lapel_4.png"
+        coat_lapel_style = "#{dir}coat/lapel/Peak.png"
       when "Shawl"
-        coat_lapel_style = "#{dir}lapel_5.png"
-      when "Lapel Trimming"
-        coat_lapel_style = "#{dir}lapel_6.png"
+        coat_lapel_style = "#{dir}coat/lapel/Shawl.png"
       else
         coat_lapel_style = "#{dir}x.png"
     end
 
     case coat.vent
       when "No Vent"
-        coat_vent_style = "#{dir}vent_1.png"
+        coat_vent_style = "#{dir}x.png"
       when "1 vent (center)"
-        coat_vent_style = "#{dir}vent_2.png"
+        coat_vent_style = "#{dir}coat/vent/Center_Vent.png"
       when "2 vents (side)"
-        coat_vent_style = "#{dir}vent_3.png"
+        coat_vent_style = "#{dir}coat/vent/Side_Vent.png"
       else
         coat_vent_style = "#{dir}x.png"
     end
 
     case coat.lining
-      when "Unlined_none"
-        coat_lining_style = "#{dir}lining_1.png"
+      when "Unlined(none)"
+        coat_lining_style = "#{dir}coat/lining/Unlined.png"
       when "Half_Lining"
-        coat_lining_style = "#{dir}lining_2.png"
+        coat_lining_style = "#{dir}coat/lining/Half_Lining.png"
       when "Full_Lining"
-        coat_lining_style = "#{dir}lining_3.png"
-      #when "Quarter_Lining" #no image available
-        #coat_lining_style = "#"
+        coat_lining_style = "#{dir}coat/lining/Full_Lining.png"
+      when "Quarter_Lining"
+        coat_lining_style = "#{dir}coat/lining/Quarter_Lining.png"
       else
         coat_lining_style = "#{dir}x.png"
     end
 
     case coat.pocket_type
-      when "Curved Chest Pocket"
-        coat_pocket_style = "#{dir}pocket_type_1.png"
-      when "Flat Chest Pocket"
-        coat_pocket_style = "#{dir}pocket_type_2.png"
       when "Patch"
-        coat_pocket_style = "#{dir}pocket_type_3.png"
-      when "Satin on Chest Pocket"
-        coat_pocket_style = "#{dir}pocket_type_4.png"
-      #when "Straight" #no image available
-        coat_pocket_style = "#"
-      #when "Barchetta" #no image available
-        coat_pocket_style = "#"
+        coat_pocket_style = "#{dir}coat/chest_pocket/Patch.png"
+      when "Straight"
+        coat_pocket_style = "#{dir}coat/chest_pocket/Straight.png"
+      when "Barchetta"
+        coat_pocket_style = "#{dir}coat/chest_pocket/Barchetta.png"
+      when "None"
+      	coat_pocket_style = "#{dir}coat/chest_pocket/No_Chest_Pocket.png"
       else
         coat_pocket_style = "#{dir}x.png"
     end
 
-		case coat.front_side_pocket
-	    when "NoPocket"
-	      coat_front_side_pocket = "#{dir}pockets_1.png"
-	    when "2 Pockets"
-	      coat_front_side_pocket = "#{dir}pockets_2.png"
-	    when "3 Pockets (w/ticket pocket)"
-	      coat_front_side_pocket = "#{dir}pockets_3.png"
-	    when "Patch"
-	      coat_front_side_pocket = "#{dir}pockets_4.png"
-	    when "Pockets with flaps?"
-	      coat_front_side_pocket = "#{dir}pockets_5.png"
-	    when "Hacking/Italian Pocket?"
-	      coat_front_side_pocket = "#{dir}pockets_6.png"
-	    when "Satin on Pockets Trimming"
-	      coat_front_side_pocket = "#{dir}pockets_7.png"
-      #when "Jetted" #no image
-        #coat_front_side_pocket = "#"
-	    else
-	      coat_front_side_pocket = "#{dir}x.png"
-    end
+		if coat.side_pockets_flap
+			case coat.front_side_pocket
+				when "Jetted"
+					coat_front_side_pocket = "#{dir}coat/side_pockets/Jetted_w_Flap.png"
+				when "Patch"
+					coat_front_side_pocket = "#{dir}coat/side_pockets/Patch_w_Flap.png"
+				else
+					coat_front_side_pocket = "#{dir}coat/side_pockets/None.png"
+			end
+    else
+      case coat.front_side_pocket
+        when "Jetted"
+        	coat_front_side_pocket = "#{dir}coat/side_pockets/Jetted_w_o_Flap.png"
+				when "Patch"
+					coat_front_side_pocket = "#{dir}coat/side_pockets/Patch_w_o_Flap.png"
+				else
+					coat_front_side_pocket = "#{dir}coat/side_pockets/None.png"
+			end
+		end
 
     case coat.button_spacing
 	    when "Stacking"
-	      coat_button_spacing = "#{dir}buttons_2.png"
+	      coat_button_spacing = "#{dir}coat/sleeve_button/Stacking.png"
 	    when "Kissing"
-	      coat_button_spacing = "#{dir}buttons_3.png"
+	      coat_button_spacing = "#{dir}coat/sleeve_button/Kissing.png"
 	    else
 	      coat_button_spacing = "#{dir}x.png"
     end
+
+    case coat.boutonniere
+      when "1 Boutonniere", "1 Milanese"
+      	coat_boutonniere = "#{dir}coat/lapel_buttonhole/1_Boutonniere_Milanese.png"
+			when "2 Boutonniere", "2 Milanese"
+				coat_boutonniere = "#{dir}coat/lapel_buttonhole/2_Boutonniere_Milanese.png"
+			else
+				coat_boutonniere = "#{dir}x.png"
+		end
+
+		case coat.sleeves_and_padding
+			when /Regular shoulders/
+				coat_sleeves_and_padding = "#{dir}coat/shoulder/Regular_Shoulder.png"
+			when /Spalla-camicia/
+				coat_sleeves_and_padding = "#{dir}coat/shoulder/Spalla_Camicia.png"
+			when "Conrolino"
+				coat_sleeves_and_padding = "#{dir}coat/shoulder/Conrolino.png"
+			else
+				coat_sleeves_and_padding = "#{dir}x.png"
+		end
 
     top_row = [
       [{content: "COAT"}, "#{single_breasted} SINGLE BREASTED", "#{double_breasted} DOUBLE BREASTED"]
@@ -311,16 +314,28 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
       padding: 0,
     ) # as a single cell
 
+    if coat.side_pockets_flap
+      coat_flap_str = "With Flap"
+    else
+      coat_flap_str = "Without Flap"
+		end
+
 		coat_images = [
 			[{image: coat_button_style, fit:[60,60]}, # coat_button_style
-			{image: coat_lapel_style, fit:[60,60]}, # coat_lapel_style
-			{image: coat_vent_style, fit:[60,60]}, # coat_vent_style
-			{image: coat_lining_style, fit:[60,60]}, # coat_lining_style
-			{image: coat_pocket_style, fit:[60,60]}, # coat_pocket_style
-			{image: coat_front_side_pocket, fit:[60,60]}, # coat_front_side_pocket
-			{image: coat_button_spacing, fit:[60,60]}, # coat_button_spacing
+				{image: coat_lapel_style, fit:[60,60]}, # coat_lapel_style
+				{image: coat_vent_style, fit:[60,60]}, # coat_vent_style
+				{image: coat_lining_style, fit:[60,60]}, # coat_lining_style
+				{image: coat_pocket_style, fit:[60,60]}, # coat_pocket_style
+				{image: coat_front_side_pocket, fit:[60,60]}, # coat_front_side_pocket
+				{image: coat_button_spacing, fit:[60,60]}, # coat_button_spacing
 			],
-			["BUTTON","LAPEL","VENT","LINING","POCKET TYPE","FRONT\nSIDE POCKET","BUTTON\nSPACING"
+			[{content: "#{coat.style}\nBUTTON STYLE"},
+				{content: "#{coat.lapel_style}\nLAPEL"},
+				{content: "#{coat.vent}\nVENT"},
+				{content: "#{coat.lining}\nLINING"},
+				{content: "#{coat.pocket_type}\nPOCKET TYPE"},
+				{content: "#{coat.front_side_pocket} #{coat_flap_str}\nFRONT SIDE POCKET"},
+				{content: "#{coat.button_spacing}\nBUTTON SPACING"},
 			],
 		]
 
@@ -656,14 +671,16 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
     ) # header outer border - as a single cell
 
     measurements = [
-      ["SHIRT LENGTH","BACK WIDTH","CUFFS","CHEST","SHIRT WAIST","SHOULDERS"
+      ["SHIRT LENGTH","BACK WIDTH","SLEEVES","CUFFS","CHEST","COLLAR","SHIRT WAIST","HIPS"
       ],
       [{ content: shirt.shirt_length.nil? ? "N/A" : "#{shirt.shirt_length}" },
          { content: shirt.back_width.nil? ? "N/A" : "#{shirt.back_width}" },
+         { content: shirt.sleeve.nil? ? "N/A" : "#{shirt.sleeve}" },
          { content: (shirt.right_cuff.nil? && shirt.left_cuff.nil?) ? "N/A" : "R: #{shirt.right_cuff.nil? ? 'N/A' : shirt.right_cuff}\nL: #{shirt.left_cuff.nil? ? 'N/A' : shirt.left_cuff}" },
+         { content: shirt.collar.nil? ? "N/A" : "#{shirt.collar}" },
          { content: shirt.chest.nil? ? "N/A" : "#{shirt.chest}" },
          { content: shirt.shirt_waist.nil? ? "N/A" : "#{shirt.shirt_waist}" },
-         { content: shirt.shoulders.nil? ? "N/A" : "#{shirt.shoulders}" },
+         { content: shirt.hips.nil? ? "N/A" : "#{shirt.hips}" },
       ],
     ]
 
@@ -676,11 +693,11 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
       50,  # shoulder
       50,  # blank
       50,  # blank
-    ] # not in use
+    ]
 
-    nested_table_measurements = pdf.make_table(measurements, width: 400) do
+    nested_table_measurements = pdf.make_table(measurements, width: 400, column_widths: measurements_column_widths) do
       cells.align = :center
-      cells.style(:padding => 2, borders: [], size: 7)
+      cells.style(:padding => 2, borders: [], size: 8)
       row(0).borders = [:left, :right, :top]
       row(1).borders = [:left, :right, :bottom]
     end
@@ -766,18 +783,21 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
     end
 
     shirt_images = [
-      [{image: shirt_collar_style, fit:[60,60]},
-        {image: shirt_sleeves_style, fit:[60,60]},
-        {image: shirt_cuffs_style, fit:[60,60]},
-        {image: shirt_pocket_style, fit:[60,60]},
+      [{image: shirt_collar_style, fit:[120,120]},
+        {image: shirt_sleeves_style, fit:[120,120]},
+
       ],
       [{content: "#{shirt.collar_style}\nCOLLAR STYLE"},
         {content: "#{shirt.sleeves}\nSLEEVES"},
-        {content: "#{shirt.cuffs}\nCUFFS"},
-        {content: "#{shirt.pocket}\nPOCKET"},
       ],
+      [{image: shirt_cuffs_style, fit:[120,120]},
+        {image: shirt_pocket_style, fit:[120,120]},
+      ],
+      [{content: "#{shirt.cuffs}\nCUFFS"},
+      	{content: "#{shirt.pocket}\nPOCKET"},
+			],
     ]
-		images_col_num = 4
+		images_col_num = 2
 		column0_table_width = 400
     column_width = column0_table_width / images_col_num
 
@@ -801,16 +821,17 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
     shirt_bottom = (shirt.bottom.to_s.empty? ? "N/A" : shirt.bottom)
     shirt_monogram_placement = (shirt.monogram_placement.to_s.empty? ? "N/A" : shirt.monogram_placement)
     shirt_fabric_consumption = (shirt.fabric_consumption.to_s.empty? ? "N/A" : shirt.fabric_consumption)
+    shirt_shoulders = (shirt.shoulders.to_s.empty? ? "N/A" : shirt.shoulders)
 
     shirt_remarksAndSpecs = [
       [{content: "REMARKS\n\n#{shirt.remarks}"}],
-      [{content: "FRONT PLEATS: #{shirt_front_pleats}\nBACK PLEATS: #{shirt_back_pleats}\nFRONT POCKET FLAP: #{shirt_front_pocket_flap}\nBOTTOM: #{shirt_bottom}\nMONOGRAM PLACEMENT: #{shirt_monogram_placement}\nFABRIC CONSUMPTION: #{shirt_fabric_consumption}"}]
+      [{content: "FRONT PLEATS: #{shirt_front_pleats}\nBACK PLEATS: #{shirt_back_pleats}\nFRONT POCKET FLAP: #{shirt_front_pocket_flap}\nBOTTOM: #{shirt_bottom}\nMONOGRAM PLACEMENT: #{shirt_monogram_placement}\nFABRIC CONSUMPTION: #{shirt_fabric_consumption}\nSHOULDERS: #{shirt_shoulders}"}]
     ]
 
     nested_table_shirt_remarksAndSpecs = pdf.make_table(shirt_remarksAndSpecs, width: 140) do
       cells.position = :center
       cells.align = :center
-      cells.style(padding: [5,2,5,3], size: 7)
+      cells.style(padding: [5,2,5,3], size: 8)
 
       row(0).style(font_style: :bold)
       row(1).align = :left

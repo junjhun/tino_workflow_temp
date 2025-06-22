@@ -14,7 +14,7 @@ class Coat < ApplicationRecord
     '2 vents (side)'
   ],  _prefix: true
 
-  enum sleeves_and_padding: {
+  enum sleeves_and_padding: { # shoulder
     'Regular shoulders - regular padding' => 5,
     'Regular shoulders - thin padding' => 1,
     'Spalla-camicia - shirred' => 2,
@@ -49,7 +49,7 @@ class Coat < ApplicationRecord
     'Covered' => 3
   }
 
-  enum boutonniere: {
+  enum boutonniere: { #lapel buttonhole
     '1 Boutonniere' => 2,
     '2 Boutonniere' => 1,
     '1 Milanese' => 4,
