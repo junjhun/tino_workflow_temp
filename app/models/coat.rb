@@ -14,7 +14,7 @@ class Coat < ApplicationRecord
     '2 vents (side)'
   ],  _prefix: true
 
-  enum sleeves_and_padding: {
+  enum sleeves_and_padding: { # shoulder
     'Regular shoulders - regular padding' => 5,
     'Regular shoulders - thin padding' => 1,
     'Spalla-camicia - shirred' => 2,
@@ -37,6 +37,7 @@ class Coat < ApplicationRecord
     'None' => 3
   }, _prefix: true
 
+  # Sleeve Button
   enum button_spacing: %w[
     Stacking
     Kissing
@@ -48,7 +49,7 @@ class Coat < ApplicationRecord
     'Covered' => 3
   }
 
-  enum boutonniere: {
+  enum boutonniere: { #lapel buttonhole
     '1 Boutonniere' => 2,
     '2 Boutonniere' => 1,
     '1 Milanese' => 4,
@@ -56,7 +57,7 @@ class Coat < ApplicationRecord
     'No boutonniere' => 0
   }
 
-  enum pocket_type: {
+  enum pocket_type: { #chest pocket
     'Straight' => 1,
     'Barchetta' => 0,
     'Patch' => 2,
@@ -135,7 +136,9 @@ class Coat < ApplicationRecord
   validates :quantity, presence: { message: 'cannot be blank' },
                        numericality: { only_integer: true, greater_than: 0, message: 'must be a positive integer' }
 
-  validates :fabric_code, :lining_code, :fabric_consumption, :jacket_length, :back_width, :sleeves, :cuffs_1, :cuffs_2, :back_width, :sleeves, :collar, :chest, :waist, :stature, :shoulders, :style, :lapel_style, :lapel_width, :vent, :sleeves_and_padding, :lining, :sleeve_buttons, :button_spacing, :button, :no_of_buttons, :color_of_sleeve_buttons, :boutonniere, :lapel_buttonhole_thread_color, :pocket_type, :front_side_pocket, :side_pocket_placement, :monogram_initials, :monogram_placement, :monogram_font, :monogram_thread_color, presence: { message: 'cannot be blank' }
+  validates :fabric_code, :lining_code, :fabric_consumption, :jacket_length, :back_width, :sleeves, :cuffs_1, :cuffs_2, :back_width, :sleeves, :collar, :chest, :waist, :stature, :shoulders, :style, :lapel_style, :lapel_width, :vent, :sleeves_and_padding, :lining, :sleeve_buttons, :button_spacing, :button, :no_of_buttons, :color_of_sleeve_buttons, :boutonniere, :lapel_buttonhole_thread_color, :pocket_type, :front_side_pocket, :side_pocket_placement, :hips, presence: { message: 'cannot be blank' }
 
   validates :no_of_buttons, numericality: { only_integer: true, message: 'must be a valid number' }, presence: true
+
+  validates :monogram_placement, :monogram_font, :monogram_thread_color, presence: { message: 'cannot be blank' }, if: :monogram_initials?
 end
