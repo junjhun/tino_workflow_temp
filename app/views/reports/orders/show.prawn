@@ -320,39 +320,65 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
       coat_flap_str = "Without Flap"
 		end
 
-		coat_images = [
-			[{image: coat_button_style, fit:[60,60]}, # coat_button_style
-				{image: coat_lapel_style, fit:[60,60]}, # coat_lapel_style
-				{image: coat_vent_style, fit:[60,60]}, # coat_vent_style
-				{image: coat_lining_style, fit:[60,60]}, # coat_lining_style
-				{image: coat_pocket_style, fit:[60,60]}, # coat_pocket_style
-				{image: coat_front_side_pocket, fit:[60,60]}, # coat_front_side_pocket
-				{image: coat_button_spacing, fit:[60,60]}, # coat_button_spacing
+		coat_images0 = [
+			[{image: coat_button_style, fit:[80,80]}, # coat_button_style
+				{image: coat_lapel_style, fit:[80,80]}, # coat_lapel_style
+				{image: coat_vent_style, fit:[80,80]}, # coat_vent_style
+				{image: coat_lining_style, fit:[80,80]}, # coat_lining_style
 			],
 			[{content: "#{coat.style}\nBUTTON STYLE"},
 				{content: "#{coat.lapel_style}\nLAPEL"},
 				{content: "#{coat.vent}\nVENT"},
 				{content: "#{coat.lining}\nLINING"},
-				{content: "#{coat.pocket_type}\nPOCKET TYPE"},
-				{content: "#{coat.front_side_pocket} #{coat_flap_str}\nFRONT SIDE POCKET"},
-				{content: "#{coat.button_spacing}\nBUTTON SPACING"},
 			],
 		]
 
-		images_col_num = 7
-    column0_table_width = 400
-    column_width = column0_table_width / images_col_num
+		coat_images1 = [
+			[{image: coat_pocket_style, fit:[75,75]}, # coat_pocket_style
+				{image: coat_front_side_pocket, fit:[75,75]}, # coat_front_side_pocket
+				{image: coat_button_spacing, fit:[75,75]}, # coat_button_spacing
+				{image: coat_boutonniere, fit:[75,75]}, # coat_boutonniere
+				{image: coat_sleeves_and_padding, fit:[75,75]}, # coat_sleeves_and_padding
+			],
+			[{content: "#{coat.pocket_type}\nCHEST POCKET"},
+				{content: "#{coat.front_side_pocket}\n(#{coat_flap_str})\nSIDE POCKETS"},
+				{content: "#{coat.button_spacing}\nBUTTON SPACING"},
+				{content: "#{coat.boutonniere}\nBOUTONNIERE"},
+				{content: "#{coat.sleeves_and_padding}\nSLEEVES & PADDING"},
+			],
+		]
 
-		nested_table_coat_images = pdf.make_table(coat_images, column_widths: [column_width]*images_col_num ) do
+		images_col_num0 = 4
+		images_col_num1 = 5
+    column0_table_width = 400
+    column_width0 = column0_table_width / images_col_num0
+    column_width1 = column0_table_width / images_col_num1
+
+		# coat_images0 is top
+		nested_table_coat_images0 = pdf.make_table(coat_images0, column_widths: [column_width0]*images_col_num0 ) do
       cells.position = :center
       cells.align = :center
       cells.style(:padding => 4, borders: [], size: 8)
     end
 
-    coat_images_cell = pdf.make_cell(
-      content: nested_table_coat_images,
+    coat_images_cell0 = pdf.make_cell(
+      content: nested_table_coat_images0,
       colspan: col_num - 1,
-      borders: [:top, :bottom, :left, :right],
+      borders: [:top, :left, :right],
+      padding: 0,
+    ) # outer border - treated as single cell in master table
+
+		# coat_images1 is bottom
+		nested_table_coat_images1 = pdf.make_table(coat_images1, column_widths: [column_width1]*images_col_num1 ) do
+      cells.position = :center
+      cells.align = :center
+      cells.style(:padding => 4, borders: [], size: 8)
+    end
+
+    coat_images_cell1 = pdf.make_cell(
+      content: nested_table_coat_images1,
+      colspan: col_num - 1,
+      borders: [:bottom, :left, :right],
       padding: 0,
     ) # outer border - treated as single cell in master table
 
@@ -375,12 +401,16 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 		end
 
 		shoulders = [
-			[{image: shoulder_stooping_img, fit:[50,50]},
-			{image: shoulder_square_img, fit:[50,50]},
-			{image: shoulder_normal_img, fit:[50,50]}],
-			[{content: "STOOPING\n#{shoulder_stooping}"},
-			{content: "SQUARE\n#{shoulder_square}"},
-			{content: "NORMAL\n#{shoulder_normal}"}],
+			[{},
+				{image: shoulder_stooping_img, fit:[80,80]},
+				{image: shoulder_square_img, fit:[80,80]},
+				{image: shoulder_normal_img, fit:[80,80]}
+			],
+			[{},
+				{content: "STOOPING\n#{shoulder_stooping}"},
+				{content: "SQUARE\n#{shoulder_square}"},
+				{content: "NORMAL\n#{shoulder_normal}"}
+			],
 		]
 
 		#stature
@@ -409,20 +439,19 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
     end
 
     stature = [
-      [{image: stature_erect_img, fit: [50,50]},{image: stature_stooping_img, fit: [50,50]},{image: stature_prominent_stomach_img, fit: [50,50]},{image: stature_stout_img, fit: [50,50]},{image: stature_normal_img, fit: [50,50]}],
+      [{image: stature_erect_img, fit: [80,80]},{image: stature_stooping_img, fit: [80,80]},{image: stature_prominent_stomach_img, fit: [80,80]},{image: stature_stout_img, fit: [80,80]},{image: stature_normal_img, fit: [80,80]}],
       [{content: "ERECT\n#{stature_erect}"},{content: "STOOPING\n#{stature_stooping}"},{content: "PROMINENT\nSTOMACH\n#{stature_prominent_stomach}"},{content: "STOUT\n#{stature_stout}"},{content: "NORMAL\n#{stature_normal}"}],
     ]
 
     posture = [
-      stature[0]+shoulders[0],
-      stature[1]+shoulders[1],
+      stature[0],stature[1],
+      shoulders[0],shoulders[1],
     ]
 
-    nested_table_posture_images = pdf.make_table(posture, width: 400, column_widths: [50,50,50,50,50,50,50,50]) do
+    nested_table_posture_images = pdf.make_table(posture, width: 400, column_widths: [80]*5) do
       cells.position = :center
       cells.align = :center
-      cells.style(:padding => [3,2,3,0], borders: [], size: 7)
-      # row(1).style(font_style: :bold)
+      cells.style(:padding => [3,2,3,0], borders: [], size: 10)
     end
 
     posture_images_cell  = pdf.make_cell(
@@ -440,23 +469,24 @@ prawn_document(info: { Title: "#{ @order&.client&.name }" }) do |pdf|
 
     body = [
       [{content: header_cell, colspan: 2}],
-      [measurements_cell, {content: "REMARKS\n\n#{coat.remarks}", rowspan: 2}],
-      [{content: coat_images_cell}],
+      [measurements_cell, {content: "REMARKS\n\n#{coat.remarks}", rowspan: 3}],
+      [{content: coat_images_cell0}],
+      [{content: coat_images_cell1}],
       [posture_images_cell, {content: "BOUTONNIERE: #{coat_boutonniere}\nBUTTON: #{coat_button}\nSLEEVE BUTTONS: #{coat_sleeve_buttons}\nFABRIC LABEL: #{coat_fabric_label}\nFABRIC CONSUMPTION: #{coat_fabric_consumption}"}],
     ]
 
     coat_table = pdf.make_table(body, width: overall_table_width) do
       cells.borders = [:left, :right, :top, :bottom]
-      cells.style(align: :center, :padding => 0, :border_width => 2, size: 7)
+      cells.style(align: :center, :padding => 0, :border_width => 2, size: 8)
 
       row(0).style(size: 8)
       column(0).width = 400 #nested tables
       column(1).width = 140 #Remarks
       row(1).column(1).style(font_style: :bold)
-      row(1).column(0).borders = [:left, :right, :top]
-      row(2).column(0).borders = [:left, :right, :bottom]
+      row(2).column(0).borders = [:left, :right, :top]
+      row(3).column(0).borders = [:left, :right, :bottom]
       column(1).style(padding: 4) # Remarks & Specs
-      row(3).column(1).style(align: :left)
+      row(4).column(1).style(align: :left)
     end
 
 		# start a new page if table will break due to remaining space
