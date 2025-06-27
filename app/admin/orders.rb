@@ -334,8 +334,8 @@ ActiveAdmin.register Order do
 
             # Monogram Fields
             t.input :monogram_initials, input_html: { class: 'monogram-initials-input' }
-            t.input :monogram_placement, as: :select, collection: Coat.monogram_placements.keys.map { |m| [m.humanize, m] }, include_blank: true, input_html: { class: 'monogram-placement-input' }
-            t.input :monogram_font, as: :select, collection: Coat.monogram_fonts.keys.map { |m| [m.humanize, m] }, include_blank: true, input_html: { class: 'monogram-font-input' }
+            t.input :monogram_placement, as: :select, collection: Shirt.monogram_placements.keys.map { |m| [m.humanize, m] }, include_blank: true, input_html: { class: 'monogram-placement-input' }
+            t.input :monogram_font, as: :select, collection: Shirt.monogram_fonts.keys.map { |m| [m.humanize, m] }, include_blank: true, input_html: { class: 'monogram-font-input' }
             t.input :monogram_color
 
             t.input :remarks
