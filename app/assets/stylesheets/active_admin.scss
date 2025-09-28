@@ -1,0 +1,256 @@
+@import 'activeadmin_addons/all';
+// Sass variable overrides must be declared before loading up Active Admin's styles.
+//
+// To view the variables that Active Admin provides, take a look at
+// app/assets/stylesheets/active_admin/mixins/_variables.scss in the
+// Active Admin source.
+//
+// For example, to change the sidebar width:
+// $sidebar-width: 242px;
+
+// Active Admin's got SASS!
+@import "active_admin/mixins";
+@import "active_admin/base";
+@import "font-awesome";
+// @import "active_admin_sidebar";
+
+// Overriding any non-variable Sass must be done after the fact.
+// For example, to change the default status-tag color:
+//
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* Make header sticky */
+  
+// * {
+//   font-family: "Poppins", serif !important;
+// }
+
+* {
+  font-family: "Outfit", serif;
+}  
+
+body {
+  background-color: #F7F7F7;
+  color: #333333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  // color: #248f8f; //#008080;
+  color: #FFFFFFFF;
+}
+
+a {
+  color: #008080;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #87CEEB;
+}
+
+table {
+  border-collapse: collapse;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f0f0f0;
+}
+
+button {
+  background-color: #4CAF50; /* green */
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3e8e41; /* darker green */
+}
+
+button.flat {
+  background-color: transparent;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button.flat:hover {
+  background-color: #f7f7f7;
+  border-color: #ccc;
+}
+
+#header ul.tabs > li.current > a {
+    background: rgba(232, 227, 227, 0.1);
+    font-weight: bold;
+    color: #000000;
+    text-underline-offset: 3px;
+    text-decoration: underline; 
+
+}
+
+#header ul.tabs > li a {
+  color: #000000;
+  font-size: 18px;
+  text-underline-offset: 3px;
+  padding: auto;  
+}
+
+ 
+.cancel-button {
+    margin-left: 10px; /* Add some spacing from the submit button */
+}
+
+.square-div {
+    width: 150px; 
+    height: 150px; 
+    // background-color: teal;
+    background-color: goldenrod;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Change to column for vertical alignment */
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.square-div h1 h2 {
+  color: white;
+}
+.text-center panel{
+  text-align: center;
+  display:inline-block;    
+}
+  
+.panel_contents{
+  text-align:left;
+  width: 100%;
+}
+
+
+.table_tools .scopes li.scope.selected a, li.scope a:hover {
+  color: #8f2424; 
+}
+
+.table {
+  box-shadow: 0px 5px 10px #8f2424; 
+}
+
+section > h3, .panel > h3 {
+  text-shadow: #fff 0 1px 0;
+  background-color: rgb(200, 193, 193);
+  border-right-color: #8f2424; 
+  border-bottom-color: #8f2424; 
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  color: #000000;
+  padding: 5px 10px 3px 10p
+}
+
+#header {
+  height: 60px !important;
+  border-bottom: none;
+}
+
+div#title_bar.title_bar{
+  top: 60px !important; 
+}
+
+#title_bar{
+  border: none;
+}
+
+//remove text underline
+#header ul.tabs > li.current > a {
+  text-decoration: none;
+}
+
+// Remove hover effect for #header #utility_nav
+#header #utility_nav a:hover {
+  background: none;
+  color: #000000;
+}
+
+
+//remove gray background from tabs
+#header ul.tabs > li a:hover {
+  background: none;
+  color: #000000;
+}
+
+//remove underline from links
+a:link {
+  text-decoration: none;
+}
+
+//bold table header
+table.index_table th {
+  font-weight: bold;
+  color: #000000;
+}
+
+//redesign table header
+table.index_table th {
+  background-image: none;
+  border: none;
+}
+
+#site_title_image {
+  height: 35px; /* Adjust the height as needed */
+  width: auto; /* Maintain aspect ratio */
+}
+
+//adjust
+#title_bar .action_items span.action_item > a, #title_bar .action_items span.action_item > .dropdown_menu > a {
+  background-image: none;
+  font-family: "Outfit", serif;
+  border: none;
+  border-radius: 6px;
+  margin-right: 5px;
+  text-shadow: none;
+  box-shadow: none;
+}
+
+.green-button {
+  background-color: #4CAF50 !important; /* Green background */
+  color: #fff !important; /* White text */
+  padding: 10px 20px !important;
+  border: none !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  text-decoration: none !important; /* Remove underline */
+  display: inline-block !important;
+}
+
+.green-button:hover {
+  background-color: #3e8e41 !important; /* Darker green on hover */
+}
+
+input[readonly].readonly-style,
+textarea[readonly].readonly-style,
+select[readonly].readonly-style {
+  background-color: #e9e9e9; /* A common light gray for disabled inputs */
+  cursor: not-allowed;     /* Change cursor to indicate no interaction */
+  /* You can add more styles like: */
+  /* opacity: 0.7; */
+  /* border-color: #ccc; */
+}
+
+.panel_contents table th {
+  text-align: center !important; // Use !important to ensure override
+}
+
+// NOTE: to apply responsive-image-table
+

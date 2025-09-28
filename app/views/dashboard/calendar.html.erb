@@ -1,0 +1,58 @@
+<div id="calendar-container" class="container mt-5 text-center">
+  <h1 class="calendar-title">Calendar</h1>
+
+  <% orders = Order.includes(:client).all %> <!-- Fetch all orders and include clients to avoid N+1 query -->
+  
+  <table id="calendar-table" class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% start_date = Date.today.beginning_of_month.beginning_of_week(:sunday) %>
+      <% end_date = Date.today.end_of_month.end_of_week(:sunday) %>
+      <% (start_date..end_date).each_slice(7) do |week| %>
+        <tr>
+          <% week.each do |date| %>
+            <% 
+              orders_on_this_day = orders.select { |order| order.finish == date } 
+              # Determine which class to apply
+              if orders_on_this_day.any?
+                highlight_class = 'bg-warning'  # If there are orders finishing, prioritize bg-warning
+              elsif date.saturday? || date.sunday?
+                highlight_class = 'bg-weekend'  # Otherwise, apply bg-weekend for weekends
+              else
+                highlight_class = ''  # No special highlight for weekdays without orders finishing
+              end
+            %>
+            <td class="<%= highlight_class %>">
+              <strong><%= date.day %></strong>
+              <br>
+
+              <% if orders_on_this_day.any? %>
+                <ul class="list-unstyled">
+                  <% orders_on_this_day.each do |order| %>
+                    <li>
+                      <strong><%= order.client.name %></strong> <!-- Show Client Name -->
+                      <br>
+                      <small class="text-muted">Order ID: <%= order.id %>, Finish: <%= order.finish.strftime('%B %d, %Y') %></small>
+                    </li>
+                  <% end %>
+                </ul>
+              <% else %>
+                <p class="text-muted" style="font-size: 0.85rem;">No orders finishing on this day</p>
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
