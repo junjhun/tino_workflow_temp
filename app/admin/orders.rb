@@ -504,52 +504,52 @@ ActiveAdmin.register Order do
               end
 
               # front_side_pocket
-              column "Button Style", style: "text-align: center;" do |coat|
+              column "Front Side Pocket", style: "text-align: center;" do |coat|
                 content_html = ""
-                if (image_path = coat.coat_style_image_asset_path)
-                  content_html << image_tag(image_path, size: "100x100", alt: coat.style.humanize, style: "display: block; margin: 0 auto; min-width: 100px;")
+                if (image_path = coat.coat_side_pocket_image_asset_path)
+                  content_html << image_tag(image_path, size: "100x100", alt: coat.front_side_pocket.humanize, style: "display: block; margin: 0 auto; min-width: 100px;")
                 end
                 content_html << tag.div(
-                  (coat.style.blank? ? "N/A" : coat.style.humanize),
+                  (coat.front_side_pocket.blank? ? "N/A" : coat.front_side_pocket.humanize),
                   style: "text-align: center; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
                 )
                 content_html.html_safe
               end
 
               # button_spacing
-              column "Button Style", style: "text-align: center;" do |coat|
+              column "Button Spacing", style: "text-align: center;" do |coat|
                 content_html = ""
-                if (image_path = coat.coat_style_image_asset_path)
-                  content_html << image_tag(image_path, size: "100x100", alt: coat.style.humanize, style: "display: block; margin: 0 auto; min-width: 100px;")
+                if (image_path = coat.coat_button_spacing_image_asset_path)
+                  content_html << image_tag(image_path, size: "100x100", alt: coat.button_spacing.humanize, style: "display: block; margin: 0 auto; min-width: 100px;")
                 end
                 content_html << tag.div(
-                  (coat.style.blank? ? "N/A" : coat.style.humanize),
+                  (coat.button_spacing.blank? ? "N/A" : coat.button_spacing.humanize),
                   style: "text-align: center; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
                 )
                 content_html.html_safe
               end
 
               # boutonniere
-              column "Button Style", style: "text-align: center;" do |coat|
+              column "Boutonniere", style: "text-align: center;" do |coat|
                 content_html = ""
-                if (image_path = coat.coat_style_image_asset_path)
-                  content_html << image_tag(image_path, size: "100x100", alt: coat.style.humanize, style: "display: block; margin: 0 auto; min-width: 100px;")
+                if (image_path = coat.coat_boutonniere_image_asset_path)
+                  content_html << image_tag(image_path, size: "100x100", alt: coat.boutonniere.humanize, style: "display: block; margin: 0 auto; min-width: 100px;")
                 end
                 content_html << tag.div(
-                  (coat.style.blank? ? "N/A" : coat.style.humanize),
+                  (coat.boutonniere.blank? ? "N/A" : coat.boutonniere.humanize),
                   style: "text-align: center; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
                 )
                 content_html.html_safe
               end
 
               # sleeves_and_padding
-              column "Button Style", style: "text-align: center;" do |coat|
+              column "Sleeves and Padding", style: "text-align: center;" do |coat|
                 content_html = ""
-                if (image_path = coat.coat_style_image_asset_path)
-                  content_html << image_tag(image_path, size: "100x100", alt: coat.style.humanize, style: "display: block; margin: 0 auto; min-width: 100px;")
+                if (image_path = coat.coat_shoulder_padding_image_asset_path)
+                  content_html << image_tag(image_path, size: "100x100", alt: coat.sleeves_and_padding.humanize, style: "display: block; margin: 0 auto; min-width: 100px;")
                 end
                 content_html << tag.div(
-                  (coat.style.blank? ? "N/A" : coat.style.humanize),
+                  (coat.sleeves_and_padding.blank? ? "N/A" : coat.sleeves_and_padding.humanize),
                   style: "text-align: center; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"
                 )
                 content_html.html_safe
