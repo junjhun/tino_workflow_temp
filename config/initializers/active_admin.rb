@@ -1,3 +1,5 @@
+require_dependency 'admin_helpers'
+
 ActiveAdmin.setup do |config|
   # == Site Title
   #
@@ -337,7 +339,7 @@ ActiveAdmin.setup do |config|
   # By default, the footer shows the current Active Admin version. You can
   # override the content of the footer here.
   #
-  config.footer = 'Tiño JOW v1.0.0  (Powered by COCO)'
+  config.footer = 'Tiño JOW v2.0.0  (Powered by COCO)'
 
   # == Sorting
   #
@@ -352,4 +354,12 @@ ActiveAdmin.setup do |config|
   # You can switch to using Webpacker here.
   #
   # config.use_webpacker = true
+end
+
+module ActiveAdmin
+  module Views
+    class Pages::Base < Arbre::HTML::Document
+      include AdminHelpers
+    end
+  end
 end

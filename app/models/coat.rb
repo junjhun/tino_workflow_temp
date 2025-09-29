@@ -133,6 +133,160 @@ class Coat < ApplicationRecord
     '2 vents (side)'
   ]
 
+  def coat_style_image_asset_path
+    return nil if style.blank? # Handle blank values
+
+    case style
+      when "Single-breasted 1 button"
+        "coat/style/Single-breasted_1B.png"
+      when "Single-breasted 2 buttons"
+        "coat/style/Single-breasted_2B.png"
+      when "Single-breasted 3 buttons"
+        "coat/style/Single-breasted_3B.png"
+      when 'Single-breasted 3-on-2 buttons'
+        "coat/style/Single-breasted_3-on-2B.png"
+      when 'Double-breasted 4-on-1 buttons'
+        "coat/style/Double-breasted_4-on-1B.png"
+      when 'Double-breasted 4-on-2 buttons'
+        "coat/style/Double-breasted_4-on-2B.png"
+      when 'Double-breasted 6-on-1 buttons'
+        "coat/style/Double-breasted_6-on-1B.png"
+      when 'Double-breasted 6-on-2 buttons'
+        "coat/style/Double-breasted_6-on-2B.png"
+      else
+        "x.png" # Fallback image
+    end
+  end
+
+  def coat_lapel_style_image_asset_path
+    return nil if lapel_style.blank? # Handle blank values
+
+    case lapel_style
+      when "Notch"
+        "coat/lapel/Notch.png"
+      when "Peak"
+        "coat/lapel/Peak.png"
+      when "Shawl"
+        "coat/lapel/Shawl.png"
+      else
+        "x.png" # Fallback image
+    end
+  end
+
+  def coat_vent_image_asset_path
+    return nil if vent.blank? # Handle blank values
+
+    case vent
+      when "No Vent"
+        "x.png"
+      when "1 vent (center)"
+        "coat/vent/Center_Vent.png"
+      when "2 vents (side)"
+        "coat/vent/Side_Vent.png"
+      else
+        "x.png" # Fallback image
+    end
+  end
+
+  def coat_lining_image_asset_path
+    return nil if lining.blank? # Handle blank values
+
+    case lining
+      when "Unlined(none)"
+        "coat/lining/Unlined.png"
+      when "Half_Lining"
+        "coat/lining/Half_Lining.png"
+      when "Full_Lining"
+        "coat/lining/Full_Lining.png"
+      when "Quarter_Lining"
+        "coat/lining/Quarter_Lining.png"
+      else
+        "x.png" # Fallback image
+    end
+  end
+
+  def coat_chest_pocket_image_asset_path
+    return nil if pocket_type.blank? # Handle blank values
+
+    case pocket_type
+      when "Patch"
+        "coat/chest_pocket/Patch.png"
+      when "Straight"
+        "coat/chest_pocket/Straight.png"
+      when "Barchetta"
+        "coat/chest_pocket/Barchetta.png"
+      when "None"
+        "coat/chest_pocket/No_Chest_Pocket.png"
+      else
+        "x.png" # Fallback image
+    end
+  end
+
+  def coat_side_pocket_image_asset_path
+    return nil if front_side_pocket.blank? # Handle blank values
+
+    if side_pockets_flap # Check if the flap boolean is true
+      case front_side_pocket
+        when "Jetted"
+          "coat/side_pockets/Jetted_w_Flap.png"
+        when "Patch"
+          "coat/side_pockets/Patch_w_Flap.png"
+        else
+          "coat/side_pockets/None.png" # Fallback for specific flap cases
+      end
+    else # No flap
+      case front_side_pocket
+        when "Jetted"
+          "coat/side_pockets/Jetted_w_o_Flap.png"
+        when "Patch"
+          "coat/side_pockets/Patch_w_o_Flap.png"
+        else
+          "coat/side_pockets/None.png" # Fallback for specific no-flap cases
+      end
+    end
+  end
+
+  def coat_button_spacing_image_asset_path
+    return nil if button_spacing.blank? # Handle blank values
+
+    case button_spacing
+      when "Stacking"
+        "coat/sleeve_button/Stacking.png"
+      when "Kissing"
+        "coat/sleeve_button/Kissing.png"
+      else
+        "x.png" # Fallback image
+    end
+  end
+
+  def coat_boutonniere_image_asset_path
+    return nil if boutonniere.blank? # Handle blank values
+
+    case boutonniere
+      when "1 Boutonniere", "1 Milanese"
+        "coat/lapel_buttonhole/1_Boutonniere_Milanese.png"
+      when "2 Boutonniere", "2 Milanese"
+        "coat/lapel_buttonhole/2_Boutonniere_Milanese.png"
+      else
+        "x.png" # Fallback image
+    end
+  end
+
+  def coat_shoulder_padding_image_asset_path
+    return nil if sleeves_and_padding.blank? # Handle blank values
+
+    case sleeves_and_padding
+      when /Regular shoulders/ # Using regex for partial match
+        "coat/shoulder/Regular_Shoulder.png"
+      when /Spalla-camicia/ # Using regex for partial match
+        "coat/shoulder/Spalla_Camicia.png"
+      when "Conrolino"
+        "coat/shoulder/Conrolino.png"
+      else
+        "x.png" # Fallback image
+    end
+  end
+
   validates :quantity, presence: { message: 'cannot be blank' },
                        numericality: { only_integer: true, greater_than: 0, message: 'must be a positive integer' }
 

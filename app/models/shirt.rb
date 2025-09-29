@@ -114,67 +114,92 @@ class Shirt < ApplicationRecord
     'Script',
     'Others'
   ],_prefix: true
-  
-  # enum specs_form: %w[
-  #   Shirting
-  #   Barong
-  #   Tux
-  # ]
 
-  
+  def collar_style_image_asset_path
+    return nil if collar_style.blank? # Handle blank values
 
-  # enum pleats: [
-  #   'TWO SIDE PLEAT',
-  #   'CENTER PLEAT',
-  #   'NO PLEAT',
-  #   'BACK POCKETS (Dart Pleats)'
-  # ]
+    case collar_style
+      when "Traditional"
+        if buttoned_down
+          "shirt/collar/Button_Down.png"
+        elsif buttoned_down_with_loop
+          "shirt/collar/Hidden_Button_Down.png"
+        else
+          "shirt/collar/Traditional.png"
+      end
+      when "Spread"
+        "shirt/collar/Spread.png"
+      when "Wide(Italian)"
+        "shirt/collar/Wide_(Italian).png"
+      when "Wing"
+        "shirt/collar/Wing.png"
+      when "Chinese"
+        "shirt/collar/Chinese.png"
+      when "Semi-spread"
+        "shirt/collar/Semi-spread.png"
+      when "Nehru"
+        "shirt/collar/Nehru.png"
+      else
+        "x.png" # Fallback image
+    end
+  end
 
-  # enum type_of_button: [
-  #   'Hidden button',
-  #   'Front bar',
-  #   'No Pockets',
-  #   'Button Down ',
-  #   'Not hidden',
-  #   'Button down loop'
-  # ]
+  def sleeves_image_asset_path
+    return nil if sleeves.blank? # Handle blank values
+
+    case sleeves
+      when /^Contrast 1/
+        "shirt/contrast/Contrast_1.png"
+      when /^Contrast 2/
+        "shirt/contrast/Contrast_2.png"
+      when /^Contrast 3/
+        "shirt/contrast/Contrast_3.png"
+      else
+        "x.png" # Fallback image
+    end
+  end
+
+  def cuffs_image_asset_path
+    return nil if cuffs.blank? # Handle blank values
+
+    case cuffs
+      when "Single_1-button_curve", "Single_1-button_round"
+        "shirt/cuffs/Single1_button_curve.png"
+      when "Single_1-button_angle"
+        "shirt/cuffs/Single1_button_angled.png"
+      when "Single_1-button_square"
+        "shirt/cuffs/Single1_button_square.png"
+      when "Double_French_square"
+        "shirt/cuffs/Double_French_square.png"
+      when "Double_French_angled"
+        "shirt/cuffs/Double_French_angled.png"
+      when "Double_French_curve"
+        "shirt/cuffs/Double_French_curve.png"
+    else
+      "x.png" # Fallback image
+    end
+  end
+
+  def pocket_image_asset_path
+    return nil if pocket.blank? # Handle blank values
+
+    case pocket
+      when "Round"
+        "shirt/pocket/Round_Pocket.png"
+      when "Pointed"
+        "shirt/pocket/Pointed_Pocket.png"
+      when "Square w/ Pleats"
+        "shirt/pocket/Square_wPleat_Pocket.png"
+      when "Wine glass"
+        "shirt/pocket/Wine_Glass_Pocket.png"
+      when "Square", "Agile"
+        "shirt/pocket/Square_Pocket.png"
+      else
+        "x.png" # Fallback image
+    end
+  end
 
 
-
-  # enum back_placket: [
-  #     "W/BAR (standard-placket)",
-  #     "NO BAR (NO placket)",
-  #     "HIDDEN BUTTON (concealed placket)"
-  # ]
-
-  # enum sleeves: [
-  #   'Contrast 1 (full white collar and white cuff)',
-  #   'Contrast 2 (full white collar)',
-  #   'Contrast 3 (inside collar, cuff and)',
-  #   'No contrast'
-  # ]
-
-  # enum pocket: [
-  #   'Round',
-  #   'Agile',
-  #   'Pointed',
-  #   'Square w/ Pleats',
-  #   'w/ squared flaps',
-  #   'w/ pointed flaps',
-  #   'w/ slanted flaps',
-  #   'w/ pointed curve flaps',
-  #   'Wine glass',
-  #   'Without Pocket'
-  # ]
-
-
-
-
-  # enum shirting_barong: [
-  #   'SHIRTING',
-  #   'BARONG',
-  #   'TUX SPECS FORM'
-  # ]
 
   validates :quantity, presence: { message: 'cannot be blank' },
                        numericality: { only_integer: true, greater_than: 0, message: 'must be a positive integer' }
