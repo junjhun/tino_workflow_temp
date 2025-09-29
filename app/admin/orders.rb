@@ -556,7 +556,7 @@ ActiveAdmin.register Order do
     end
 
     # start of vest tab
-    if order.pants.any?
+    if order.vests.any?
       tab 'Vests' do
         # --- Dropdown Switcher (only shows if there is more than one vest) ---
         if order.vests.size > 1
