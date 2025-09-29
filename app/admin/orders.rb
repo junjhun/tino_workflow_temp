@@ -7,7 +7,7 @@ ActiveAdmin.register Order do
   permit_params :client_id, :name, :status, :purpose, :type_of_service, :first_fitting, :second_fitting, :third_fitting, :event_date, :finish, :jo_number, :brand_name, :rush, :item_type,
                 items_attributes: %i[id name quantity fabric_and_linning_code _destroy],
                 vests_attributes: %i[id quantity fabric_code lining_code fabric_consumption vest_length back_width chest waist hips vest_style lapel_style lapel_width fabric adjuster_type chest_pocket side_pocket remarks _destroy],
-                shirts_attributes: %i[id quantity fabric_code lining_code fabric_consumption shirt_length back_width right_cuff left_cuff chest shirt_waist stature shoulders opening front_placket no_of_studs front_pleats sleeve back_pleats pocket with_flap front_pocket_flap sleeve_length cuffs collar collar_style buttoned_down buttoned_down_with_loop bottom sleeves contrast_placement monogram_initials monogram_placement hips monogram_font monogram_color remarks _destroy],
+                shirts_attributes: %i[id quantity fabric_code lining_code fabric_consumption shirt_length back_width right_cuff left_cuff chest shirt_waist stature shoulders opening front_placket no_of_studs front_pleats sleeve back_pleats pocket with_flap front_pocket_flap sleeve_length cuffs collar collar_style buttoned_down buttoned_down_with_loop traditional_collar_type bottom sleeves contrast_placement monogram_initials monogram_placement hips monogram_font monogram_color remarks _destroy],
                 coats_attributes: %i[id quantity fabric_code lining_code  fabric_consumption jacket_length back_width sleeves cuffs_1 cuffs_2 collar chest waist stature shoulders style lapel_style lapel_satin lapel_width hips vent sleeves_and_padding lining sleeve_buttons button_spacing button no_of_buttons color_of_sleeve_buttons boutonniere flower_holder lapel_buttonhole_thread_color pocket_type chest_pocket_satin front_side_pocket side_pockets_flap side_pockets_satin side_pockets_ticket side_pocket_placement monogram_initials monogram_placement monogram_font monogram_thread_color remarks _destroy],
                 pants_attributes: %i[id quantity fabric_code lining_code fabric_consumption crotch outseam waist seat thigh knee bottom rise cut pleats_combined strap waistband_thickness waist_area closure crotch_saddle type_of_pocket front_pocket coin_pocket flap_on_coin_pocket back_pocket flap_on_jetted_pocket buttons_on_jetted_pockets button_loops_on_jetted_pockets add_suspender_buttons satin_trim cuff_on_hem width_of_cuff remarks _destroy]                
 
@@ -159,19 +159,21 @@ ActiveAdmin.register Order do
       f.input :status, disabled: f.object.persisted?
       # f.input :client_id, input_html: { value: client.name, disabled: true }
       # f.input :client, as: :select, collection: Client.all.map { |c| [c.name, c.id] }, disabled: f.object.persisted?
-      
-      f.input :client_id, as: :select, collection: Client.all.map { |c| [c.name, c.id] },
-                          disabled: f.object.persisted?
 
-      f.input :purpose
+			f.input :client_id, as: :select,
+							collection: Client.all.map { |c| [c.name, c.id] },
+              selected: f.object.persisted? ? f.object.client_id : params[:client_id],
+							disabled: f.object.persisted?
+
+			f.input :purpose
       f.input :brand_name, as: :select, collection: Order.brand_names.keys
       f.input :type_of_service, label: 'Type of Service'
       f.input :rush, as: :boolean, label: 'Rush Order', input_html: { id: 'rush-checkbox' }
       f.input :first_fitting, as: :datepicker, input_html: { id: 'first_fitting', class: 'datepicker' }
       f.input :second_fitting,as: :datepicker, input_html: { id: 'second_fitting', class: 'datepicker' }
       f.input :third_fitting, as: :datepicker,input_html: { id: 'third_fitting', class: 'datepicker' }
-      f.input :event_date, as: :datepicker, input_html: { id: 'event_date', class: 'datepicker' }
       f.input :finish, as: :datepicker, input_html: { id: 'finish', class: 'datepicker' }
+      f.input :event_date, as: :datepicker, input_html: { id: 'event_date', class: 'datepicker' }
       f.input :jo_number
     end
 
@@ -226,8 +228,8 @@ ActiveAdmin.register Order do
 
             # Monogram Fields
             t.input :monogram_initials, input_html: { class: 'monogram-initials-input' }
-            t.input :monogram_placement, as: :select, collection: Coat.monogram_placements.keys.map { |m| [m.humanize, m] }, include_blank: true, input_html: { class: 'monogram-placement-input' }
-            t.input :monogram_font, as: :select, collection: Coat.monogram_fonts.keys.map { |m| [m.humanize, m] }, include_blank: true, input_html: { class: 'monogram-font-input' }
+            t.input :monogram_placement, as: :select, collection: Coat.monogram_placements.keys.map { |m| [m.humanize, m] }, include_blank: true, input_html: { class: 'monogram-placement-input', disabled: true }
+            t.input :monogram_font, as: :select, collection: Coat.monogram_fonts.keys.map { |m| [m.humanize, m] }, include_blank: true, input_html: { class: 'monogram-font-input', disabled: true  }
             t.input :monogram_thread_color
 
             t.input :remarks
@@ -334,8 +336,8 @@ ActiveAdmin.register Order do
 
             # Monogram Fields
             t.input :monogram_initials, input_html: { class: 'monogram-initials-input' }
-            t.input :monogram_placement, as: :select, collection: Shirt.monogram_placements.keys.map { |m| [m.humanize, m] }, include_blank: true, input_html: { class: 'monogram-placement-input' }
-            t.input :monogram_font, as: :select, collection: Shirt.monogram_fonts.keys.map { |m| [m.humanize, m] }, include_blank: true, input_html: { class: 'monogram-font-input' }
+            t.input :monogram_placement, as: :select, collection: Shirt.monogram_placements.keys.map { |m| [m.humanize, m] }, include_blank: true, input_html: { class: 'monogram-placement-input', disabled: true }
+            t.input :monogram_font, as: :select, collection: Shirt.monogram_fonts.keys.map { |m| [m.humanize, m] }, include_blank: true, input_html: { class: 'monogram-font-input', disabled: true  }
             t.input :monogram_color
 
             t.input :remarks
@@ -351,260 +353,360 @@ ActiveAdmin.register Order do
     div class: 'back-button' do
       link_to '← Back', admin_orders_path
     end
-    
+
     columns do
       column do
-        attributes_table title: 'Information' do
-          row :jo_number
-          row :client
-        row :status
-          #humanize to remove underscore
-        row :purpose do |order|
-          order.purpose.humanize
+        # Use this clean version with the class on the panel
+        panel 'Information', class: 'client_info_panel' do
+          attributes_table_for order do
+            row :jo_number
+            row :client
+            row :status
+            row :purpose do |order|
+              order.purpose.nil? || order.purpose.empty? ? 'None' : order.purpose.humanize
+            end
+            row :type_of_service
+            row :brand_name
+          end
         end
-        row :type_of_service
-        row :brand_name
+      end
+
+      column do
+        panel 'Date Details', class: 'date_details_panel' do
+          attributes_table_for order do
+            row("Date Created") { order.created_at.strftime('%B %d %Y') }
+            row :first_fitting
+            row :second_fitting
+            row :third_fitting
+            row :event_date
+            row :finish
+          end
+        end
       end
     end
 
-    column do
-      panel 'Date Details' do
+    columns do
+      panel 'Stature', class: 'stature_panel' do
         attributes_table_for order do
-          row("Date Created") { order.created_at.strftime('%B %d %Y') }
-          row :first_fitting
-          row :second_fitting
-          row :third_fitting
-          row :event_date
-          row :finish
+          if order.coats.any?
+            row :stature do |order|
+              order.coats.first.stature
+            end
+            row :shoulders do |order|
+              order.coats.first.shoulders
+            end
+          elsif order.shirts.any?
+            row :stature do |order|
+              order.shirts.first.stature
+            end
+            row :shoulders do |order|
+              order.shirts.first.shoulders
+            end
+          end
+        end
+      end
+    end
+
+  # Start of Tabs
+  tabs do
+
+    # start of coat tab
+    if order.coats.any?
+      tab 'Coat' do
+        # --- Dropdown Switcher (only shows if there is more than one coat) ---
+        if order.coats.size > 1
+          div style: "margin-bottom: 20px;" do
+            label 'Select Coat to View:', for: 'coat-switcher', style: "display: block; margin-bottom: 5px; font-weight: bold;"
+            select id: 'coat-switcher' do
+              order.coats.each_with_index do |coat, index|
+                option value: index do
+                  "Coat ##{index + 1}"
+                end
+              end
+            end
+          end
+        end
+
+        # --- Coat Content Panels (one for each coat) ---
+        order.coats.each_with_index do |coat, index|
+          div id: "coat-content-#{index}", class: 'coat-content' do
+            if current_user.role.in?(['Administrator', 'Master Tailor', 'Sales Assistant', 'Production Manager', 'Coat Maker'])
+
+              # --- Panel 1: Measurements ---
+              measurements = {
+                "Jacket Length" => coat.jacket_length,
+                "Back Width" => coat.back_width,
+                "Sleeves" => coat.sleeves,
+                "Right Cuff" => coat.cuffs_1,
+                "Left Cuff" => coat.cuffs_2,
+                "Collar" => coat.collar,
+                "Chest" => coat.chest,
+                "Waist" => coat.waist,
+                "Hips" => coat.hips
+              }
+              responsive_attributes_panel("Coat Measurements", measurements)
+
+              # --- Panel 2: Specifications ---
+              specifications = {
+                "Quantity" => coat.quantity,
+                "Fabric Code" => coat.fabric_code,
+                "Lining Code" => coat.lining_code,
+                "Fabric Consumption" => coat.fabric_consumption,
+                "Lapel Width" => coat.lapel_width,
+                "Sleeve Button Function" => coat.sleeve_buttons,
+                "Type of Sleeve Button" => coat.button,
+                "No. of Sleeve Buttons" => coat.no_of_buttons,
+                "Color of Sleeve Buttons" => coat.color_of_sleeve_buttons,
+                "Lapel Buttonhole Thread Color" => coat.lapel_buttonhole_thread_color,
+                "Side Pocket Placement" => coat.side_pocket_placement,
+                "Monogram Initials" => coat.monogram_initials,
+                "Monogram Font" => coat.monogram_font,
+                "Monogram Thread Color" => coat.monogram_thread_color,
+                "Lapel With Satin" => coat.lapel_satin?,
+                "With Flower Holder" => coat.flower_holder?,
+                "Chest Pocket With Satin" => coat.chest_pocket_satin?,
+                "Side Pockets With Flap" => coat.side_pockets_flap?,
+                "Side Pockets With Satin" => coat.side_pockets_satin?,
+                "With Ticket Pocket" => coat.side_pockets_ticket?,
+                "Remarks" => coat.remarks
+              }
+              responsive_attributes_panel("Coat Specifications", specifications)
+
+              # --- Panel 3: Style Images ---
+              panel 'Coat Style Images' do
+                div class: 'responsive-images-panel' do
+                  div class: 'responsive-images-container' do
+                    responsive_image_item(coat, :style, :coat_style_image_asset_path, "Model")
+                    responsive_image_item(coat, :lapel_style, :coat_lapel_style_image_asset_path, "Lapel Style")
+                    responsive_image_item(coat, :vent, :coat_vent_image_asset_path, "Vent")
+                    responsive_image_item(coat, :sleeves_and_padding, :coat_shoulder_padding_image_asset_path, "Shoulder Padding")
+                    responsive_image_item(coat, :lining, :coat_lining_image_asset_path, "Lining")
+                    responsive_image_item(coat, :button_spacing, :coat_button_spacing_image_asset_path, "Sleeve Button Spacing")
+                    responsive_image_item(coat, :boutonniere, :coat_boutonniere_image_asset_path, "Lapel Buttonhole")
+                    responsive_image_item(coat, :pocket_type, :coat_chest_pocket_image_asset_path, "Chest Pocket")
+                    responsive_image_item(coat, :front_side_pocket, :coat_side_pocket_image_asset_path, "Side Pockets")
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+
+    # start of pants tab
+    if order.pants.any?
+      tab 'Pants' do
+        # --- Dropdown Switcher (only shows if there is more than one pant) ---
+        if order.pants.size > 1
+          div style: "margin-bottom: 20px;" do
+            label 'Select Pant to View:', for: 'pant-switcher', style: "display: block; margin-bottom: 5px; font-weight: bold;"
+            select id: 'pant-switcher' do
+              order.pants.each_with_index do |pant, index|
+                option value: index do
+                  "Pant ##{index + 1}"
+                end
+              end
+            end
+          end
+        end
+
+        # --- Pant Content Panels (one for each pant) ---
+        order.pants.each_with_index do |pant, index|
+          div id: "pant-content-#{index}", class: 'pant-content' do
+            if current_user.role.in?(['Administrator', 'Master Tailor', 'Sales Assistant', 'Production Manager', 'Pants Maker'])
+
+              # --- Panel 1: Measurements ---
+              measurements = {
+                "Outseam" => pant.outseam,
+                "Waist" => pant.waist,
+                "Seat" => pant.seat,
+                "Thigh" => pant.thigh,
+                "Knee" => pant.knee,
+                "Bottom" => pant.bottom
+              }
+              responsive_attributes_panel("Pant Measurements", measurements)
+
+              # --- Panel 2: Specifications ---
+              specifications = {
+                "Quantity" => pant.quantity,
+                "Fabric Code" => pant.fabric_code,
+                "Lining Code" => pant.lining_code,
+                "Fabric Consumption" => pant.fabric_consumption,
+                "Pleats" => pant.pleats_combined,
+                "Overlap" => pant.strap,
+                "Tightening" => pant.waist_area,
+                "Crotch Saddle" => pant.crotch_saddle?,
+                "Coin Pocket" => pant.coin_pocket?,
+                "Flap on Coin Pocket" => pant.flap_on_coin_pocket?,
+                "Flap on Jetted Pocket" => pant.flap_on_jetted_pocket?,
+                "Buttons on Jetted Pockets" => pant.buttons_on_jetted_pockets?,
+                "Button Loops on Jetted Pockets" => pant.button_loops_on_jetted_pockets?,
+                "Add Suspender Buttons" => pant.add_suspender_buttons?,
+                "Satin Trim" => pant.satin_trim?,
+                "Cuff on Hem" => pant.cuff_on_hem?,
+                "Width of Cuff" => pant.width_of_cuff,
+                "Remarks" => pant.remarks
+              }
+              responsive_attributes_panel("Pant Specifications", specifications)
+            end
+          end
+        end
+      end
+    end
+
+    # start of vest tab
+    if order.pants.any?
+      tab 'Vests' do
+        # --- Dropdown Switcher (only shows if there is more than one vest) ---
+        if order.vests.size > 1
+          div style: "margin-bottom: 20px;" do
+            label 'Select Vest to View:', for: 'vest-switcher', style: "display: block; margin-bottom: 5px; font-weight: bold;"
+            select id: 'vest-switcher' do
+              order.vests.each_with_index do |vest, index|
+                option value: index do
+                  "Vest ##{index + 1}"
+                end
+              end
+            end
+          end
+
+          # --- Vest Content Panels (one for each vest) ---
+          order.vests.each_with_index do |vest, index|
+            div id: "vest-content-#{index}", class: 'vest-content' do
+              if current_user.role.in?(['Administrator', 'Master Tailor', 'Sales Assistant', 'Production Manager', 'Vest Maker'])
+
+                # --- Panel 1: Measurements ---
+                measurements = {
+                  "Vest Length" => vest.vest_length,
+                  "Back Width" => vest.back_width,
+                  "Chest" => vest.chest,
+                  "Vest Waist" => vest.waist,
+                  "Hips" => vest.hips
+                }
+                responsive_attributes_panel("Vest Measurements", measurements)
+
+                # --- Panel 2: Specifications ---
+                specifications = {
+                  "Quantity" => vest.quantity,
+                  "Fabric Code" => vest.fabric_code,
+                  "Lining Code" => vest.lining_code,
+                  "Fabric Consumption" => vest.fabric_consumption,
+                  "Vest Model" => vest.vest_style,
+                  "Lapel Style" => vest.lapel_style,
+                  "Lapel Width" => vest.lapel_width,
+                  "Fabric" => vest.fabric,
+                  "Adjuster Type" => vest.adjuster_type,
+                  "Chest Pocket" => vest.chest_pocket,
+                  "Side Pocket" => vest.side_pocket,
+                  "Remarks" => vest.remarks
+                }
+                responsive_attributes_panel("Vest Specifications", specifications)
+              end
+            end
+          end
+        end
+      end
+    end
+
+    # start of shirt tab
+    if order.shirts.any?
+      tab 'Shirt' do
+        # --- Dropdown Switcher (only shows if there is more than one shirt) ---
+        if order.shirts.size > 1
+          div style: "margin-bottom: 20px;" do
+            label 'Select Shirt to View:', for: 'shirt-switcher', style: "display: block; margin-bottom: 5px; font-weight: bold;"
+            select id: 'shirt-switcher' do
+              order.shirts.each_with_index do |shirt, index|
+                option value: index do
+                  "Shirt ##{index + 1}"
+                end
+              end
+            end
+          end
+
+          # --- Shirt Content Panels (one for each shirt) ---
+          order.shirts.each_with_index do |shirt, index|
+            div id: "shirt-content-#{index}", class: 'shirt-content' do
+              if current_user.role.in?(['Administrator', 'Master Tailor', 'Sales Assistant', 'Production Manager', 'Shirt Maker'])
+
+                # --- Panel 1: Measurements ---
+                measurements = {
+                  "Shirt Length" => shirt.shirt_length,
+                  "Back Width" => shirt.back_width,
+                  "Sleeve" => shirt.sleeve,
+                  "Right Cuff" => shirt.right_cuff,
+                  "Left Cuff" => shirt.left_cuff,
+                  "Collar" => shirt.collar,
+                  "Chest" => shirt.chest,
+                  "Shirt Waist" => shirt.shirt_waist,
+                  "Hips" => shirt.hips
+                }
+                responsive_attributes_panel("Shirt Measurements", measurements)
+
+                # --- Panel 2: Specifications ---
+                specifications = {
+                  "Quantity" => shirt.quantity,
+                  "Fabric Code" => shirt.fabric_code,
+                  "Lining Code" => shirt.lining_code,
+                  "Fabric Consumption" => shirt.fabric_consumption,
+                  "Opening" => shirt.opening,
+                  "No. of Studs" => shirt.no_of_studs,
+                  "Front Bar" => shirt.front_placket,
+                  "Front Pocket" => shirt.pocket,
+                  "With Flap" => shirt.with_flap?,
+                  "Cuffs" => shirt.cuffs,
+                  "Collar Style" => shirt.collar_style,
+                  "Buttoned Down" => shirt.buttoned_down?,
+                  "Buttoned Down with Loop" => shirt.buttoned_down_with_loop?,
+                  "Hem" => shirt.bottom,
+                  "Contrast" => shirt.sleeves,
+                  "Contrast Placement" => shirt.contrast_placement,
+                  "Monogram Initials" => shirt.monogram_initials,
+                  "Monogram Font" => shirt.monogram_font,
+                  "Monogram Color" => shirt.monogram_color,
+                  "Monogram Placement" => shirt.monogram_placement,
+                  "Remarks" => shirt.remarks
+                }
+                responsive_attributes_panel("Shirt Specifications", specifications)
+
+                # --- Panel 3: Style Images ---
+                panel 'Shirt Style Images' do
+                  div class: 'responsive-images-panel' do
+                    div class: 'responsive-images-container' do
+                      responsive_image_item(shirt, :pocket, :pocket_image_asset_path, "Front Pocket")
+                      responsive_image_item(shirt, :cuffs, :cuffs_image_asset_path, "Cuffs")
+                      responsive_image_item(shirt, :collar_style, :collar_style_image_asset_path, "Collar Style")
+                      responsive_image_item(shirt, :sleeves, :sleeves_image_asset_path, "Contrast")
+                    end
+                  end
+                end
+              end
+            end
+          end
         end
       end
     end
   end
-  
-    tabs do
-      if order.coats.any?
-        tab 'Coat' do
-          table_for order.coats do
-            column :fabric_consumption
-            column :breast
-            column :control_no
-            column :jacket_length
-            column :back_width
-            column :sleeves
-            column :cuffs_1
-            column :cuffs_2
-            column :collar
-            column :chest
-            column :waist
-            column :hips
-            column :stature
-            column :shoulders
-            column :remarks
-          end
-        end
+
+  panel 'Version History', class: 'version_history_panel' do
+    table_for order.versions do
+      column 'Event' do |version|
+        version.event
       end
-
-      if order.coats.any?
-        tab 'Coat Style' do
-          if current_user.role.in?(['Administrator', 'Master Tailor', 'Sales Assistant', 'Production Manager', 'Coat Maker'])
-            table_for order.coats do
-              column :quantity
-              column :fabric_consumption
-              column :fabric_code
-              column :lining_code
-              column :style
-              column :lapel_style
-              column :vent
-              column :lining
-              column :sleeves_and_padding
-              column "Type of Sleeve Button" do |coat|
-                coat.button
-              end
-              column :sleeve_buttons
-              column :boutonniere
-              column :boutonniere_color
-              column :boutonniere_thread_code
-              column :button_spacing
-              column :coat_pockets
-              column :contrast_placement
-              column :monogram_initials
-              column :monogram_placement
-              column :monogram_font
-              column :monogram_thread_color
-            end
-          end
-        end
+      column 'Modified At' do |version|
+        version.created_at.strftime('%B %d %Y %H:%M:%S')
       end
-
-      if order.pants.any?
-        tab 'Pants' do
-            if current_user.role.in?(['Administrator', 'Master Tailor', 'Sales Assistant', 'Production Manager', 'Coat Maker'])
-            panel 'Pants Measurements' do
-              table_for order.pants do
-              column :quantity
-              column :fabric_code
-              column :lining_code
-              column :fabric_consumption
-              column :crotch
-              column :outseam
-              column :waist
-              column :seat
-              column :thigh
-              column :knee
-              column :bottom
-              column :rise
-              column :cut
-              column "Pleats" do |pant|
-                pant.pleats_combined
-              end
-              column "Overlap" do |pant|
-                pant.strap
-              end
-              column :waistband_thickness
-              column :waist_area
-              column "Tightening" do |pant|
-                pant.waist_area
-              end
-              column :closure
-              column :crotch_saddle
-              end
-            end
-
-            panel 'Pants Details' do
-              table_for order.pants do
-              column "Front Pocket" do |pant|
-                pant.type_of_pocket
-              end
-              column :coin_pocket
-              column :flap_on_coin_pocket
-              column :back_pocket
-              column :flap_on_jetted_pocket
-              column :buttons_on_jetted_pockets
-              column :button_loops_on_jetted_pockets
-              column :add_suspender_buttons
-              column :satin_trim
-              column :cuff_on_hem
-              column :width_of_cuff
-              column :remarks
-              end
-            end
-            end
-        end
+      column 'Modified By' do |version|
+        User.find(version.whodunnit).name if version.whodunnit
       end
-
-      if order.vests.any?
-        tab 'Vest' do
-          if current_user.role.in?(['Administrator', 'Master Tailor', 'Sales Assistant', 'Production Manager', 'Vest Maker'])
-            table_for order.vests do
-              column :quantity
-              column :fabric_code
-              column :lining_code
-              column :fabric_consumption
-              column :vest_length
-              column :back_width
-              column :chest
-              column :waist
-              column :hips
-              column "Vest Model" do |vest|
-                vest.vest_style
-              end
-              column :lapel_style
-              column :lapel_width
-              column :fabric
-              column :adjuster_type
-              column :side_pocket
-              column :remarks
-            end
-          end
-        end
-      end
-
-      if order.shirts.any?
-        tab 'Shirt' do
-          if current_user.role.in?(['Administrator', 'Master Tailor', 'Sales Assistant', 'Production Manager', 'Vest Maker'])
-            panel 'Shirt Measurements' do
-              table_for order.shirts do
-                column :quantity
-                column :fabric_code
-                column :lining_code
-                column :fabric_consumption
-                column :shirt_length
-                column :back_width
-                column :sleeve
-                column :right_cuff
-                column :left_cuff
-                column :collar
-                column :chest
-                column :shirt_waist
-                column :hips
-              end
-            end
-
-            panel 'Shirt Subsection 1' do
-              table_for order.shirts do
-              column :opening
-              column :front_placket
-              column "Front Bar" do |shirt|
-                shirt.front_placket
-              end
-              column :no_of_studs
-              column :front_pleats
-              column :back_pleats
-              column "Front Pocket" do |shirt|
-                shirt.pocket
-              end
-              column :with_flap
-              column :front_pocket_flap
-              column :stature
-              column :shoulders
-              column :sleeve_length
-              end
-            end
-
-            panel 'Shirt Subsection 2' do
-              table_for order.shirts do
-              column :cuffs
-              column :collar_style
-              column :buttoned_down
-              column :buttoned_down_with_loop
-              column :bottom
-              column "Hem" do |shirt|
-                shirt.bottom
-              end
-              column "Contrast" do |shirt|
-                shirt.sleeves
-              end
-              column :contrast_placement
-              column :monogram_initials
-              column :monogram_placement
-              column :monogram_font
-              column :monogram_color
-              column :remarks
-              end
-            end
-          end
-        end
+      column 'Changes' do |version|
+        version.changeset.map { |k, v| "#{k}: #{v[0]} -> #{v[1]}" }.join(", ").html_safe if version.changeset.present?
       end
     end
+  end
 
-    panel 'Version History' do
-      table_for order.versions do
-        column 'Event' do |version|
-          version.event
-        end
-        column 'Modified At' do |version|
-          version.created_at.strftime('%B %d %Y %H:%M:%S')
-        end
-        column 'Modified By' do |version|
-          User.find(version.whodunnit).name if version.whodunnit
-        end
-        column 'Changes' do |version|
-          version.changeset.map { |k, v| "#{k}: #{v[0]} -> #{v[1]}" }.join(", ").html_safe if version.changeset.present?
-        end
-      end
-    end
-
-    active_admin_comments
+  active_admin_comments
 end
 
   action_item :view, only: :show do

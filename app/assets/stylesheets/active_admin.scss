@@ -247,3 +247,133 @@ select[readonly].readonly-style {
   /* opacity: 0.7; */
   /* border-color: #ccc; */
 }
+
+.panel_contents table th {
+  text-align: center !important; // Use !important to ensure override
+}
+
+/* --- STYLES FOR RESPONSIVE PANELS --- */
+
+/* Main container for the attribute grid */
+.responsive-attributes-panel .responsive-attributes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+/* Individual attribute item */
+.responsive-attributes-panel .attribute {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+/* Attribute label (e.g., "Quantity") */
+.responsive-attributes-panel .attribute-label {
+  font-weight: bold;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  color: #5e5e5e;
+  margin-bottom: 5px;
+}
+
+/* Attribute value (e.g., "1") */
+.responsive-attributes-panel .attribute-value {
+  font-size: 1em;
+  color: #333;
+}
+
+/* --- STYLES FOR RESPONSIVE IMAGE GALLERY --- */
+
+/* Main container for the image gallery */
+.responsive-images-panel .responsive-images-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Individual image item */
+.responsive-images-panel .responsive-image-item {
+  flex: 1 1 150px;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Title above each image (e.g., "Button Style") */
+.responsive-images-panel .responsive-image-item h4 {
+  font-size: 1em;
+  margin-bottom: 10px;
+  color: #333333; /* Ensures title is visible */
+}
+
+/* Wrapper for the image to control size */
+.responsive-images-panel .responsive-image-item .image-wrapper {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9;
+}
+
+/* The image itself */
+.responsive-images-panel .responsive-image-item img {
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  width: auto;
+}
+
+/* Caption below the image */
+.responsive-images-panel .responsive-image-item .image-caption {
+  font-size: 0.9em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  color: #5e5e5e; /* Ensures caption is visible */
+}
+
+/* --- NEW STYLE FOR THE COLOR SWATCH --- */
+.color-swatch {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-right: 8px;
+  vertical-align: middle; /* Aligns the swatch nicely with the text */
+}
+
+/* --- CUSTOM STATUS TAG COLORS for yes or no --- */
+.status_tag.yes {
+  background: #86C15E; /* A nice green color */
+}
+
+.status_tag.no {
+  background: #E45F5F; /* A soft red color */
+}
+
+/* --- VERSION HISTORY ALIGNMENT - CENTER --- */
+.version_history_panel .panel_contents table td {
+  text-align: center !important;
+  vertical-align: middle !important;
+  white-space: normal !important;
+  word-wrap: break-word;
+}
+
+/* --- CLIENT INFO HEADER ALIGNMENT --- */
+.client_info_panel .attributes_table th,
+.date_details_panel .attributes_table th {
+  text-align: left !important;
+}
+

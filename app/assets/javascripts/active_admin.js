@@ -150,8 +150,11 @@ $(document).ready(function() {
     const $placementSelect = $parentContainer.find('select.monogram-placement-input');
     const $fontSelect = $parentContainer.find('select.monogram-font-input');
 
-    if ($initialsInput.val().trim() === '') {
-      // Monogram initials are blank
+    // Get the trimmed, lowercase value of the initials input
+    const initialsValue = $initialsInput.val().trim().toLowerCase();
+
+    if (initialsValue === '' || initialsValue === 'none' || initialsValue === 'n/a') {
+      // Monogram initials are blank | None | N/A
       $placementSelect.prop('disabled', true).addClass('readonly-style').val('').trigger('change');
       $fontSelect.prop('disabled', true).addClass('readonly-style').val('').trigger('change');
     } else {
@@ -176,13 +179,41 @@ $(document).ready(function() {
     handleMonogramFields(this);
   });
 
-  // When a new nested form is added (e.g., via "Add New Coat/Shirt" button)
-  // Re-run the initial state setup for the *newly added* form fields.
+  // --- Start of Shirt Collar Style Logic ---
+  // This function is now designed to be called for both existing and new forms.
+  function handleShirtCollarOptions(shirtFormContainer) {
+    const $collarStyleSelect = $(shirtFormContainer).find('select.collar-style-select');
+    const $traditionalCollarOptionsWrapper = $(shirtFormContainer).find('.traditional-collar-options-wrapper');
+    const $traditionalCollarRadios = $traditionalCollarOptionsWrapper.find('input[type="radio"]');
+
+    function toggleTraditionalCollarOptions() {
+      if ($collarStyleSelect.val() === 'Traditional') {
+        $traditionalCollarOptionsWrapper.show();
+      } else {
+        $traditionalCollarOptionsWrapper.hide();
+        // Clear selection when hiding to prevent incorrect data submission
+        $traditionalCollarRadios.prop('checked', false);
+      }
+    }
+
+    // Call on load/initialization
+    toggleTraditionalCollarOptions();
+
+    // Attach event listener
+    $collarStyleSelect.on('change', toggleTraditionalCollarOptions);
+  }
+  // --- End of Shirt Collar Style Logic ---
+
   // Active Admin appends new forms within the .has_many_container
   $('.has_many_container').on('has_many_add', function(event, fieldset) {
-    $(fieldset).find('input.monogram-initials-input').each(function() {
-      handleMonogramFields(this);
-    });
+    setTimeout(() => {
+      // Monogram initialization for new forms
+      $(fieldset).find('input.monogram-initials-input').each(function() {
+        handleMonogramFields(this);
+      });
+      // Collar initialization for new forms
+      handleShirtCollarOptions(fieldset);
+    }, 50);
   });
 
   $(document).ready(function() {
@@ -206,6 +237,38 @@ $(document).ready(function() {
     $("#order-details-" + orderId).show();
   }, function() {
     $(".order-details").hide();
+  });
+
+
+  $(document).ready(function() {
+    // This function can be reused for coats, shirts, pants, etc.
+    function initializeItemSwitcher(itemType) {
+      var switcher = $('#' + itemType + '-switcher');
+      var contentPanels = $('.' + itemType + '-content');
+
+      // If there's no switcher on the page for this item, do nothing.
+      if (switcher.length === 0) {
+        return;
+      }
+
+      // When the page loads, hide all content panels except the first one.
+      contentPanels.not(':first').hide();
+
+      // When the dropdown value changes...
+      switcher.on('change', function() {
+        var selectedIndex = $(this).val();
+        // Hide all content panels.
+        contentPanels.hide();
+        // Show only the panel that matches the selected index.
+        $('#' + itemType + '-content-' + selectedIndex).show();
+      });
+    }
+
+    // Initialize the switcher for coats.
+    initializeItemSwitcher('coat');
+    initializeItemSwitcher('shirt');
+    initializeItemSwitcher('pant');
+    initializeItemSwitcher('vest');
   });
 
 });

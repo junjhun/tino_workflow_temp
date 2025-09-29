@@ -6,12 +6,14 @@ class Pant < ApplicationRecord
     Mid
     High
     Low
+    Normal
   ]
 
   enum cut: %w[
     Straight
     Wide
     Tapered
+    Classic
   ]
 
   enum pleats: [
@@ -101,7 +103,7 @@ class Pant < ApplicationRecord
   validates :quantity, presence: { message: 'cannot be blank' },
                        numericality: { only_integer: true, greater_than: 0, message: 'must be a positive integer' }
 
-  validates :fabric_code, :lining_code, :fabric_consumption, :crotch, :outseam, :waist, :seat, :thigh,  :specs_form, :pleats, :fabric_code, :lining_code, :crotch, :knee, :bottom, :rise, :cut, :pleats_combined, :strap, :waistband_thickness, :waist_area, :closure, :type_of_pocket, :back_pocket, :width_of_cuff, presence: true
+  validates :fabric_code, :lining_code, :fabric_consumption, :crotch, :outseam, :waist, :seat, :thigh,  :specs_form, :pleats, :fabric_code, :lining_code, :crotch, :knee, :bottom, :rise, :cut, :pleats_combined, :strap, :waistband_thickness, :waist_area, :closure, :type_of_pocket, :back_pocket, presence: true
 
   # validates :control_no, numericality: { only_integer: true, message: 'must be a valid number' }, presence: true
 end

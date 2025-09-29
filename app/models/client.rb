@@ -50,6 +50,7 @@ class Client < ApplicationRecord
   end
 
   before_destroy :prevent_deletion_if_orders_exist
+  after_save :update_is_old_client_status
 
   private
   def prevent_deletion_if_orders_exist
@@ -57,6 +58,14 @@ class Client < ApplicationRecord
       errors.add(:base, "Cannot delete client with existing orders.")
       throw(:abort)
       end
+  end
+
+  def update_is_old_client_status
+    if orders.count > 0 && !is_old_client?
+      update_column(:is_old_client, true)
+    elsif orders.count == 0 && is_old_client?
+      update_column(:is_old_client, false)
+    end
   end
 
   # default_sort ["order_count", "created_at"], :desc

@@ -54,6 +54,9 @@ ActiveAdmin.register Client do
     column :"Date Created", sortable: :created_at do |client|
       client.created_at.strftime('%d %b %Y')
     end
+    column :is_old_client, label: 'Old Client' do |client|
+      status_tag(client.is_old_client? ? 'Yes' : 'No', class: client.is_old_client? ? 'ok' : 'warning')
+    end
   end
 
   controller do
@@ -126,6 +129,7 @@ ActiveAdmin.register Client do
           row :referred_by
           row :created_at
           row :assisted_by_name
+          row :is_old_client
         end
       end
 
